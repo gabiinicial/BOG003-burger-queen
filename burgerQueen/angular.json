@@ -30,13 +30,16 @@
               "src/assets"
             ],
             "styles": [
-              "../node_modules/materialize-css/dist/css/materialize.css",
-              "styles.scss"
-          ],        
-                   
+              "node_modules/materialize-css/dist/css/materialize.css",
+              "src/scss/styles.scss"
+          ],
+          "stylePreprocessorOptions": {
+            "includePaths": [
+              "node_modules/materialize-css"
+            ]
+          },
           "scripts":[
-            "../node_modules/jquery/dist/jquery.js",
-            "../node_modules/materialize-css/dist/js/materialize.js"
+
           ]
           },
           "configurations": {
@@ -102,7 +105,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/scss/styles.scss"
             ],
             "scripts": []
           }

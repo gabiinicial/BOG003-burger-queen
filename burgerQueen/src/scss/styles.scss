@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./materialize-imports.scss";
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+
+.myclassColor{
+  background-color:#1C2035 !important;
+}
+
+h1{
+  font-family: 'Cookie', cursive;
+  color: #FFFFFF;
+  font-size: 130px;
+}
+
+.contentFirst{
+  height: 100vh;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
