@@ -1,24 +1,29 @@
-<nav>
-  <div class="nav-wrapper myclassColor" >
-    <a href="#" class="brand-logo">La Casa de Papel</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a >Personajes</a></li>
-    </ul>
+<p>waiter</p>
+<div class= "row text-color">
+  <div class="input-field col s6">
+    <div>
+      Nombre Cliente:
+      <div class="input-field inline">
+        <input [(ngModel)]="clientName" id="client_inline" type="text" class="validate">
+      </div>
+    </div>
   </div>
-</nav>
-
-
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">add</i>
-  </a>
+  <div class="input-field col s6">
+    <div >
+      Mesa:
+      <div class="input-field inline">
+        <input [(ngModel)]="tableNumber" id="email_inline" type="text" class="validate">
+      </div>
+    </div>
+  </div>
 </div>
-
-
-<p>waiter-view works!</p>
 <div>
-    <button class="myclassColor" type="button"><a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a></button>
-    <button type="button"><a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a> </button>
-
+  <button class="myclassColor" type="button"><a routerLink="/in-process" routerLinkActive="active">Orden por
+      entregar</a></button>
+  <button type="button"><a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a> </button>
 </div>
-
+<p>{{clientName}}</p>
+<p>{{tableNumber}}</p>
+<div>
+  <p></p>
+</div>
