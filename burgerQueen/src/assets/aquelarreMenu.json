@@ -75,7 +75,7 @@
             "price": 7,
             "type": "lunch",
             "subtype": "Drink",
-            "image": "../assets/img/RefrescoSmall.png" 
+            "image": "../assets/img/RefrescoSmall.png"
         },
         {
             "name": "Bebida/gaseosa 750ml",
