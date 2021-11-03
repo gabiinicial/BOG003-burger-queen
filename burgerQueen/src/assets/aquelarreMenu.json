@@ -1,0 +1,109 @@
+{
+    "menu": [
+        {
+            "name": "Café americano",
+            "price": 5,
+            "type": "breakfast",
+            "subtype": "",
+            "image": "../assets/img/americano.png"
+        },
+        {
+            "name": "Café con leche",
+            "price": 7,
+            "type": "breakfast",
+            "subtype": "",
+            "image":"../assets/img/cafeLeche.png"
+        },
+        {
+            "name": "Sandwich de jamón y queso",
+            "price": 10,
+            "type": "breakfast",
+            "subtype": "",
+            "image": "../assets/img/sandwich.png"
+        },
+        {
+            "name": "Jugo de frutas natural",
+            "price": 7,
+            "type": "breakfast",
+            "subtype": "",
+            "image": "../assets/img/jugos.png"
+        },
+        {
+            "name": "Hamburguesa simple",
+            "price": 10,
+            "type": "lunch",
+            "subtype": "burger",
+            "image": "../assets/img/BurgerSimple.png"
+        },
+        {
+            "name": "Hamburguesa doble",
+            "price": 15,
+            "type": "lunch",
+            "subtype": "burger",
+            "image": "../assets/img/BurgerDoble.png"
+        },
+        {
+            "name": "Papas fritas",
+            "price": 5,
+            "type": "lunch",
+            "subtype": "sideDish",
+            "image": "../assets/img/fries.png"
+        },
+        {
+            "name": "Aros de cebolla",
+            "price": 5,
+            "type": "lunch",
+            "subtype": "sideDish",
+            "image": "../assets/img/OnionRings.png"
+        },
+        {
+            "name": "Agua 500ml",
+            "price": 5,
+            "type": "lunch",
+            "subtype": "Drink",
+            "image": "../assets/img/WaterSmall.png"
+        },
+        {
+            "name": "Agual 750ml",
+            "price": 7,
+            "type": "lunch",
+            "subtype": "Drink",
+            "image": "../assets/img/WaterBig.png"
+        },
+        {
+            "name": "Bebida/gaseosa 500ml",
+            "price": 7,
+            "type": "lunch",
+            "subtype": "Drink",
+            "image": "../assets/img/RefrescoSmall.png" 
+        },
+        {
+            "name": "Bebida/gaseosa 750ml",
+            "price": 10,
+            "type": "lunch",
+            "subtype": "Drink",
+            "image": "../assets/img/RefrescoMedium.png"
+        }
+    ],
+    "burgerType": [
+        {
+            "type": "Res"
+        },
+        {
+            "type": "Pollo"
+        },
+        {
+            "type": "Vegetariana"
+        }
+    ],
+    "additions": [
+        {
+            "type": "Huevo",
+            "price": 1
+        },
+        {
+            "type": "Queso",
+            "price": 1
+        }
+    ]
+}

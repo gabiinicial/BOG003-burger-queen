@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+/* import * as data from '../../../assets/aquelarreMenu.json'; */
 
 @Component({
   selector: 'app-waiter-view',
@@ -6,11 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./waiter-view.component.css']
 })
 export class WaiterViewComponent implements OnInit {
-  clientName = '';
-  tableNumber = '';
+  
   constructor() { }
-
+  
   ngOnInit(): void {
   }
+  
+  clientName = '';
+  tableNumber = '';
 
+  /* getJsonContent(){
+    return (data as any);
+  } */
 }
