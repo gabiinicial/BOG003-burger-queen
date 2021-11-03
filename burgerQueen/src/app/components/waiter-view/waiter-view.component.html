@@ -1,5 +1,5 @@
 <p>waiter</p>
-<div class= "row text-color">
+<div class="row text-color">
   <div class="input-field col s6">
     <div>
       Nombre Cliente:
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="input-field col s6">
-    <div >
+    <div>
       Mesa:
       <div class="input-field inline">
         <input [(ngModel)]="tableNumber" id="email_inline" type="text" class="validate">
@@ -22,8 +22,43 @@
       entregar</a></button>
   <button type="button"><a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a> </button>
 </div>
-<p>{{clientName}}</p>
-<p>{{tableNumber}}</p>
+<div class="row">
+  <div class="col s12 m6 ">
+    <div class="card blue-grey darken-1 ">
+      <div class="card-content white-text">
+        <span class="card-title ">Resumen del pedido</span>
+        <hr class="line"/>
+      </div>
+      <div class="data-client">
+        <p> Cliente: {{clientName}}</p>
+        <p>Mesa: {{tableNumber}}</p>
+      </div>
+      <hr class="line-one"/>
+      <div class="card description ">
+        <table>
+          <thead>
+            <tr>
+              <th>Cantidad</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Cafe Americano</td>
+              <td>20$</td>
+              <td>Eliminar</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <a class="waves-effect waves-light btn">Enviar a cocina</a>
+    </div>
+  </div>
+</div>
 <div>
   <p></p>
 </div>
