@@ -8,6 +8,7 @@ import { WaiterViewComponent } from './components/waiter-view/waiter-view.compon
 import { WaiterInProcessComponent } from './components/waiter-in-process/waiter-in-process.component';
 import { WaiterHistoryComponent } from './components/waiter-history/waiter-history.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
