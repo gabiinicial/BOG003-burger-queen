@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-/* import * as data from '../../../assets/aquelarreMenu.json'; */
+import { RestService } from '../../rest.service';
+
 
 @Component({
   selector: 'app-waiter-view',
@@ -8,15 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaiterViewComponent implements OnInit {
   
-  constructor() { }
+  constructor(private RestService: RestService,) { }
   
   ngOnInit(): void {
+    this.cargarData();
+    this.screenWidth = window.innerWidth;
+  }
+
+  public cargarData(){
+    this.RestService.get('../assets/json/aquelarreMenu.json')
+    .subscribe(res => {
+      console.log(res);
+      this.menuArray = res;
+    })
   }
   
   clientName = '';
   tableNumber = '';
+  public menuArray: any = [];
+  public screenWidth: any;
 
-  /* getJsonContent(){
-    return (data as any);
-  } */
+
 }

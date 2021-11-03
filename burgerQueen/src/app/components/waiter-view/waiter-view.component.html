@@ -4,7 +4,12 @@
     <div>
       Nombre Cliente:
       <div class="input-field inline">
-        <input [(ngModel)]="clientName" id="client_inline" type="text" class="validate">
+        <input
+          [(ngModel)]="clientName"
+          id="client_inline"
+          type="text"
+          class="validate"
+        />
       </div>
     </div>
   </div>
@@ -12,29 +17,77 @@
     <div>
       Mesa:
       <div class="input-field inline">
-        <input [(ngModel)]="tableNumber" id="email_inline" type="text" class="validate">
+        <input
+          [(ngModel)]="tableNumber"
+          id="email_inline"
+          type="text"
+          class="validate"
+        />
       </div>
     </div>
   </div>
 </div>
 <div>
-  <button class="myclassColor" type="button"><a routerLink="/in-process" routerLinkActive="active">Orden por
-      entregar</a></button>
-  <button type="button"><a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a> </button>
+  <!-- Botones cambio de tipo de menú -->
+  <button class="myclassColor" type="button">
+    <a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a>
+  </button>
+  <button type="button">
+    <a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a>
+  </button>
 </div>
+
+<section class="row">
+  <div [ngClass]="{'col s12 m4': screenWidth < 800, 'col s12 m6': screenWidth > 800}" *ngFor="let plato of menuArray.menu">
+    
+    <div class="card horizontal">
+      <div class="card-image">
+        <img [src]="plato?.image" class="size-img" />
+      </div>
+
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>
+            <strong>{{ plato?.name }}</strong>
+          </p>
+          <p>${{ plato?.price }}</p>
+        </div>
+        <div class="card-action">
+          <!-- Aqui van los botones de la cantidad -->
+          <span class="input-group-btn">
+            <button class="btn btn-default" id="menos" type="button">-</button>
+          </span>
+          <input
+            type="text"
+            style="width: 50px; text-align: center"
+            id="contador"
+            class="form-control"
+            value="1"
+          />
+          <span class="input-group-btn">
+            <button class="btn btn-default" id="mas" type="button">+</button>
+          </span>
+        </div>
+      </div>
+      <a class="btn-floating btn-medium waves-effect waves-light indigo darken-4 btn-position"><i class="material-icons">add</i></a>
+    </div>
+  </div>
+</section>
+
 <div class="row">
-  <div class="col s12 m6 ">
-    <div class="card blue-grey darken-1 ">
+  <!-- Inicia resumen del pedido -->
+  <div class="col s12 m12">
+    <div class="card blue-grey darken-1">
       <div class="card-content white-text">
-        <span class="card-title ">Resumen del pedido</span>
-        <hr class="line"/>
+        <span class="card-title">Resumen del pedido</span>
+        <hr class="line" />
       </div>
       <div class="data-client">
-        <p> Cliente: {{clientName}}</p>
-        <p>Mesa: {{tableNumber}}</p>
+        <p>Cliente: {{ clientName }}</p>
+        <p>Mesa: {{ tableNumber }}</p>
       </div>
-      <hr class="line-one"/>
-      <div class="card description ">
+      <hr class="line-one" />
+      <div class="card description">
         <table>
           <thead>
             <tr>
@@ -45,13 +98,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let plato of menuArray.menu">
               <td>1</td>
-              <td>Cafe Americano</td>
+              <td>{{ plato?.name }}</td>
               <td>20$</td>
               <td>Eliminar</td>
             </tr>
-
           </tbody>
         </table>
       </div>
@@ -59,6 +111,4 @@
     </div>
   </div>
 </div>
-<div>
-  <p></p>
-</div>
+<!-- Termina resumen del pedido -->
