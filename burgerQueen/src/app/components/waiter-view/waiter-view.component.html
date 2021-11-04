@@ -17,12 +17,7 @@
     <div>
       Mesa:
       <div class="input-field inline">
-        <input
-          [(ngModel)]="tableNumber"
-          id="email_inline"
-          type="text"
-          class="validate"
-        />
+        <input [(ngModel)]="tableNumber" type="text" class="validate" />
       </div>
     </div>
   </div>
@@ -32,14 +27,17 @@
   <button class="myclassColor" type="button">
     <a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a>
   </button>
-  <button type="button">
-    <a routerLink="/waiter-view" routerLinkActive="active">Desayuno</a>
-  </button>
+
+  <button (click)="switchMenu('breakfast')" type="button">Desayuno</button>
+  <button (click)="switchMenu('lunch')" type="button">Almuerzo/cena</button>
 </div>
 
 <section class="row">
-  <div [ngClass]="{'col s12 m4': screenWidth < 800, 'col s12 m6': screenWidth > 800}" *ngFor="let plato of menuArray.menu">
-    
+  <div
+    class="col s12"
+    [ngClass]="{ m6: screenWidth < 800, m4: screenWidth > 800 }"
+    *ngFor="let plato of typeArrayMenu"
+  >
     <div class="card horizontal">
       <div class="card-image">
         <img [src]="plato?.image" class="size-img" />
@@ -69,7 +67,16 @@
           </span>
         </div>
       </div>
-      <a class="btn-floating btn-medium waves-effect waves-light indigo darken-4 btn-position"><i class="material-icons">add</i></a>
+      <a
+        class="
+          btn-floating btn-medium
+          waves-effect waves-light
+          indigo
+          darken-4
+          btn-position
+        "
+        ><i class="material-icons">add</i></a
+      >
     </div>
   </div>
 </section>
