@@ -9,6 +9,7 @@ import { WaiterInProcessComponent } from './components/waiter-in-process/waiter-
 import { WaiterHistoryComponent } from './components/waiter-history/waiter-history.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     FirstViewComponent,
     WaiterViewComponent,
     WaiterInProcessComponent,
-    WaiterHistoryComponent
+    WaiterHistoryComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

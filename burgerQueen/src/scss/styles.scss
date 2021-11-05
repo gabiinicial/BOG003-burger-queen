@@ -6,7 +6,9 @@
 .backgroundPage {
   background-color: #1C2035 !important;
 }
-
+// .input-p:active, .input-p{
+//   outline: none;
+// }
 .rectangle {
   width: 160px;
   height: 200px;
@@ -49,6 +51,10 @@ h1 {
 
 .text-color, .validate {
   color: #FFFFFF;
+}
+.input-field:focus{
+  border-bottom: 0;
+  box-shadow: none;
 }
 
 .text-dark{
@@ -109,9 +115,18 @@ h1 {
   }
 }
 /* Comienzo de segunda pantalla*/
+.brand-logo{
+width: 60px;
+}
+.text-nav li{
+  font-size: 18px;
+  padding-left: 30px;
+}
 
 .input-name{
-border: 1px solid #FFFFFF;
+border: 2px solid #FFFFFF;
+border-radius: $border-general;
+padding-left: 5px;
 }
 .inline{
   margin: 0;
