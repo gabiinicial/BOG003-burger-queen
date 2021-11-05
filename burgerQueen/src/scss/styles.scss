@@ -110,13 +110,27 @@ h1 {
 }
 /* Comienzo de segunda pantalla*/
 
-
+.input-name{
+border: 1px solid #FFFFFF;
+}
+.inline{
+  margin: 0;
+  padding: 0;
+  height: 20px;
+}
+.input-field{
+  height: 42px;
+}
 .line, .line-one{
   border: 0.5px solid  #0a0a0a63;
 }
 .line-one{
   margin: 0 24px ;
 }
+.card-title{
+color: #000000;
+}
+
 .data-client{
   display: flex;
   flex-direction: row;
@@ -124,18 +138,28 @@ h1 {
   align-items: center;
   width: 80%;
   padding-left: 26px;
+  & p{
+    font-size: 18px;
+    font-weight: bolder;
+  }
 }
 .container-size{
  width: 85%;
 }
+.card-image{
+display: flex;
+align-items: center;
+}
+
 .size-img{
   height: 100px;
 }
 
 .btn-position{
-  position: relative;
-  top: -20px;
-  left: 20px;
+  position: absolute;
+  top: -13px;
+  right: 0;
+
 }
 
 .content-btn-menu{
@@ -145,10 +169,54 @@ h1 {
   margin-bottom: 50px;
 
 }
-
-
-@media #{$medium-and-down} {
-/*.card, .horizontal{
-  width: 300px;
-}*/
+.card-content{
+padding: 5px 0px 5px 0px;
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+& p{
+  font-weight: bolder;
 }
+}
+.price{
+  font-size: 18px;
+}
+
+.content-amount{
+width: 170px;
+}
+
+.size-card{
+  width: 90%;
+  
+}
+.horizontal{
+  border-radius: $border-general;
+  
+}
+.size-card-small{
+  width: 100%;
+}
+.container-table-sumary{
+display: flex;
+justify-content: center;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+
+.container-sumary{
+  display: flex;
+  justify-content: center;
+}
+
+.card-sumary{
+width: 80%;
+background-color: $color-grey-light ;
+border-radius: $border-general;
+
+}
+ .table-sumary{
+   background-color: #fcfcfc;
+   width: 80%;
+   border-radius: $border-general;
+ }
