@@ -1,4 +1,7 @@
-<p>waiter</p>
+<button class="myclassColor" type="button">
+  <a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a>
+</button>
+
 <div class="row text-color">
   <div class="input-field col s6">
     <div>
@@ -22,19 +25,15 @@
     </div>
   </div>
 </div>
-<div>
-  <!-- Botones cambio de tipo de menú -->
-  <button class="myclassColor" type="button">
-    <a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a>
-  </button>
-
-  <button (click)="switchMenu('breakfast')" type="button">Desayuno</button>
-  <button (click)="switchMenu('lunch')" type="button">Almuerzo/cena</button>
+<!-- Botones cambio de tipo de menú -->
+<div class="content-btn-menu">
+  <button class="waves-effect waves-light btn text-font " (click)="switchMenu('breakfast')" [ngClass]="statedMenu === 'breakfast' ? 'indigo darken-4' : 'grey lighten-1 text-dark'" type="button"> Desayuno</button>
+  <button class="waves-effect waves-light btn text-font " (click)="switchMenu('lunch')" [ngClass]="statedMenu === 'lunch' ? 'indigo darken-4' : 'grey lighten-1 text-dark' " type="button">Almuerzo/cena</button>
 </div>
-
-<section class="row">
+<!--Tarjetas del menú -->
+<section class="row container-size">
   <div
-    class="col s12"
+    class="col s12 "
     [ngClass]="{ m6: screenWidth < 800, m4: screenWidth > 800 }"
     *ngFor="let plato of typeArrayMenu"
   >

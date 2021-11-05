@@ -22,6 +22,7 @@ export class WaiterViewComponent implements OnInit {
   public screenWidth: any;
 
   statedMenu = 'breakfast';
+  
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -36,12 +37,6 @@ export class WaiterViewComponent implements OnInit {
 
   switchMenu(typeMenu: string) {
     this.statedMenu = typeMenu;
-    console.log(
-      'Hola',
-      this.menuArray.menu.filter(
-        (dish: { type: string }) => dish.type === this.statedMenu
-      )
-    );
     this.typeArrayMenu = this.menuArray.menu.filter(
       (dish: { type: string }) => dish.type === this.statedMenu
     );

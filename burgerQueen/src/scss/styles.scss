@@ -6,6 +6,7 @@
 .backgroundPage {
   background-color: #1C2035 !important;
 }
+
 .rectangle {
   width: 160px;
   height: 200px;
@@ -46,13 +47,21 @@ h1 {
   align-items: center;
 }
 
-.text-color {
+.text-color, .validate {
   color: #FFFFFF;
 }
 
-.validate {
-  color: #FFFFFF;
+.text-dark{
+  color: #000000;
+}
 
+.text-font{
+  width: 254px;
+  height: 40px;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:bolder;
+  text-transform: inherit;
 }
 
 .border-btn {
@@ -101,6 +110,7 @@ h1 {
 }
 /* Comienzo de segunda pantalla*/
 
+
 .line, .line-one{
   border: 0.5px solid  #0a0a0a63;
 }
@@ -115,7 +125,9 @@ h1 {
   width: 80%;
   padding-left: 26px;
 }
-
+.container-size{
+ width: 85%;
+}
 .size-img{
   height: 100px;
 }
@@ -124,6 +136,14 @@ h1 {
   position: relative;
   top: -20px;
   left: 20px;
+}
+
+.content-btn-menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+
 }
 
 
