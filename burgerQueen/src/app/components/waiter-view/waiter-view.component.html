@@ -1,7 +1,4 @@
-<button class="myclassColor" type="button">
-  <a routerLink="/in-process" routerLinkActive="active">Orden por entregar</a>
-</button>
-
+<app-header></app-header>
 <div class="row text-color">
   <div class="input-field col s6">
     <div class= "input-name">
@@ -9,7 +6,6 @@
       <div class="input-field inline">
         <input
           [(ngModel)]="clientName"
-          id="client_inline"
           type="text"
           class="validate"
         />
@@ -17,7 +13,7 @@
     </div>
   </div>
   <div class="input-field col s6">
-    <div>
+    <div class="input-name">
       Mesa:
       <div class="input-field inline">
         <input [(ngModel)]="tableNumber" type="text" class="validate" />
