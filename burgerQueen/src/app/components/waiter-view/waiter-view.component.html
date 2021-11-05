@@ -4,7 +4,7 @@
 
 <div class="row text-color">
   <div class="input-field col s6">
-    <div>
+    <div class= "input-name">
       Nombre Cliente:
       <div class="input-field inline">
         <input
@@ -34,22 +34,20 @@
 <section class="row container-size">
   <div
     class="col s12 "
-    [ngClass]="{ m6: screenWidth < 800, m4: screenWidth > 800 }"
+    [ngClass]="{ m6: screenWidth  <= 800, m4: screenWidth > 800 }"
     *ngFor="let plato of typeArrayMenu"
   >
-    <div class="card horizontal">
+    <div class="card horizontal" [ngClass]="{'size-card-small': screenWidth < 800,'size-card': screenWidth > 800}">
       <div class="card-image">
         <img [src]="plato?.image" class="size-img" />
       </div>
 
       <div class="card-stacked">
         <div class="card-content">
-          <p>
-            <strong>{{ plato?.name }}</strong>
-          </p>
-          <p>${{ plato?.price }}</p>
+          <p>{{ plato?.name }}</p>
+          <p class= "price">${{ plato?.price }}</p>
         </div>
-        <div class="card-action">
+        <div class="content-amount">
           <!-- Aqui van los botones de la cantidad -->
           <span class="input-group-btn">
             <button class="btn btn-default" id="menos" type="button">-</button>
@@ -65,25 +63,25 @@
             <button class="btn btn-default" id="mas" type="button">+</button>
           </span>
         </div>
+        <a
+          class="
+            btn-floating btn-medium
+            waves-effect waves-light
+            indigo
+            darken-4
+            btn-position
+          "
+          ><i class="material-icons">add</i></a>
       </div>
-      <a
-        class="
-          btn-floating btn-medium
-          waves-effect waves-light
-          indigo
-          darken-4
-          btn-position
-        "
-        ><i class="material-icons">add</i></a
-      >
+      
     </div>
   </div>
 </section>
 
 <div class="row">
   <!-- Inicia resumen del pedido -->
-  <div class="col s12 m12">
-    <div class="card blue-grey darken-1">
+  <div class="col s12 m12 container-sumary">
+    <div class="card card-sumary">
       <div class="card-content white-text">
         <span class="card-title">Resumen del pedido</span>
         <hr class="line" />
@@ -93,7 +91,8 @@
         <p>Mesa: {{ tableNumber }}</p>
       </div>
       <hr class="line-one" />
-      <div class="card description">
+      <div class= "container-table-sumary">
+      <div class="card description table-sumary">
         <table>
           <thead>
             <tr>
@@ -113,6 +112,7 @@
           </tbody>
         </table>
       </div>
+    </div>
       <a class="waves-effect waves-light btn">Enviar a cocina</a>
     </div>
   </div>
