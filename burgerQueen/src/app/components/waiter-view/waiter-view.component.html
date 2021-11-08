@@ -97,9 +97,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of orderSumary">
+            <tr *ngFor="let product of orderSumary [i]='product'" >
               <td>1</td>
-              <td>{{product}}</td>
+              <td>{{product.item}}</td>
               <td>20$</td>
               <td>Eliminar</td>
             </tr>

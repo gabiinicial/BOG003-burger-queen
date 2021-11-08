@@ -8,7 +8,7 @@ import { RestService } from '../../rest.service';
   styleUrls: ['./waiter-view.component.css'],
 })
 export class WaiterViewComponent implements OnInit {
-  constructor(private RestService: RestService) {}
+  constructor(private RestService: RestService) { }
 
   ngOnInit(): void {
     this.cargarData();
@@ -24,7 +24,7 @@ export class WaiterViewComponent implements OnInit {
   public screenWidth: any;
 
   statedMenu = 'breakfast';
-  
+
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -44,19 +44,21 @@ export class WaiterViewComponent implements OnInit {
     );
   }
 
-  addProduct(itemR: any){
-    if (this.orderSumary.length == 0 ) {
+  addProduct(itemR: any) {
+    if (this.orderSumary.length == 0) {
       this.orderSumary.push(itemR);
       this.orderSumary[0].cantidad = 1;
+    } else if (!this.orderSumary.includes(itemR)) {
+      this.orderSumary.push(itemR);
+      itemR.cantidad = 1;
     } else {
       this.orderSumary.forEach((e) => {
-        if(!e.item?.includes(itemR)){
+        if (!e.item?.includes(itemR)) {
           e.cantidad += 1;
-
-          console.log(" Ya existe  ",e);
         }
       });
     }
+    console.log(" Ya existe  ", this.orderSumary);
     //console.log(this.orderSumary);
   }
 }
