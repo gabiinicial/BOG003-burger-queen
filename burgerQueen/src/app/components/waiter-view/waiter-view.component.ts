@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class WaiterViewComponent implements OnInit {
 
   clientName = '';
   tableNumber = '';
+  orderSumary: OrderSumary[] = [];
   public menuArray: any = [];
   public screenWidth: any;
 
@@ -40,5 +42,21 @@ export class WaiterViewComponent implements OnInit {
     this.typeArrayMenu = this.menuArray.menu.filter(
       (dish: { type: string }) => dish.type === this.statedMenu
     );
+  }
+
+  addProduct(itemR: any){
+    if (this.orderSumary.length == 0 ) {
+      this.orderSumary.push(itemR);
+      this.orderSumary[0].cantidad = 1;
+    } else {
+      this.orderSumary.forEach((e) => {
+        if(!e.item?.includes(itemR)){
+          e.cantidad += 1;
+
+          console.log(" Ya existe  ",e);
+        }
+      });
+    }
+    //console.log(this.orderSumary);
   }
 }
