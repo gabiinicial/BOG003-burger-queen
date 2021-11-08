@@ -45,15 +45,17 @@ export class WaiterViewComponent implements OnInit {
   }
 
   addProduct(itemR: any) {
+    let newOrderSumary = new OrderSumary;
+    newOrderSumary.cantidad = 1;
+    newOrderSumary.item = { ...itemR };
+
     if (this.orderSumary.length == 0) {
-      this.orderSumary.push(itemR);
-      this.orderSumary[0].cantidad = 1;
-    } else if (!this.orderSumary.includes(itemR)) {
-      this.orderSumary.push(itemR);
-      itemR.cantidad = 1;
+      this.orderSumary.push(newOrderSumary);
+    } else if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
+      this.orderSumary.push(newOrderSumary);
     } else {
       this.orderSumary.forEach((e) => {
-        if (!e.item?.includes(itemR)) {
+        if (e.item.name == itemR.name) {
           e.cantidad += 1;
         }
       });
