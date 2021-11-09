@@ -24,7 +24,7 @@ export class WaiterViewComponent implements OnInit {
   public menuArray: any = [];
   public screenWidth: any;
 
-
+  showModal= false;
   statedMenu = 'breakfast';
 
   public cargarData() {
@@ -86,5 +86,14 @@ export class WaiterViewComponent implements OnInit {
   deleteProduct(itemDelete: any){
     this.orderSumary.splice(this.orderSumary.indexOf(itemDelete),1);
      }
+
+   viewModal(){
+   this.showModal = true;
+   console.log('Llamando', this.showModal);
+
+
+    }
+
+
 
 }

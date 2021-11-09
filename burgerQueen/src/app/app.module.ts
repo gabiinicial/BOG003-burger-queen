@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
 import { CardMenuComponent } from './components/card-menu/card-menu.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CardMenuComponent } from './components/card-menu/card-menu.component';
     WaiterHistoryComponent,
     HeaderComponent,
     MultiplyPricePipe,
-    CardMenuComponent
+    CardMenuComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,10 @@
 <app-header></app-header>
 <div class="row text-color">
   <div class="input-field col s6">
-    <div class= "input-name">
+    <div class="input-name">
       Nombre Cliente:
       <div class="input-field inline">
-        <input
-          [(ngModel)]="clientName"
-          type="text"
-          class="validate"
-        />
+        <input [(ngModel)]="clientName" type="text" class="validate" />
       </div>
     </div>
   </div>
@@ -23,18 +19,97 @@
 </div>
 <!-- Botones cambio de tipo de menú -->
 <div class="content-btn-menu">
-  <button class="waves-effect waves-light btn text-font " (click)="switchMenu('breakfast')" [ngClass]="statedMenu === 'breakfast' ? 'indigo darken-4' : 'grey lighten-1 text-dark'" type="button"> Desayuno</button>
-  <button class="waves-effect waves-light btn text-font " (click)="switchMenu('lunch')" [ngClass]="statedMenu === 'lunch' ? 'indigo darken-4' : 'grey lighten-1 text-dark' " type="button">Almuerzo/cena</button>
+  <button
+    class="waves-effect waves-light btn text-font"
+    (click)="switchMenu('breakfast')"
+    [ngClass]="
+      statedMenu === 'breakfast'
+        ? 'indigo darken-4'
+        : 'grey lighten-1 text-dark'
+    "
+    type="button"
+  >
+    Desayuno
+  </button>
+  <button
+    class="waves-effect waves-light btn text-font"
+    (click)="switchMenu('lunch')"
+    [ngClass]="
+      statedMenu === 'lunch' ? 'indigo darken-4' : 'grey lighten-1 text-dark'
+    "
+    type="button"
+  >
+    Almuerzo/cena
+  </button>
 </div>
 <!--Tarjetas del menú -->
 <section class="row container-size">
   <div
-    class="col s12 "
-    [ngClass]="{ m6: screenWidth  <= 800, m4: screenWidth > 800 }"
-
+    class="col s12"
+    [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
+    *ngFor="let dish of typeArrayMenu"
   >
- <app-card-menu [dish]="plato" *ngFor="let plato of typeArrayMenu"></app-card-menu>
+    <!-- <app-card-menu [dish]="plato" ></app-card-menu> -->
+    <div
+      class="card horizontal"
+      [ngClass]="{
+        'size-card-small': screenWidth < 800,
+        'size-card': screenWidth > 800
+      }"
+    >
+      <div class="card-image">
+        <img [src]="dish?.image" class="size-img" />
+      </div>
 
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>{{ dish?.name }}</p>
+          <p class="price">${{ dish?.price }}</p>
+        </div>
+        <div class="content-amount">
+          <!-- Aqui van los botones de la cantidad -->
+          <span class="input-group-btn">
+            <button
+              (click)="decrement(dish)"
+              class="btn btn-default"
+              id="menos"
+              type="button"
+            >
+              -
+            </button>
+          </span>
+          <input
+            type="text"
+            style="width: 50px; text-align: center"
+            id="contador"
+            class="form-control"
+            [value]="dish.count"
+          />
+          <span class="input-group-btn">
+            <button
+              (click)="increment(dish)"
+              class="btn btn-default"
+              id="mas"
+              type="button"
+            >
+              +
+            </button>
+          </span>
+        </div>
+        <a
+          (click)="addProduct(dish)"
+          id="add-product"
+          class="
+            btn-floating btn-medium
+            waves-effect waves-light
+            indigo
+            darken-4
+            btn-position
+          "
+          ><i class="material-icons">add</i></a
+        >
+      </div>
+    </div>
   </div>
 </section>
 
@@ -51,31 +126,43 @@
         <p>Mesa: {{ tableNumber }}</p>
       </div>
       <hr class="line-one" />
-      <div class= "container-table-sumary">
-      <div class="card description table-sumary">
-        <table>
-          <thead>
-            <tr>
-              <th>Cantidad</th>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of orderSumary; let i=index">
-              <td>{{product.cantidad}}</td>
-              <td>{{product.item.name}}</td>
-              <td>{{product.item.price | multiplyPrice:product.cantidad }}</td>
-              <td><i  (click)="deleteProduct(product)"  class="small material-icons icon-delete" >delete</i></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="container-table-sumary">
+        <div class="card description table-sumary">
+          <table>
+            <thead>
+              <tr>
+                <th>Cantidad</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of orderSumary; let i = index">
+                <td>{{ product.cantidad }}</td>
+                <td>{{ product.item.name }}</td>
+                <td>
+                  {{ product.item.price | multiplyPrice: product.cantidad }}
+                </td>
+                <td>
+                  <i
+                    (click)="deleteProduct(product)"
+                    class="small material-icons icon-delete"
+                    >delete</i
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="content-btn">
-      <a class="waves-effect waves-light btn btn-enviar">Enviar a cocina</a>
-    </div>
+      <div  class="content-btn">
+        <a class="waves-effect waves-light btn  modal-trigger "
+          (click)="viewModal()"
+          >Enviar a cocina</a
+        >
+        <app-modal [stateModal]="showModal" ></app-modal>
+      </div>
     </div>
   </div>
 </div>
