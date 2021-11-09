@@ -46,17 +46,17 @@
         <div class="content-amount">
           <!-- Aqui van los botones de la cantidad -->
           <span class="input-group-btn">
-            <button class="btn btn-default" id="menos" type="button">-</button>
+            <button (click)="decrement(plato)" class="btn btn-default" id="menos" type="button">-</button>
           </span>
           <input
             type="text"
             style="width: 50px; text-align: center"
             id="contador"
             class="form-control"
-            value="1"
+            [value]="plato.count"
           />
           <span class="input-group-btn">
-            <button class="btn btn-default" id="mas" type="button">+</button>
+            <button (click)="increment(plato)" class="btn btn-default" id="mas" type="button">+</button>
           </span>
         </div>
         <a (click)="addProduct(plato)" id="add-product" class="
@@ -100,8 +100,8 @@
             <tr *ngFor="let product of orderSumary; let i=index">
               <td>{{product.cantidad}}</td>
               <td>{{product.item.name}}</td>
-              <td>{{product.item.price}}</td>
-              <td>Eliminar</td>
+              <td>{{product.item.price | multiplyPrice:product.cantidad }}</td>
+              <td><i class="small material-icons icon-delete" >delete</i></td>
             </tr>
           </tbody>
         </table>

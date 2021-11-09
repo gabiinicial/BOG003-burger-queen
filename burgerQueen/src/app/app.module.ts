@@ -10,7 +10,7 @@ import { WaiterHistoryComponent } from './components/waiter-history/waiter-histo
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
-
+import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { HeaderComponent } from './components/header/header.component';
     WaiterViewComponent,
     WaiterInProcessComponent,
     WaiterHistoryComponent,
-    HeaderComponent
+    HeaderComponent,
+    MultiplyPricePipe
   ],
   imports: [
     BrowserModule,

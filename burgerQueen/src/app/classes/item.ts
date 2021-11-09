@@ -1,7 +1,8 @@
 export class Item{
-    name: string | undefined;
-    price: number| undefined;
-    type: string| undefined;
-    subtype: string | undefined;
-    image: string| undefined
+    name: string = "";
+    price: number = 0;
+    type: string = "";
+    subtype: string = "";
+    count: number = 1;
+    image: string = ""
 }
