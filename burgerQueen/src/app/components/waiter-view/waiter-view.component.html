@@ -67,7 +67,7 @@
             btn-position
           "><i class="material-icons">add</i></a>
       </div>
-      
+
     </div>
   </div>
 </section>
@@ -101,7 +101,7 @@
               <td>{{product.cantidad}}</td>
               <td>{{product.item.name}}</td>
               <td>{{product.item.price | multiplyPrice:product.cantidad }}</td>
-              <td><i class="small material-icons icon-delete" >delete</i></td>
+              <td><i  (click)="deleteProduct(product)"  class="small material-icons icon-delete" >delete</i></td>
             </tr>
           </tbody>
         </table>

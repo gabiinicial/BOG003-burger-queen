@@ -23,6 +23,7 @@ export class WaiterViewComponent implements OnInit {
   orderSumary: OrderSumary[] = [];
   public menuArray: any = [];
   public screenWidth: any;
+  
 
   statedMenu = 'breakfast';
 
@@ -47,7 +48,7 @@ export class WaiterViewComponent implements OnInit {
 
   addProduct(itemR: any) {
     let newOrderSumary = new OrderSumary;
-    // newOrderSumary.cantidad = 0;
+    newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
 
     if (this.orderSumary.length == 0) {
@@ -62,27 +63,39 @@ export class WaiterViewComponent implements OnInit {
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
           e.cantidad += e.item.count;
+          console.log('Añadir producto', e.cantidad);
+
         }
       });
     } else {
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
-          e.cantidad += e.item.count;
+         const cantidadAcumulada = e.item.count;
+         e.item = itemR;
+         e.item.count += cantidadAcumulada;
+         e.cantidad = e.item.count;
+
+
         }
       });
     }
   }
 
   increment(item: any){
-    item.count +=1;
+    item.count += 1;
+    console.log('Acumulador', item.count);
     return item.count;
   }
 
   decrement(item: any){
     if(item.count > 1){
-      item.count -=1;
+      item.count -= 1;
     }
     return item.count;
   }
-  
+
+  deleteProduct(itemDelete: any){
+    this.orderSumary.splice(this.orderSumary.indexOf(itemDelete),1);
+     }
+
 }
