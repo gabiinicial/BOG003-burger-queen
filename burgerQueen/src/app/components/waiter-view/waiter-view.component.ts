@@ -7,6 +7,7 @@ import { RestService } from '../../rest.service';
   templateUrl: './waiter-view.component.html',
   styleUrls: ['./waiter-view.component.css'],
 })
+
 export class WaiterViewComponent implements OnInit {
   constructor(private RestService: RestService) { }
 
@@ -46,21 +47,42 @@ export class WaiterViewComponent implements OnInit {
 
   addProduct(itemR: any) {
     let newOrderSumary = new OrderSumary;
-    newOrderSumary.cantidad = 1;
+    // newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
 
     if (this.orderSumary.length == 0) {
       this.orderSumary.push(newOrderSumary);
+      this.orderSumary.forEach((e) => {
+        if (e.item.name == itemR.name) {
+          e.cantidad += e.item.count;
+        }
+      });
     } else if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
       this.orderSumary.push(newOrderSumary);
+      this.orderSumary.forEach((e) => {
+        if (e.item.name == itemR.name) {
+          e.cantidad += e.item.count;
+        }
+      });
     } else {
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
-          e.cantidad += 1;
+          e.cantidad += e.item.count;
         }
       });
     }
-    console.log(" Ya existe  ", this.orderSumary);
-    //console.log(this.orderSumary);
   }
+
+  increment(item: any){
+    item.count +=1;
+    return item.count;
+  }
+
+  decrement(item: any){
+    if(item.count > 1){
+      item.count -=1;
+    }
+    return item.count;
+  }
+  
 }
