@@ -23,7 +23,7 @@ export class WaiterViewComponent implements OnInit {
   orderSumary: OrderSumary[] = [];
   public menuArray: any = [];
   public screenWidth: any;
-  
+
 
   statedMenu = 'breakfast';
 
@@ -51,34 +51,23 @@ export class WaiterViewComponent implements OnInit {
     newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
 
-    if (this.orderSumary.length == 0) {
-      this.orderSumary.push(newOrderSumary);
-      this.orderSumary.forEach((e) => {
-        if (e.item.name == itemR.name) {
-          e.cantidad += e.item.count;
-        }
-      });
-    } else if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
+     if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
       this.orderSumary.push(newOrderSumary);
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
           e.cantidad += e.item.count;
           console.log('Añadir producto', e.cantidad);
-
         }
       });
     } else {
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
-         const cantidadAcumulada = e.item.count;
-         e.item = itemR;
-         e.item.count += cantidadAcumulada;
-         e.cantidad = e.item.count;
-
-
+         e.item.count = 0;
+         e.cantidad += itemR.count;
         }
       });
     }
+    itemR.count = 1;
   }
 
   increment(item: any){
