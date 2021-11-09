@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { RestService } from '../../rest.service';
   styleUrls: ['./waiter-view.component.css'],
 })
 export class WaiterViewComponent implements OnInit {
-  constructor(private RestService: RestService) {}
+  constructor(private RestService: RestService) { }
 
   ngOnInit(): void {
     this.cargarData();
@@ -18,11 +19,12 @@ export class WaiterViewComponent implements OnInit {
 
   clientName = '';
   tableNumber = '';
+  orderSumary: OrderSumary[] = [];
   public menuArray: any = [];
   public screenWidth: any;
 
   statedMenu = 'breakfast';
-  
+
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -40,5 +42,25 @@ export class WaiterViewComponent implements OnInit {
     this.typeArrayMenu = this.menuArray.menu.filter(
       (dish: { type: string }) => dish.type === this.statedMenu
     );
+  }
+
+  addProduct(itemR: any) {
+    let newOrderSumary = new OrderSumary;
+    newOrderSumary.cantidad = 1;
+    newOrderSumary.item = { ...itemR };
+
+    if (this.orderSumary.length == 0) {
+      this.orderSumary.push(newOrderSumary);
+    } else if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
+      this.orderSumary.push(newOrderSumary);
+    } else {
+      this.orderSumary.forEach((e) => {
+        if (e.item.name == itemR.name) {
+          e.cantidad += 1;
+        }
+      });
+    }
+    console.log(" Ya existe  ", this.orderSumary);
+    //console.log(this.orderSumary);
   }
 }

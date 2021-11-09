@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./materialize-imports.scss";
-@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Montserrat:wght@100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cookie&family=Montserrat:wght@100&display=swap");
 
 .backgroundPage {
-  background-color: #1C2035 !important;
+  background-color: #1c2035 !important;
 }
 // .input-p:active, .input-p{
 //   outline: none;
@@ -12,7 +12,7 @@
 .rectangle {
   width: 160px;
   height: 200px;
-  background: yellow;
+  background: $underline-text;
   position: absolute;
   margin-left: 50px;
 }
@@ -21,15 +21,15 @@
   width: 0;
   border-left: 80px solid transparent;
   border-right: 80px solid transparent;
-  border-bottom: 100px solid #1C2035;
+  border-bottom: 100px solid #1c2035;
   position: absolute;
   margin-left: 50px;
   margin-top: 100px;
 }
 
 h1 {
-  font-family: 'Cookie', cursive;
-  color: #FFFFFF;
+  font-family: "Cookie", cursive;
+  color: #ffffff;
   font-size: 130px;
   margin-top: 0px;
 }
@@ -38,7 +38,7 @@ h1 {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
 }
 
 .contentFirst {
@@ -49,29 +49,30 @@ h1 {
   align-items: center;
 }
 
-.text-color, .validate {
-  color: #FFFFFF;
+.text-color,
+.validate {
+  color: #ffffff;
 }
-.input-field:focus{
+.input-field:focus {
   border-bottom: 0;
   box-shadow: none;
 }
 
-.text-dark{
+.text-dark {
   color: #000000;
 }
 
-.text-font{
+.text-font {
   width: 254px;
   height: 40px;
   font-size: 18px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight:bolder;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
   text-transform: inherit;
 }
 
 .border-btn {
-  border: 5px solid #F2E205;
+  border: 5px solid #f2e205;
   border-radius: 10px;
 }
 
@@ -99,10 +100,9 @@ h1 {
 
 .btn-large {
   font-size: 24px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   box-shadow: 2px 6px 10px 0px #c6c2944b;
-
 }
 
 .logo-hamburguesa {
@@ -115,123 +115,141 @@ h1 {
   }
 }
 /* Comienzo de segunda pantalla*/
-.brand-logo{
-width: 60px;
+.brand-logo {
+  width: 60px;
 }
-.text-nav li{
+.text-nav li a {
   font-size: 18px;
   padding-left: 30px;
 }
 
-.input-name{
-border: 2px solid #FFFFFF;
-border-radius: $border-general;
-padding-left: 5px;
+.text-nav li a:hover {
+  background: none;
+  color: $underline-text;
+  box-sizing: border-box;
 }
-.inline{
+
+.text-nav li:hover:nth-child(1n+2)  {
+  border-bottom: 2px solid $underline-text;
+  box-sizing: border-box;
+}
+
+.input-name {
+  border: 2px solid #ffffff;
+  border-radius: $border-general;
+  padding-left: 5px;
+}
+.inline {
   margin: 0;
   padding: 0;
   height: 20px;
 }
-.input-field{
+.input-field {
   height: 42px;
 }
-.line, .line-one{
-  border: 0.5px solid  #0a0a0a63;
+.line,
+.line-one {
+  border: 0.5px solid #0a0a0a63;
 }
-.line-one{
-  margin: 0 24px ;
+.line-one {
+  margin: 0 24px;
 }
-.card-title{
-color: #000000;
+.card-title {
+  color: #000000;
 }
 
-.data-client{
+.data-client {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 80%;
   padding-left: 26px;
-  & p{
+  & p {
     font-size: 18px;
     font-weight: bolder;
   }
 }
-.container-size{
- width: 85%;
+.container-size {
+  width: 85%;
 }
-.card-image{
-display: flex;
-align-items: center;
+.card-image {
+  display: flex;
+  align-items: center;
 }
 
-.size-img{
+.size-img {
   height: 100px;
 }
 
-.btn-position{
+.btn-position {
   position: absolute;
   top: -13px;
   right: 0;
-
 }
 
-.content-btn-menu{
+.content-btn-menu {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-bottom: 50px;
-
 }
-.card-content{
-padding: 5px 0px 5px 0px;
-display: flex;
-justify-content: space-between;
-flex-direction: column;
-& p{
-  font-weight: bolder;
+.card-content {
+  padding: 5px 0px 5px 0px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  & p {
+    font-weight: bolder;
+  }
 }
-}
-.price{
+.price {
   font-size: 18px;
 }
 
-.content-amount{
-width: 170px;
+.content-amount {
+  width: 170px;
 }
 
-.size-card{
+.size-card {
   width: 90%;
-  
 }
-.horizontal{
+.horizontal {
   border-radius: $border-general;
-  
 }
-.size-card-small{
+.size-card-small {
   width: 100%;
 }
-.container-table-sumary{
-display: flex;
-justify-content: center;
-margin-top: 15px;
-margin-bottom: 15px;
+.container-table-sumary {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.container-sumary{
+.container-sumary {
   display: flex;
   justify-content: center;
 }
 
-.card-sumary{
-width: 80%;
-background-color: $color-grey-light ;
-border-radius: $border-general;
-
+.card-sumary {
+  width: 80%;
+  background-color: $color-grey-light;
+  border-radius: $border-general;
 }
- .table-sumary{
-   background-color: #fcfcfc;
-   width: 80%;
-   border-radius: $border-general;
- }
+
+.table-sumary {
+  background-color: #fcfcfc;
+  width: 80%;
+  border-radius: $border-general;
+}
+
+.content-btn{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.btn-enviar{
+  box-shadow: 2px 3px 10px 0px $main-color;
+}
