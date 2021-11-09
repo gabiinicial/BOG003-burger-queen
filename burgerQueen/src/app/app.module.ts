@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
+import { CardMenuComponent } from './components/card-menu/card-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
     WaiterInProcessComponent,
     WaiterHistoryComponent,
     HeaderComponent,
-    MultiplyPricePipe
+    MultiplyPricePipe,
+    CardMenuComponent
   ],
   imports: [
     BrowserModule,

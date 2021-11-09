@@ -1,0 +1,36 @@
+<div   class="card horizontal" [ngClass]="{'size-card-small': screenWidth < 800,'size-card': screenWidth > 800}">
+  <div class="card-image">
+    <img [src]="dish?.image" class="size-img" />
+  </div>
+
+  <div class="card-stacked">
+    <div class="card-content">
+      <p>{{ dish?.name }}</p>
+      <p class= "price">${{ dish?.price }}</p>
+    </div>
+    <div class="content-amount">
+      <!-- Aqui van los botones de la cantidad -->
+      <span class="input-group-btn">
+        <button (click)="decrement(dish)" class="btn btn-default" id="menos" type="button">-</button>
+      </span>
+      <input
+        type="text"
+        style="width: 50px; text-align: center"
+        id="contador"
+        class="form-control"
+        [value]="dish.count"
+      />
+      <span class="input-group-btn">
+        <button (click)="increment(dish)" class="btn btn-default" id="mas" type="button">+</button>
+      </span>
+    </div>
+    <a (click)="addProduct(dish)" id="add-product" class="
+        btn-floating btn-medium
+        waves-effect waves-light
+        indigo
+        darken-4
+        btn-position
+      "><i class="material-icons">add</i></a>
+  </div>
+
+</div>

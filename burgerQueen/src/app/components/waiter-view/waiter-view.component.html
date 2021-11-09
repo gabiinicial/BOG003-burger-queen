@@ -31,44 +31,10 @@
   <div
     class="col s12 "
     [ngClass]="{ m6: screenWidth  <= 800, m4: screenWidth > 800 }"
-    *ngFor="let plato of typeArrayMenu"
+
   >
-    <div class="card horizontal" [ngClass]="{'size-card-small': screenWidth < 800,'size-card': screenWidth > 800}">
-      <div class="card-image">
-        <img [src]="plato?.image" class="size-img" />
-      </div>
+ <app-card-menu [dish]="plato" *ngFor="let plato of typeArrayMenu"></app-card-menu>
 
-      <div class="card-stacked">
-        <div class="card-content">
-          <p>{{ plato?.name }}</p>
-          <p class= "price">${{ plato?.price }}</p>
-        </div>
-        <div class="content-amount">
-          <!-- Aqui van los botones de la cantidad -->
-          <span class="input-group-btn">
-            <button (click)="decrement(plato)" class="btn btn-default" id="menos" type="button">-</button>
-          </span>
-          <input
-            type="text"
-            style="width: 50px; text-align: center"
-            id="contador"
-            class="form-control"
-            [value]="plato.count"
-          />
-          <span class="input-group-btn">
-            <button (click)="increment(plato)" class="btn btn-default" id="mas" type="button">+</button>
-          </span>
-        </div>
-        <a (click)="addProduct(plato)" id="add-product" class="
-            btn-floating btn-medium
-            waves-effect waves-light
-            indigo
-            darken-4
-            btn-position
-          "><i class="material-icons">add</i></a>
-      </div>
-
-    </div>
   </div>
 </section>
 

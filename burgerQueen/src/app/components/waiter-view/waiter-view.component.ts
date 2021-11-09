@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 
