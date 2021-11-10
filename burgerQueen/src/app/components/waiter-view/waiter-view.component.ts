@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 
@@ -7,9 +7,8 @@ import { RestService } from '../../rest.service';
   templateUrl: './waiter-view.component.html',
   styleUrls: ['./waiter-view.component.css'],
 })
-
 export class WaiterViewComponent implements OnInit {
-  constructor(private RestService: RestService) { }
+  constructor(private RestService: RestService) {} 
 
   ngOnInit(): void {
     this.cargarData();
@@ -23,10 +22,8 @@ export class WaiterViewComponent implements OnInit {
   orderSumary: OrderSumary[] = [];
   public menuArray: any = [];
   public screenWidth: any;
-
-  showModal= false;
+  showModal = false;
   statedMenu = 'breakfast';
-
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -47,11 +44,11 @@ export class WaiterViewComponent implements OnInit {
   }
 
   addProduct(itemR: any) {
-    let newOrderSumary = new OrderSumary;
+    let newOrderSumary = new OrderSumary();
     newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
 
-     if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
+    if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
       this.orderSumary.push(newOrderSumary);
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
@@ -62,38 +59,33 @@ export class WaiterViewComponent implements OnInit {
     } else {
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
-         e.item.count = 0;
-         e.cantidad += itemR.count;
+          e.item.count = 0;
+          e.cantidad += itemR.count;
         }
       });
     }
     itemR.count = 1;
   }
 
-  increment(item: any){
+  increment(item: any) {
     item.count += 1;
     console.log('Acumulador', item.count);
     return item.count;
   }
 
-  decrement(item: any){
-    if(item.count > 1){
+  decrement(item: any) {
+    if (item.count > 1) {
       item.count -= 1;
     }
     return item.count;
   }
 
-  deleteProduct(itemDelete: any){
-    this.orderSumary.splice(this.orderSumary.indexOf(itemDelete),1);
-     }
+  deleteProduct(itemDelete: any) {
+    this.orderSumary.splice(this.orderSumary.indexOf(itemDelete), 1);
+  }
 
-   viewModal(){
-   this.showModal = true;
-   console.log('Llamando', this.showModal);
-
-
-    }
-
-
-
+  viewModal() {
+    this.showModal = true;
+    console.log('Llamando', this.showModal);
+  }
 }

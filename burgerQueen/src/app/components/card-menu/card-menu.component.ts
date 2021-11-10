@@ -6,8 +6,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./card-menu.component.css']
 })
 export class CardMenuComponent implements OnInit {
-  @Input() dish : any;
-
+  @Input() addDish : any;
+  @Input() myDish: any;
+  @Input() incrementNumber:any;
+  @Input() decrementNumber:any;
+  @Input() screen:any;
+  value : number | undefined;
   constructor() { }
 
   ngOnInit(): void {
