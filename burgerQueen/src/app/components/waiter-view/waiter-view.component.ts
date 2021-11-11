@@ -8,8 +8,8 @@ import { RestService } from '../../rest.service';
   styleUrls: ['./waiter-view.component.css'],
 })
 export class WaiterViewComponent implements OnInit {
+  @Output() results= new EventEmitter<any>();
   constructor(private RestService: RestService) {} 
-
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
@@ -23,6 +23,7 @@ export class WaiterViewComponent implements OnInit {
   public menuArray: any = [];
   public screenWidth: any;
   showModal = false;
+  totalOrder= 0;
   statedMenu = 'breakfast';
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
@@ -88,4 +89,14 @@ export class WaiterViewComponent implements OnInit {
     this.showModal = true;
     console.log('Llamando', this.showModal);
   }
+  totalPrice(arrayItem: any){
+   //arrayItem = this.orderSumary
+  // console.log(arrayItem.cantidad * arrayItem.item.price);
+  arrayItem.forEach((e:any) => {
+   this.totalOrder += e.item.price * e.cantidad;
+   console.log(e.cantidad,"Total:",e.item.price * e.cantidad);
+  });
+  console.log(this.totalOrder);
+  }
+  
 }
