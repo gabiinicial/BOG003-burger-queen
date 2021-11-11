@@ -49,8 +49,8 @@
     [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
     *ngFor="let dish of typeArrayMenu"
   >
-  <app-card-menu [myDish]="dish" [addDish]=" addProduct(dish)" [incrementNumber]="increment(dish)" [decrementNumber]="decrement(dish)"[screen]="screenWidth"></app-card-menu>
-    
+  <app-card-menu [myDish]="dish" [incrementNumber]="increment(dish)" [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth"></app-card-menu>
+  <!-- [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth" -->
   </div>
 </section>
 <div class="row">
@@ -94,6 +94,7 @@
               </tr>
             </tbody>
           </table>
+          <p (click)="totalPrice(orderSumary)">Total:${{totalOrder}}</p>
         </div>
       </div>
       <div  class="content-btn">
