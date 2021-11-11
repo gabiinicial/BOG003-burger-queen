@@ -11,7 +11,7 @@
       <p>{{ myDish?.name }}</p>
       <p class="price">${{ myDish?.price }}</p>
     </div>
-    <div class="content-amount">
+    <div *ngIf="myDish?.subtype != 'burger'" class="content-amount">
       <!-- Aqui van los botones de la cantidad -->
       <span class="input-group-btn">
         <button (click)="decrement(myDish)" class="btn btn-default" id="menos" type="button">

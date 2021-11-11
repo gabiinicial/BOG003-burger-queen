@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./materialize-imports.scss";
 @import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cookie&family=Montserrat:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cookie&family=Montserrat:wght@300&display=swap");
 
 .backgroundPage {
   background-color: #1c2035 !important;
@@ -299,5 +299,81 @@ h1 {
   font-size: medium;
   font-weight: bolder;
   text-align: center;
+}
+
+// modal-burger
+.content-modal-burger{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  font-family: $font;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modal-burger{
+  width: 500px;
+  border-radius: 15px;
+  background-color: $color-grey-light;
+  margin: 15px 0;
+}
+
+.content-menu-burger{
+  text-align: center;
+  padding: 20px 0 0 0;
+  & h5{
+    font-weight: bolder;
+  }
+}
+
+.content-btn-burger{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px 0 0 0;
+}
+
+.btn-burger{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $main-color;
+  width: 120px;
+  height: 42px;
+  border-radius: 15px;
+  box-shadow: 2px 6px 5px 0px $main-color-light;
+  & a{
+    color: white;
+    text-align: center;
+    text-transform: inherit;
+    font-size: 18px;
+  }
+}
+
+.btn-burger-active{
+  box-shadow: none;
+  color: $underline-text;
+  & a{
+    color: $underline-text;
+  }
+}
+
+/* .btn-burger a{
+  color: white;
+  text-align: center;
+  text-transform: inherit;
+  font-size: 18px;
+} */
+
+.content-btn-add{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 50px 0 20px 0;
+  & div{
+      width: 200px;
+  }
 }
 
