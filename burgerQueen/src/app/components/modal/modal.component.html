@@ -13,3 +13,40 @@
     </div>
   </div>
 </div>
+
+<section class="content-modal-burger" >
+  <div class="modal-burger">
+    <div>
+      <div class="content-menu-burger">
+        <h5>Selecciona la Hamburguesa</h5>
+        <div class="content-btn-burger">
+          <div (click)="press(true)" [ngClass]="{'btn-burger-active' :oppressedBtn}" class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat" >Res</a>
+          </div>
+          <div class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat">Pollo</a>
+          </div>
+          <div class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat">Veggie</a>
+          </div>
+        </div>
+      </div>
+      <div class="content-menu-burger">
+        <h5>Adicionales</h5>
+        <div class="content-btn-burger">
+          <div class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat">Huevo</a>
+          </div>
+          <div class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat">Queso</a>
+          </div>
+        </div>
+      </div>
+      <div class="content-btn-add">
+        <div class="modal-footer btn-burger">
+          <a class="modal-close waves-effect waves-green btn-flat">Añadir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { burger } from 'src/app/classes/burgerType';
 import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 
@@ -26,6 +27,7 @@ export class WaiterViewComponent implements OnInit {
   clientName = '';
   tableNumber = '';
   orderSumary: OrderSumary[] = [];
+  typeBurger: burger[] = [];
   showModal = false;
   statedMenu = 'breakfast';
   totalOrder: number = 0;
@@ -99,6 +101,15 @@ export class WaiterViewComponent implements OnInit {
 
   acumulatorPrice(event: any){
     this.totalPrice(event);
+  }
+
+  showBurger(){
+    let newBurger = new burger();
+    newBurger.type = this.menuArray.burgerType;
+    console.log("Aqui estooy burger ",newBurger.type);
+    newBurger.type.forEach((e:any) => {
+      console.log("Ingresa foreach ",e.type);
+    });
   }
 
 }

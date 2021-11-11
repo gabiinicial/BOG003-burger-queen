@@ -15,8 +15,15 @@ export class ModalComponent implements OnInit {
   @Input() stateModal : boolean = true;
   @Output() changeStateModal = new EventEmitter<boolean>();
 
+  oppressedBtn : boolean = false;
+
   changeState(value: boolean) {
     this.changeStateModal.emit(value);
+  }
+
+  press(state: boolean){
+    this.oppressedBtn = !this.oppressedBtn;
+    console.log("Estado ",this.oppressedBtn);
   }
 
 }
