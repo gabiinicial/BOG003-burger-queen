@@ -257,3 +257,47 @@ h1 {
 .icon-delete{
   color: $icon-gray;
 }
+
+.modal-confirmation{
+  padding-top: 15px;
+  width: 250px;
+  background-color: white;
+  border-radius: 35px;
+  text-align: center;
+}
+
+.content-btn-modal{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.content-btn-modal{
+  border-top: 1px solid $gray-line;
+}
+
+.content-btn-modal div:nth-child(odd){
+  border-right: 0.5px solid $gray-line;
+}
+
+.content-btn-modal div:nth-child(even){
+  border-left: 0.5px solid $gray-line;
+}
+
+.btn-firts, .btn-second{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+}
+
+.btn-firts a, .btn-second a{
+  width: 100%;
+}
+
+.title-modal{
+  font-size: medium;
+  font-weight: bolder;
+  text-align: center;
+}
+

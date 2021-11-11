@@ -49,7 +49,7 @@
     [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
     *ngFor="let dish of typeArrayMenu"
   >
-  <app-card-menu [myDish]="dish" [incrementNumber]="increment(dish)" [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth"></app-card-menu>
+  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)"></app-card-menu>
   <!-- [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth" -->
   </div>
 </section>
@@ -94,15 +94,17 @@
               </tr>
             </tbody>
           </table>
-          <p (click)="totalPrice(orderSumary)">Total:${{totalOrder}}</p>
+          <p >Total:{{totalOrder}}</p>
         </div>
+      </div>
+      <div class="view-modal">
+        <app-modal [stateModal]="showModal"></app-modal>
       </div>
       <div  class="content-btn">
         <a class="waves-effect waves-light btn  modal-trigger "
-          (click)="viewModal()"
+          (click)="viewModal(true)"
           >Enviar a cocina</a
         >
-        <app-modal [stateModal]="showModal" ></app-modal>
       </div>
     </div>
   </div>

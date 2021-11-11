@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -8,14 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ModalComponent implements OnInit {
 
   constructor() { }
-  @Input() stateModal : boolean = false;
-
-
 
   ngOnInit(): void {
   }
 
+  @Input() stateModal : boolean = true;
+  @Output() changeStateModal = new EventEmitter<boolean>();
 
-
+  changeState(value: boolean) {
+    this.changeStateModal.emit(value);
+  }
 
 }
