@@ -14,20 +14,19 @@
     <div class="content-amount">
       <!-- Aqui van los botones de la cantidad -->
       <span class="input-group-btn">
-        <button class="btn btn-default" id="menos" type="button">
+        <button (click)="decrement(myDish)" class="btn btn-default" id="menos" type="button">
           -
         </button>
-        <!-- (click)="decrementNumber(myDish)" -->
       </span>
       <input type="text" style="width: 50px; text-align: center" id="contador" class="form-control"
         [value]="myDish.count" />
       <span class="input-group-btn">
-        <button (click)="incrementNumber(myDish)" class="btn btn-default" id="mas" type="button">
+        <button (click)="increment(myDish)" class="btn btn-default" id="mas" type="button">
           +
         </button>
       </span>
     </div>
-    <a (click)="addDish(myDish)" id="add-product" class="
+    <a (click)="addDish(myDish); totalOrder(myDish)" id="add-product" class="
             btn-floating btn-medium
             waves-effect waves-light
             indigo

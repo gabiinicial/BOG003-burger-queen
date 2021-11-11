@@ -7,24 +7,29 @@ import { RestService } from '../../rest.service';
   templateUrl: './waiter-view.component.html',
   styleUrls: ['./waiter-view.component.css'],
 })
+
 export class WaiterViewComponent implements OnInit {
-  @Output() results= new EventEmitter<any>();
-  constructor(private RestService: RestService) {} 
+
+  @Output() results = new EventEmitter<any>();
+
+  constructor(private RestService: RestService) { }
+
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
     console.log(this.screenWidth);
   }
-  typeArrayMenu: any = [];
 
+  public screenWidth: any;
+  public menuArray: any = [];
+  typeArrayMenu: any = [];
   clientName = '';
   tableNumber = '';
   orderSumary: OrderSumary[] = [];
-  public menuArray: any = [];
-  public screenWidth: any;
   showModal = false;
-  totalOrder= 0;
   statedMenu = 'breakfast';
+  totalOrder: number = 0;
+
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -68,35 +73,32 @@ export class WaiterViewComponent implements OnInit {
     itemR.count = 1;
   }
 
-  increment(item: any) {
-    item.count += 1;
-    console.log('Acumulador', item.count);
-    return item.count;
-  }
-
-  decrement(item: any) {
-    if (item.count > 1) {
-      item.count -= 1;
-    }
-    return item.count;
-  }
-
   deleteProduct(itemDelete: any) {
     this.orderSumary.splice(this.orderSumary.indexOf(itemDelete), 1);
   }
 
-  viewModal() {
-    this.showModal = true;
+  viewModal(state: boolean) {
+    if (!this.showModal) {
+      this.showModal = state;
+    }
     console.log('Llamando', this.showModal);
   }
-  totalPrice(arrayItem: any){
-   //arrayItem = this.orderSumary
-  // console.log(arrayItem.cantidad * arrayItem.item.price);
-  arrayItem.forEach((e:any) => {
-   this.totalOrder += e.item.price * e.cantidad;
-   console.log(e.cantidad,"Total:",e.item.price * e.cantidad);
-  });
-  console.log(this.totalOrder);
+
+  totalPrice(arrayItem: any) {
+    this.totalOrder = 0;
+    arrayItem = this.orderSumary;
+    arrayItem.forEach((e: any) => {
+      this.totalOrder += e.item.price * e.cantidad;
+    });
+    console.log("total price ", this.totalOrder);
   }
-  
+
+  showResume(event: any){
+    this.addProduct(event);
+  }
+
+  acumulatorPrice(event: any){
+    this.totalPrice(event);
+  }
+
 }
