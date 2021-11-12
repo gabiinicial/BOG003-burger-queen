@@ -20,17 +20,13 @@
       <div class="content-menu-burger">
         <h5>Selecciona la Hamburguesa</h5>
         <div class="content-btn-burger">
-          <div (click)="press(true)" [ngClass]="{'btn-burger-active' :oppressedBtn}" class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat" >Res</a>
-          </div>
-          <div class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat">Pollo</a>
-          </div>
-          <div class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat">Veggie</a>
+        <div *ngFor="let type of showBurger"  class="btn-burger">
+          <div  (click)="press(type); elementModal(type)" [ngClass]="{'btn-burger-active' :oppressedBtn == type}" class="modal-footer btn-burger">
+            <a class="modal-close waves-effect waves-green btn-flat" > {{type}}</a>
           </div>
         </div>
       </div>
+
       <div class="content-menu-burger">
         <h5>Adicionales</h5>
         <div class="content-btn-burger">
@@ -48,5 +44,6 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>

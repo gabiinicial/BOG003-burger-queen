@@ -9,8 +9,12 @@ export class CardMenuComponent implements OnInit {
   @Input() myDish: any;
   @Input() screen:any;
   @Input() arrayDish: any;
+  @Input() showBurger : [] = [];
+
   @Output() sendOrder = new EventEmitter<any>();
   @Output() acumulatorTotal = new EventEmitter<number>();
+  @Output() showArrayType = new EventEmitter<[]>();
+
 
   value : number | undefined;
 
@@ -40,6 +44,13 @@ export class CardMenuComponent implements OnInit {
       item.count -= 1;
     }
     return item.count;
+  }
+
+  showTypeMenuBurger(item: any){
+    console.log("cardMenu", item);
+console.log("Este showBurger", this.showBurger);
+
+    this.showArrayType.emit(item);
   }
 
 }

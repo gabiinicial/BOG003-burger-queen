@@ -6,24 +6,30 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
+  @Input() stateModal : boolean = true;
+  @Input() showBurger : [] = [];
+
+  @Output() changeStateModal = new EventEmitter<boolean>();
+  @Output() showElementsModal = new EventEmitter<any>();
+
+  oppressedBtn : string = "";
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  @Input() stateModal : boolean = true;
-  @Output() changeStateModal = new EventEmitter<boolean>();
-
-  oppressedBtn : boolean = false;
-
   changeState(value: boolean) {
     this.changeStateModal.emit(value);
   }
 
-  press(state: boolean){
-    this.oppressedBtn = !this.oppressedBtn;
+  press(type: string){
+    this.oppressedBtn = type;
     console.log("Estado ",this.oppressedBtn);
+  }
+
+  elementModal(item: any){
+    this.showElementsModal.emit(item);
   }
 
 }

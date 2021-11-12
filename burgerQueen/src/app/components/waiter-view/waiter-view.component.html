@@ -49,7 +49,7 @@
     [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
     *ngFor="let dish of typeArrayMenu"
   >
-  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)"></app-card-menu>
+  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)" [showBurger]="arrayTypeBurger"  (showArrayType)=" showTypeBurger($event)"></app-card-menu>
   <!-- [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth" -->
   </div>
 </section>
@@ -98,7 +98,7 @@
         </div>
       </div>
       <div class="view-modal">
-        <app-modal [stateModal]="showModal"></app-modal>
+        <app-modal *ngIf="showModalAdit" [stateModal]="showModal" [showBurger]="arrayTypeBurger" ></app-modal>
       </div>
       <div  class="content-btn">
         <a class="waves-effect waves-light btn  modal-trigger "
@@ -110,4 +110,4 @@
   </div>
 </div>
 <!-- Termina resumen del pedido -->
-<button (click)="showBurger()">Oprimeme</button>
+
