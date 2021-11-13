@@ -30,12 +30,10 @@
       <div class="content-menu-burger">
         <h5>Adicionales</h5>
         <div class="content-btn-burger">
-          <div class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat">Huevo</a>
+          <div *ngFor="let typeAdd of showAdditions" class="modal-footer btn-burger">
+            <a (click)="selectAdditions(typeAdd)" [ngClass]="{'btn-burger-active' :stateKeep == typeAdd}" class="modal-close btn-burger">{{typeAdd}}</a>
           </div>
-          <div class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat">Queso</a>
-          </div>
+
         </div>
       </div>
       <div class="content-btn-add">

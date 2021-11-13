@@ -1,3 +1,4 @@
 export class burger{
-    type: [] = []
+    type: [] = [];
+    additions: [] = []
 }
