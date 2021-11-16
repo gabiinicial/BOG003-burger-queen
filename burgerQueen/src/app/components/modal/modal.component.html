@@ -20,7 +20,7 @@
       <div class="content-menu-burger">
         <h5>Selecciona la Hamburguesa</h5>
         <div class="content-btn-burger">
-        <div *ngFor="let type of showBurger"  class="btn-burger">
+        <div *ngFor="let type of showArrayTypeBurger"  class="btn-burger">
           <div  (click)="press(type); elementModal(type)" [ngClass]="{'btn-burger-active' :oppressedBtn == type}" class="modal-footer btn-burger">
             <a class="modal-close waves-effect waves-green btn-flat" > {{type}}</a>
           </div>
@@ -31,14 +31,14 @@
         <h5>Adicionales</h5>
         <div class="content-btn-burger">
           <div *ngFor="let typeAdd of showAdditions" class="modal-footer btn-burger">
-            <a (click)="selectAdditions(typeAdd)" [ngClass]="{'btn-burger-active' :stateKeep == typeAdd}" class="modal-close btn-burger">{{typeAdd}}</a>
+            <a (click)="selectAdditions(typeAdd)" [ngClass]="{'btn-burger-active': stateKeep.includes(typeAdd) }" class="modal-close btn-burger">{{typeAdd}}</a>
           </div>
 
         </div>
       </div>
       <div class="content-btn-add">
         <div class="modal-footer btn-burger">
-          <a class="modal-close waves-effect waves-green btn-flat">Añadir</a>
+          <a (click)="addBurgerForModal(true,false)" class="modal-close waves-effect waves-green btn-flat">Añadir</a>
         </div>
       </div>
     </div>

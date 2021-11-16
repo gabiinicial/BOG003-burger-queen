@@ -25,6 +25,7 @@ export class WaiterViewComponent implements OnInit {
   arrayTypeBurger: any = [];
   arrayAdditions: any = [];
   showModalAdit: boolean = false;
+  stateBurger: boolean = false;
 
   constructor(private RestService: RestService) {}
 
@@ -112,21 +113,20 @@ export class WaiterViewComponent implements OnInit {
     newBurger.type = this.menuArray.burgerType;
     newBurger.additions = this.menuArray.additions;
     console.log('Aqui estoy burger ', newBurger.type);
-    newBurger.type.forEach((e: any) => {
-      arrayBurger = e.type;
-      this.arrayTypeBurger.push(e.type);
-      console.log("Tipos", e);
+    if (this.arrayTypeBurger.length < 1 && this.arrayAdditions.length < 1) {
+      newBurger.type.forEach((e: any) => {
+        arrayBurger = e.type;
+        this.arrayTypeBurger.push(e.type);
+        console.log('Tipos', e);
 
-
-      console.log('Entra foreache', this.arrayTypeBurger);
-    });
-    newBurger.additions.forEach((e: any) =>{
-     additions= e.type;
-     this.arrayAdditions.push(additions);
-     console.log("Entran adicionales", this.arrayAdditions);
-
-
-    })
+        console.log('Entra foreache', this.arrayTypeBurger);
+      });
+      newBurger.additions.forEach((e: any) => {
+        additions = e.type;
+        this.arrayAdditions.push(additions);
+        console.log('Entran adicionales', this.arrayAdditions);
+      });
+    }
   }
 
   showTypeBurger(event: any, eventAdd: any) {
