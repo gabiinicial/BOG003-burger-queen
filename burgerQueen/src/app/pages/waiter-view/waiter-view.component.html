@@ -1,4 +1,6 @@
-<app-header></app-header>
+<div>
+  <app-header></app-header>
+</div>
 <div class="row text-color">
   <div class="input-field col s6">
     <div class="input-name">
@@ -80,7 +82,7 @@
             <tbody>
               <tr *ngFor="let product of orderSumary; let i = index">
                 <td>{{ product.cantidad }}</td>
-                <td>{{ product.item.name }}{{product.burger.type}}</td>
+                <td>{{ product.item.name }}</td>
                 <td>
                   {{ product.item.price | multiplyPrice: product.cantidad }}
                 </td>
