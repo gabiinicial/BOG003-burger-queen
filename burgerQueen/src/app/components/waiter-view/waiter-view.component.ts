@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { burger } from 'src/app/classes/burgerType';
+import { Burger } from 'src/app/classes/burgerType';
 import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 import { Item } from 'src/app/classes/item';
@@ -18,7 +18,7 @@ export class WaiterViewComponent implements OnInit {
   clientName = '';
   tableNumber = '';
   orderSumary: OrderSumary[] = [];
-  typeBurger: burger[] = [];
+  typeBurger: Burger[] = [];
   showModal = false;
   statedMenu = 'breakfast';
   totalOrder: number = 0;
@@ -26,6 +26,7 @@ export class WaiterViewComponent implements OnInit {
   arrayAdditions: any = [];
   showModalAdit: boolean = false;
   stateBurger: boolean = false;
+  listenMyDish: Item[] = [];
 
   constructor(private RestService: RestService) {}
 
@@ -56,6 +57,10 @@ export class WaiterViewComponent implements OnInit {
 
   addProduct(itemR: Item) {
     let newOrderSumary = new OrderSumary();
+    if(itemR.subtype == "burger"){
+      newOrderSumary.burger.type = this.arrayTypeBurger;
+      newOrderSumary.burger.additions = this.arrayAdditions;
+    }
     newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
     this.showModalAdd(itemR);
@@ -108,8 +113,8 @@ export class WaiterViewComponent implements OnInit {
     this.totalPrice(event);
   }
 
-  showBurger(arrayBurger: any, additions: any) {
-    let newBurger = new burger();
+  showBurger(arrayBurger: any, additions: any){//revisar funcion para que tome adicionales
+    let newBurger = new Burger();
     newBurger.type = this.menuArray.burgerType;
     newBurger.additions = this.menuArray.additions;
     console.log('Aqui estoy burger ', newBurger.type);
@@ -117,7 +122,6 @@ export class WaiterViewComponent implements OnInit {
       newBurger.type.forEach((e: any) => {
         arrayBurger = e.type;
         this.arrayTypeBurger.push(e.type);
-        console.log('Tipos', e);
 
         console.log('Entra foreache', this.arrayTypeBurger);
       });
@@ -134,10 +138,19 @@ export class WaiterViewComponent implements OnInit {
 
     console.log('Aqui esta el evento', event);
   }
+  addSelectionBurger(event: any){
+         this.showResume(event);
+         this.showModalAdit = false;
+       console.log("este es event de addSelect", event);
+     }
 
   showModalAdd(item: Item) {
     if (item.subtype === 'burger') {
       this.showModalAdit = true;
     }
+  }
+  listenDish(event: any){
+  this.listenMyDish = event;
+
   }
 }

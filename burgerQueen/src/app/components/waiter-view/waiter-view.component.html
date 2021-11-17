@@ -49,7 +49,7 @@
     [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
     *ngFor="let dish of typeArrayMenu"
   >
-  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)" [showBurger]="arrayTypeBurger"  (showArrayType)=" showTypeBurger($event, $event)" (showModalAll)="showModalAdd($event)" ></app-card-menu>
+  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)" [showBurger]="arrayTypeBurger"  (showArrayType)=" showTypeBurger($event, $event)" (showModalAll)="showModalAdd($event)" (sendMyDish)="listenDish($event)"></app-card-menu>
   <!-- [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth" -->
   </div>
 </section>
@@ -80,7 +80,7 @@
             <tbody>
               <tr *ngFor="let product of orderSumary; let i = index">
                 <td>{{ product.cantidad }}</td>
-                <td>{{ product.item.name }}</td>
+                <td>{{ product.item.name }}{{product.burger.type}}</td>
                 <td>
                   {{ product.item.price | multiplyPrice: product.cantidad }}
                 </td>
@@ -98,7 +98,7 @@
         </div>
       </div>
       <div class="view-modal">
-        <app-modal *ngIf="showModalAdit" [stateModal]="showModal" [showArrayTypeBurger]="arrayTypeBurger" [showAdditions]="arrayAdditions" [isAddBurger]="stateBurger" ></app-modal>
+        <app-modal *ngIf="showModalAdit" [stateModal]="showModal" [showArrayTypeBurger]="arrayTypeBurger" [showAdditions]="arrayAdditions" [isAddBurger]="stateBurger" (addBurger)="addSelectionBurger($event)" [moveDish]="listenMyDish" ></app-modal>
       </div>
       <div  class="content-btn">
         <a class="waves-effect waves-light btn  modal-trigger "

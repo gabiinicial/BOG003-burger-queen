@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { burger } from 'src/app/classes/burgerType';
-import { Item } from 'src/app/classes/item';
 
 @Component({
   selector: 'app-modal',
@@ -8,6 +6,7 @@ import { Item } from 'src/app/classes/item';
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent implements OnInit {
+  @Input() moveDish: any;
   @Input() stateModal: boolean = true;
   @Input() showArrayTypeBurger: [] = [];
   @Input() showAdditions: [] = [];
@@ -26,7 +25,7 @@ export class ModalComponent implements OnInit {
     this.changeStateModal.emit(value);
   }
 
-  press(type: string) {
+  press(type: string) {//enviar estado de tipo de hamburguesa
     this.oppressedBtn = type;
     console.log('Estado ', this.oppressedBtn);
   }
@@ -35,7 +34,7 @@ export class ModalComponent implements OnInit {
     this.showElementsModal.emit(item);
   }
 
-  selectAdditions(addition: any) {
+  selectAdditions(addition: any) {//enviar estado de adicionales
     if (this.stateKeep.includes(addition)) {
       this.stateKeep.splice(this.stateKeep.indexOf(addition), 1);
     } else {
@@ -43,11 +42,10 @@ export class ModalComponent implements OnInit {
     }
     console.log('Verificación', this.stateKeep);
   }
-  addBurgerForModal(stateBurger: boolean , stateModal:boolean) {
-    this.isAddBurger = stateBurger ;
+  addBurgerForModal(ItemBurger: any, stateModal: boolean) {
+    this.isAddBurger = true;
     this.stateModal = stateModal;
-     this.addBurger.emit(this.isAddBurger);
-     console.log("este es addBurguerFor",stateBurger,stateModal );
-     
+    this.addBurger.emit(ItemBurger);
+    console.log('este es addBurguerFor', ItemBurger, stateModal);
   }
 }
