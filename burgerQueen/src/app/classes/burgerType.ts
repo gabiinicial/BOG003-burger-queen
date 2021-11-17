@@ -1,4 +1,4 @@
-export class burger{
+export class Burger{
     type: [] = [];
     additions: [] = []
 }

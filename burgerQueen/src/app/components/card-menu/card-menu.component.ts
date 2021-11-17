@@ -17,6 +17,7 @@ export class CardMenuComponent implements OnInit {
   @Output() acumulatorTotal = new EventEmitter<number>();
   @Output() showArrayType = new EventEmitter<[]>();
   @Output() showModalAll = new EventEmitter<Item>();
+  @Output() sendMyDish = new EventEmitter<Item>();
   value: number | undefined;
 
   constructor() {}
@@ -64,10 +65,7 @@ export class CardMenuComponent implements OnInit {
       this.totalOrder(myDish);
     }
   }
-  addSelectionBurger(event: any){
-    if(event == true){
-      this.addDish(this.myDish);
-    }
-    console.log("este es event de addSelect", event);
+  sendDish(item:any){
+    this.sendMyDish.emit(item);
   }
 }
