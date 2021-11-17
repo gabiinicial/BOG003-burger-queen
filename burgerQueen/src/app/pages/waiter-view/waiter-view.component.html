@@ -51,8 +51,17 @@
     [ngClass]="{ m6: screenWidth <= 800, m4: screenWidth > 800 }"
     *ngFor="let dish of typeArrayMenu"
   >
-  <app-card-menu [myDish]="dish" [screen]="screenWidth" [arrayDish]="orderSumary" (sendOrder)="showResume($event)" (acumulatorTotal)="acumulatorPrice($event)" [showBurger]="arrayTypeBurger"  (showArrayType)=" showTypeBurger($event, $event)" (showModalAll)="showModalAdd($event)" (sendMyDish)="listenDish($event)"></app-card-menu>
-  <!-- [addDish]="addProduct(dish)"[decrementNumber]="decrement(dish)" [screen]="screenWidth" -->
+    <app-card-menu
+      [myDish]="dish"
+      [screen]="screenWidth"
+      [arrayDish]="orderSumary"
+      (sendOrder)="showResume($event)"
+      (acumulatorTotal)="acumulatorPrice($event)"
+      [showBurger]="arrayTypeBurger"
+      (showArrayType)="showTypeBurger($event, $event)"
+      (showModalAll)="showModalAdd($event)"
+      (sendMyDish)="listenDish($event)"
+    ></app-card-menu>
   </div>
 </section>
 <div class="row">
@@ -82,7 +91,7 @@
             <tbody>
               <tr *ngFor="let product of orderSumary; let i = index">
                 <td>{{ product.cantidad }}</td>
-                <td>{{ product.item.name }}</td>
+                <td>{{ product.item.name }} {{product.burger.type}} {{product.burger.additions}}</td>
                 <td>
                   {{ product.item.price | multiplyPrice: product.cantidad }}
                 </td>
@@ -96,16 +105,14 @@
               </tr>
             </tbody>
           </table>
-          <p >Total:{{totalOrder}}</p>
+          <p>Total:{{ totalOrder }}</p>
         </div>
       </div>
-      <div class="view-modal">
-        <app-modal *ngIf="showModalAdit" [stateModal]="showModal" [showArrayTypeBurger]="arrayTypeBurger" [showAdditions]="arrayAdditions" [isAddBurger]="stateBurger" (addBurger)="addSelectionBurger($event)" [moveDish]="listenMyDish" ></app-modal>
-      </div>
-      <div  class="content-btn">
-        <a class="waves-effect waves-light btn  modal-trigger "
-          (click)="viewModal(true)"
-          >Enviar a cocina</a
+      <div class="content-btn">
+        <a
+        class="waves-effect waves-light btn modal-trigger"
+        (click)="viewModal(true)"
+        >Enviar a cocina</a
         >
       </div>
     </div>
@@ -113,3 +120,14 @@
 </div>
 <!-- Termina resumen del pedido -->
 
+<div class="view-modal">
+  <app-modal
+    *ngIf="showModalAdit"
+    [stateModal]="showModal"
+    [showArrayTypeBurger]="arrayTypeBurger"
+    [showAdditions]="arrayAdditions"
+    [isAddBurger]="stateBurger"
+    [moveDish]="listenMyDish"
+    (addBurger)="addSelectionBurger($event)"
+  ></app-modal>
+</div>

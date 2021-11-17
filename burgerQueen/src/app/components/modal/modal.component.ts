@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Item } from 'src/app/classes/item';
 
 @Component({
   selector: 'app-modal',
@@ -14,10 +15,13 @@ export class ModalComponent implements OnInit {
 
   @Output() changeStateModal = new EventEmitter<boolean>();
   @Output() showElementsModal = new EventEmitter<any>();
-  @Output() addBurger = new EventEmitter<boolean>();
+  @Output() addBurger = new EventEmitter<any>();
+
   oppressedBtn: string = '';
   stateKeep: any = [];
-  extras: any = ['Queso'];
+  // extras: any = [];
+  arrayItemBurger: any =[];
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -42,10 +46,14 @@ export class ModalComponent implements OnInit {
     }
     console.log('Verificación', this.stateKeep);
   }
+
   addBurgerForModal(ItemBurger: any, stateModal: boolean) {
     this.isAddBurger = true;
     this.stateModal = stateModal;
-    this.addBurger.emit(ItemBurger);
-    console.log('este es addBurguerFor', ItemBurger, stateModal);
+    this.arrayItemBurger.push(ItemBurger, this.oppressedBtn, this.stateKeep);
+    this.addBurger.emit(this.arrayItemBurger);
+
+
+    console.log('este es addBurguerFor', ItemBurger, stateModal, "Tipo de h ", this.oppressedBtn);
   }
 }
