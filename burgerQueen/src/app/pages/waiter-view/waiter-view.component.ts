@@ -9,6 +9,7 @@ import { Item } from 'src/app/classes/item';
   templateUrl: './waiter-view.component.html',
   styleUrls: ['./waiter-view.component.css'],
 })
+
 export class WaiterViewComponent implements OnInit {
   @Output() results = new EventEmitter<any>();
 
@@ -118,6 +119,7 @@ export class WaiterViewComponent implements OnInit {
     newBurger.type = this.menuArray.burgerType;
     newBurger.additions = this.menuArray.additions;
     console.log('Aqui estoy burger ', newBurger.type);
+
     if (this.arrayTypeBurger.length < 1 && this.arrayAdditions.length < 1) {
       newBurger.type.forEach((e: any) => {
         arrayBurger = e.type;
