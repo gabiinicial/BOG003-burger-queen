@@ -26,15 +26,15 @@ export class WaiterViewComponent implements OnInit {
   arrayTypeBurger: any = [];
   arrayAdditions: any = [];
   showModalAdit: boolean = false;
-  stateBurger: boolean = false;
+  stateBurger: boolean = false; // revisar
   listenMyDish: Item[] = [];
+  burgerSelected: any = [];
 
-  constructor(private RestService: RestService) {}
+  constructor(private RestService: RestService) { }
 
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth);
   }
 
   public cargarData() {
@@ -58,27 +58,37 @@ export class WaiterViewComponent implements OnInit {
 
   addProduct(itemR: Item) {
     let newOrderSumary = new OrderSumary();
-    if(itemR.subtype == "burger"){
-      newOrderSumary.burger.type = this.arrayTypeBurger;
-      newOrderSumary.burger.additions = this.arrayAdditions;
+
+    if (itemR.subtype == "burger") {
+      newOrderSumary.burger.type = this.burgerSelected[1]; // se asigna sabor
+      newOrderSumary.burger.additions = this.burgerSelected[2];
     }
     newOrderSumary.cantidad = 0;
     newOrderSumary.item = { ...itemR };
     this.showModalAdd(itemR);
 
-    if (!this.orderSumary.find((e) => e.item.name === itemR.name)) {
-      this.orderSumary.push(newOrderSumary);
+    if (!this.orderSumary.find((e) => e.item === newOrderSumary.item)) {
+      this.orderSumary.push(newOrderSumary); //Si no encuentra el nombre lo adiciona
+      
+      console.log("-----------------------",this.orderSumary);
+      
       this.orderSumary.forEach((e) => {
-        if (e.item.name == itemR.name) {
+        if (e == newOrderSumary) {
+          console.log("Somos iguales ",e, " : ", newOrderSumary);
+        }
+        if (e == newOrderSumary) {
           e.cantidad += e.item.count;
-          console.log('Añadir producto', e.cantidad);
         }
       });
-    } else {
+    } else { // Si ya existe el mismo nombre unicamente aumenta la cantidad 
       this.orderSumary.forEach((e) => {
         if (e.item.name == itemR.name) {
           e.item.count = 0;
           e.cantidad += itemR.count;
+        } else {
+          if (e.burger.type == newOrderSumary.burger.type) {
+            e.cantidad += itemR.count;
+          }
         }
       });
     }
@@ -94,7 +104,6 @@ export class WaiterViewComponent implements OnInit {
     if (!this.showModal) {
       this.showModal = state;
     }
-    console.log('Llamando', this.showModal);
   }
 
   totalPrice(arrayItem: any) {
@@ -103,7 +112,6 @@ export class WaiterViewComponent implements OnInit {
     arrayItem.forEach((e: any) => {
       this.totalOrder += e.item.price * e.cantidad;
     });
-    console.log('total price ', this.totalOrder);
   }
 
   showResume(event: any) {
@@ -114,45 +122,42 @@ export class WaiterViewComponent implements OnInit {
     this.totalPrice(event);
   }
 
-  showBurger(arrayBurger: any, additions: any){//revisar funcion para que tome adicionales
+  showBurger(arrayBurger: any, additions: any) {//revisar funcion para que tome adicionales
     let newBurger = new Burger();
     newBurger.type = this.menuArray.burgerType;
     newBurger.additions = this.menuArray.additions;
-    console.log('Aqui estoy burger ', newBurger.type);
 
     if (this.arrayTypeBurger.length < 1 && this.arrayAdditions.length < 1) {
       newBurger.type.forEach((e: any) => {
         arrayBurger = e.type;
         this.arrayTypeBurger.push(e.type);
 
-        console.log('Entra foreache', this.arrayTypeBurger);
       });
+
       newBurger.additions.forEach((e: any) => {
         additions = e.type;
         this.arrayAdditions.push(additions);
-        console.log('Entran adicionales', this.arrayAdditions);
       });
     }
   }
 
   showTypeBurger(event: any, eventAdd: any) {
     this.showBurger(event, eventAdd);
-
-    console.log('Aqui esta el evento', event);
   }
-  addSelectionBurger(event: any){
-         this.showResume(event);
-         this.showModalAdit = false;
-       console.log("este es event de addSelect", event);
-     }
+
+  addSelectionBurger(event: any) {
+    this.burgerSelected = event;
+    this.showResume(this.burgerSelected[0]);
+    this.showModalAdit = false;
+  }
 
   showModalAdd(item: Item) {
     if (item.subtype === 'burger') {
       this.showModalAdit = true;
     }
   }
-  listenDish(event: any){
-  this.listenMyDish = event;
 
+  listenDish(event: any) {
+    this.listenMyDish = event;
   }
 }
