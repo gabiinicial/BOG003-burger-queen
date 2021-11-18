@@ -56,13 +56,13 @@ export class CardMenuComponent implements OnInit {
   }
 
   addFunctionByType(myDish: any) {
+    this.totalOrder(myDish);
     if (myDish.subtype == 'burger') {
       this.showTypeMenuBurger(this.showBurger, this.showAdditions);
       this.showModalAll.emit(myDish);
       this.showArrayType.emit(myDish);
     } else {
       this.addDish(myDish);
-      this.totalOrder(myDish);
     }
   }
   sendDish(item:any){

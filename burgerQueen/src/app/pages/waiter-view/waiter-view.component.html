@@ -93,7 +93,7 @@
                 <td>{{ product.cantidad }}</td>
                 <td>{{ product.item.name }} {{product.burger.type}} {{product.burger.additions}}</td>
                 <td>
-                  {{ product.item.price | multiplyPrice: product.cantidad }}
+                 $ {{ product.item.price | multiplyPrice: product.cantidad }}
                 </td>
                 <td>
                   <i
@@ -105,7 +105,7 @@
               </tr>
             </tbody>
           </table>
-          <p>Total:{{ totalOrder }}</p>
+          <p>Total: $ {{ totalOrder }}</p>
         </div>
       </div>
       <div class="content-btn">
