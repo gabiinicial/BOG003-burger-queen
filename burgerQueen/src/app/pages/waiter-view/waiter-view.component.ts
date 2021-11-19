@@ -67,31 +67,43 @@ export class WaiterViewComponent implements OnInit {
       newOrderSumary.burger.additions = this.burgerSelected[2];
     }
 
-    let itemInOrden: any = this.orderSumary.find((e) => e.item.name === itemR.name);
-    console.log("Prueba de itemInOrden", itemInOrden );
+    let itemInOrden: any = [];
 
-    if (itemInOrden) { // modificar y hacer otro find(hamburguesa) y otro para el resto de productos
+    if (itemR.subtype == 'burger') {
+      itemInOrden = this.orderSumary.find((e) => e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type  &&
+      JSON.stringify(e.burger.additions.sort()) ==
+        JSON.stringify(newOrderSumary.burger.additions.sort()));
+      console.log('Prueba de itemInOrden', itemInOrden);
+    }else{
+      itemInOrden = this.orderSumary.find((e) => e.item.name === itemR.name);
+    }
 
+    if (itemInOrden) {
+      // modificar y hacer otro find(hamburguesa) y otro para el resto de productos
       if (itemR.subtype === 'burger') {
         if (
-          itemInOrden.burger.type === newOrderSumary.burger.type /* &&
+          itemInOrden.burger.type === newOrderSumary.burger.type  &&
           JSON.stringify(itemInOrden.burger.additions.sort()) ==
-            JSON.stringify(newOrderSumary.burger.additions.sort()) */
+            JSON.stringify(newOrderSumary.burger.additions.sort())
         ) {
-          console.log("PRuebas de pruebas", itemInOrden.burger.type, newOrderSumary.burger.type);
+          console.log(
+            'PRuebas de pruebas',
+            itemInOrden.burger.type,
+            newOrderSumary.burger.type
+          );
 
           this.orderSumary.forEach((e) => {
-            if (e.burger.type === newOrderSumary.burger.type) {
+            if (e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type  &&
+              JSON.stringify(e.burger.additions.sort()) ==
+                JSON.stringify(newOrderSumary.burger.additions.sort())) {
               e.item.count = 0;
-              //e.item.price = 1;
               e.cantidad += itemR.count;
-              console.log("------",e, newOrderSumary);
+              console.log('------', e, newOrderSumary);
             }
-
           });
-        } else /* if (!this.orderSumary.find((e) => e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type)) */ {
+        } /* if (!this.orderSumary.find((e) => e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type)) */ else {
           this.orderSumary.push(newOrderSumary);
-          console.log("nuevo elemento hamburguesa" );
+          console.log('nuevo elemento hamburguesa');
         }
       } else {
         this.orderSumary.forEach((e) => {
@@ -103,10 +115,9 @@ export class WaiterViewComponent implements OnInit {
       }
     } else {
       this.orderSumary.push(newOrderSumary);
-      console.log("nuevo elemento" );
-
+      console.log('nuevo elemento');
     }
-    //this.totalPrice(this.orderSumary)
+    this.totalPrice(this.orderSumary)
   }
 
   deleteProduct(itemDelete: any) {
@@ -122,7 +133,7 @@ export class WaiterViewComponent implements OnInit {
 
   totalPrice(arrayItem: any) {
     this.totalOrder = 0;
-    arrayItem = this.orderSumary;
+     arrayItem = this.orderSumary;
     arrayItem.forEach((e: any) => {
       this.totalOrder += e.item.price * e.cantidad;
     });
@@ -161,10 +172,17 @@ export class WaiterViewComponent implements OnInit {
   }
 
   addSelectionBurger(event: any) {
-    this.burgerSelected= [];
+    this.burgerSelected = [];
     this.burgerSelected = event;
-    this.showResume(this.burgerSelected[0]);
-    this.showModalAdit = false;
+    if(this.burgerSelected[1] !== ''){
+      this.showResume(this.burgerSelected[0]);
+      this.showModalAdit = false;
+      console.log("estado de la modal",this.showModalAdit);
+      
+    }else{
+      console.log( "Este esta vacio",this.showModalAdit );
+    }
+    console.log(this.burgerSelected[1]);
   }
 
   showModalAdd(item: Item) {
