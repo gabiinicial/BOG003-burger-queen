@@ -108,10 +108,10 @@
           <p>Total: $ {{ totalOrder }}</p>
         </div>
       </div>
-      <div *ngIf="orderSumary.length >= 1 && clientName !== '' && tableNumber !== '' "  class="content-btn">
-        <a
+      <div *ngIf="orderSumary.length >= 1"  class="content-btn">
+        <a 
         class="waves-effect waves-light btn modal-trigger"
-        (click)="viewModal(true)"
+        (click)="message()"
         >Enviar a cocina</a
 
         >
@@ -132,12 +132,11 @@
   ></app-modal>
 </div>
 
-<div>
+<div [ngClass]="{'container-modal-comfirmation': showModal }">
   <app-modal-confirmation
   *ngIf="showModal"
   [stateModal]="showModal"
   (changeStateModal)="viewModal($event)"
   >
-
-  </app-modal-confirmation>
+</app-modal-confirmation>
 </div>

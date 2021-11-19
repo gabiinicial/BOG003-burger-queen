@@ -32,20 +32,21 @@
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.css",
               "src/scss/styles.scss"
-          ],
-          "stylePreprocessorOptions": {
-            "includePaths": [
-              "node_modules/materialize-css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/materialize-css"
+              ]
+            },
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/hammerjs/hammer.js",
+              "node_modules/materialize-css/dist/js/materialize.js"
             ]
-          },
-          "scripts":[
-
-          ]
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
@@ -56,12 +57,10 @@
                   "maximumError": "4kb"
                 }
               ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "outputHashing": "all"
             },
             "development": {
