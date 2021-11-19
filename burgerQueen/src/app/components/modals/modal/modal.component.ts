@@ -8,12 +8,12 @@ import { Item } from 'src/app/classes/item';
 })
 export class ModalComponent implements OnInit {
   @Input() moveDish: any;
-  @Input() stateModal: boolean = true;
+
   @Input() showArrayTypeBurger: [] = [];
   @Input() showAdditions: [] = [];
   @Input() isAddBurger: boolean = false;
 
-  @Output() changeStateModal = new EventEmitter<boolean>();
+
   @Output() showElementsModal = new EventEmitter<any>();
   @Output() addBurger = new EventEmitter<any>();
 
@@ -21,15 +21,15 @@ export class ModalComponent implements OnInit {
   stateKeep: any = [];
   // extras: any = [];
   arrayItemBurger: any =[];
+  stateModalBurger: Boolean = false;
+
 
   constructor() {}
 
   ngOnInit(): void {}
-  changeState(value: boolean) {
-    this.changeStateModal.emit(value);
-  }
 
-  press(type: string) {//enviar estado de tipo de hamburguesa
+  press(type: string, showBtn: boolean) {//enviar estado de tipo de hamburguesa
+   this.stateModalBurger = showBtn;
     this.oppressedBtn = type;
     console.log('Estado ', this.oppressedBtn);
   }
@@ -47,13 +47,10 @@ export class ModalComponent implements OnInit {
     console.log('Verificación', this.stateKeep);
   }
 
-  addBurgerForModal(ItemBurger: any, stateModal: boolean) {
-    // this.isAddBurger = true;
-  //  this.stateModal = stateModal;
+  addBurgerForModal(ItemBurger: any) {
+
     this.arrayItemBurger.push(ItemBurger, this.oppressedBtn, this.stateKeep);
     this.addBurger.emit(this.arrayItemBurger);
-
-
-    console.log('este es addBurguerFor', stateModal);
   }
+
 }

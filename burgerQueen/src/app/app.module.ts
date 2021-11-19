@@ -12,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
 import { CardMenuComponent } from './components/card-menu/card-menu.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { ModalComponent } from './components/modals/modal/modal.component';
+import { ModalConfirmationComponent } from './components/modals/modal-confirmation/modal-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalComponent } from './components/modal/modal.component';
     HeaderComponent,
     MultiplyPricePipe,
     CardMenuComponent,
-    ModalComponent
+    ModalComponent,
+    ModalConfirmationComponent
   ],
   imports: [
     BrowserModule,

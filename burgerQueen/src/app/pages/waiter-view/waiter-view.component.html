@@ -108,26 +108,36 @@
           <p>Total: $ {{ totalOrder }}</p>
         </div>
       </div>
-      <div class="content-btn">
+      <div *ngIf="orderSumary.length >= 1 && clientName !== '' && tableNumber !== '' "  class="content-btn">
         <a
         class="waves-effect waves-light btn modal-trigger"
         (click)="viewModal(true)"
         >Enviar a cocina</a
+
         >
       </div>
     </div>
   </div>
 </div>
 <!-- Termina resumen del pedido -->
-
+ <!--  -->
 <div class="view-modal">
   <app-modal
     *ngIf="showModalAdit"
-    [stateModal]="showModal"
     [showArrayTypeBurger]="arrayTypeBurger"
     [showAdditions]="arrayAdditions"
     [isAddBurger]="stateBurger"
     [moveDish]="listenMyDish"
     (addBurger)="addSelectionBurger($event)"
   ></app-modal>
+</div>
+
+<div>
+  <app-modal-confirmation
+  *ngIf="showModal"
+  [stateModal]="showModal"
+  (changeStateModal)="viewModal($event)"
+  >
+
+  </app-modal-confirmation>
 </div>

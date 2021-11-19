@@ -1,0 +1,15 @@
+<!-- Modal Structure -->
+<div *ngIf="stateModal" class="modal-confirmation">
+  <div class="modal-content">
+    <h5 class="title-modal">Confirmación</h5>
+    <p>¿Esta seguro de enviar orden a la cocina?</p>
+  </div>
+  <div class="content-btn-modal">
+    <div class="modal-footer btn-firts">
+      <a (click)="changeState(false)" class="modal-close waves-effect waves-green btn-flat">No</a>
+    </div>
+    <div class="modal-footer btn-second">
+      <a routerLink="/in-process" class="modal-close waves-effect waves-green btn-flat">Si</a>
+    </div>
+  </div>
+</div>

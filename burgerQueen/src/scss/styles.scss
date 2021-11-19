@@ -159,7 +159,7 @@ input:not([type]), input[type="text"]:not(.browser-default){
 
 input::after{
   content: '';
-  background-color: rgba(136, 129, 129, 0.226) !important; 
+  background-color: rgba(136, 129, 129, 0.226) !important;
   border-bottom: 3px solid chartreuse !important;
 }
 

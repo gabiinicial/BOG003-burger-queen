@@ -1,19 +1,5 @@
-<!-- Modal Structure -->
-<div *ngIf="stateModal" class="modal-confirmation">
-  <div class="modal-content">
-    <h5 class="title-modal">Confirmación</h5>
-    <p>¿Esta seguro de enviar orden a la cocina?</p>
-  </div>
-  <div class="content-btn-modal">
-    <div class="modal-footer btn-firts">
-      <a (click)="changeState(false)" class="modal-close waves-effect waves-green btn-flat">No</a>
-    </div>
-    <div class="modal-footer btn-second">
-      <a routerLink="/in-process" class="modal-close waves-effect waves-green btn-flat">Si</a>
-    </div>
-  </div>
-</div>
 
+<!-- Modal de tipo y adiciones-->
 <section class="content-modal-burger" >
   <div class="modal-burger">
     <div>
@@ -21,7 +7,7 @@
         <h5>Selecciona la Hamburguesa</h5>
         <div class="content-btn-burger">
         <div *ngFor="let type of showArrayTypeBurger"  class="btn-burger">
-          <div  (click)="press(type); elementModal(type)" [ngClass]="{'btn-burger-active' :oppressedBtn == type}" class="modal-footer btn-burger">
+          <div  (click)="press(type, true); elementModal(type)" [ngClass]="{'btn-burger-active' :oppressedBtn == type}" class="modal-footer btn-burger">
             <a class="modal-close waves-effect waves-green btn-flat" > {{type}}</a>
           </div>
         </div>
@@ -37,8 +23,8 @@
         </div>
       </div>
       <div class="content-btn-add">
-        <div class="modal-footer btn-burger" >
-          <a (click)="addBurgerForModal(moveDish, false)" class="modal-close waves-effect waves-green btn-flat">Añadir</a>
+        <div *ngIf="stateModalBurger" class="modal-footer btn-burger" >
+          <a (click)="addBurgerForModal(moveDish)" class="modal-close waves-effect waves-green btn-flat">Añadir</a>
         </div>
       </div>
     </div>

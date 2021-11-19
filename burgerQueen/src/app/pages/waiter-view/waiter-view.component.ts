@@ -29,6 +29,8 @@ export class WaiterViewComponent implements OnInit {
   listenMyDish: Item[] = [];
   burgerSelected: any = [];
 
+
+
   constructor(private RestService: RestService) {}
 
   ngOnInit(): void {
@@ -126,9 +128,10 @@ export class WaiterViewComponent implements OnInit {
   }
 
   viewModal(state: boolean) {
-    if (!this.showModal) {
-      this.showModal = state;
-    }
+    // if (!this.showModal) {
+    // }
+    this.showModal = state;
+
   }
 
   totalPrice(arrayItem: any) {
@@ -178,7 +181,7 @@ export class WaiterViewComponent implements OnInit {
       this.showResume(this.burgerSelected[0]);
       this.showModalAdit = false;
       console.log("estado de la modal",this.showModalAdit);
-      
+
     }else{
       console.log( "Este esta vacio",this.showModalAdit );
     }
@@ -194,4 +197,8 @@ export class WaiterViewComponent implements OnInit {
   listenDish(event: any) {
     this.listenMyDish = event;
   }
+
+  // showModalConfirmation(event : any){7
+
+  // }
 }
