@@ -291,12 +291,35 @@ input::after{
 }
 
 .modal-confirmation{
+  position: relative;
   padding-top: 15px;
-  width: 250px;
+  width: 500px;
+  height: 225px;
+  min-width: 200px;
   z-index: 4;
+  top: 250px;
   background-color: white;
   border-radius: 35px;
   text-align: center;
+}
+.container-modal-comfirmation{
+   position: fixed;
+   //transform: translate(0%,-100%);
+  z-index: 4;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  width: 100%;
+  height: 100%;
+  overflow: none;
+  font-family: $font;
+  font-weight: bold;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  & p {
+    margin-top: 20px;
+    font-size: 20px;
+  }
 }
 
 .content-btn-modal{
@@ -307,6 +330,7 @@ input::after{
 
 .content-btn-modal{
   border-top: 1px solid $gray-line;
+  margin-top: 75px;
 }
 
 .content-btn-modal div:nth-child(odd){
@@ -329,7 +353,6 @@ input::after{
 }
 
 .title-modal{
-  font-size: medium;
   font-weight: bolder;
   text-align: center;
 }
@@ -415,4 +438,11 @@ input::after{
   width: 100%;
   top: -1000px;
 }
-
+/*estilo de mensaje*/
+.color-message{
+  background-color: rgba(255, 0, 0, 0.527);
+  border-radius: 20px;
+  width: 300px;
+  font-weight: bold;
+  font-family: $font;
+}

@@ -3,7 +3,7 @@ import { Burger } from 'src/app/classes/burgerType';
 import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 import { Item } from 'src/app/classes/item';
-
+import * as M from 'materialize-css';
 @Component({
   selector: 'app-waiter-view',
   templateUrl: './waiter-view.component.html',
@@ -28,16 +28,17 @@ export class WaiterViewComponent implements OnInit {
   stateBurger: boolean = false; // revisar
   listenMyDish: Item[] = [];
   burgerSelected: any = [];
+  messageAlert:any = "";
 
 
 
   constructor(private RestService: RestService) {}
-
+  
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
   }
-
+  
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -56,6 +57,15 @@ export class WaiterViewComponent implements OnInit {
       (dish: { type: string }) => dish.type === this.statedMenu
     );
   }
+message(){
+  if(this.clientName === '' ){
+  this.messageAlert=  M.toast({html: "ingresa nombre de cliente" ,classes: 'color-message'});
+  }else if(this.tableNumber === ''){
+    this.messageAlert=  M.toast({html: "ingresa número de mesa" ,classes: 'color-message'});
+  }else{
+    this.viewModal(true);
+  }
+}
 
   addProduct(itemR: any) {
     // 1° construir el elemento ordenSumary
