@@ -48,12 +48,12 @@ export class ModalComponent implements OnInit {
   }
 
   addBurgerForModal(ItemBurger: any, stateModal: boolean) {
-    this.isAddBurger = true;
-    this.stateModal = stateModal;
+    // this.isAddBurger = true;
+  //  this.stateModal = stateModal;
     this.arrayItemBurger.push(ItemBurger, this.oppressedBtn, this.stateKeep);
     this.addBurger.emit(this.arrayItemBurger);
 
 
-    console.log('este es addBurguerFor', ItemBurger, stateModal, "Tipo de h ", this.oppressedBtn);
+    console.log('este es addBurguerFor', stateModal);
   }
 }
