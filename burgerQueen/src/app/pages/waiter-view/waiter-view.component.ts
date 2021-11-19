@@ -67,23 +67,31 @@ export class WaiterViewComponent implements OnInit {
       newOrderSumary.burger.additions = this.burgerSelected[2];
     }
 
-    let itemInOrden = this.orderSumary.find((e) => e.item.name === itemR.name);
-    if (itemInOrden) {
-      if (itemR.subtype == 'burger') {
+    let itemInOrden: any = this.orderSumary.find((e) => e.item.name === itemR.name);
+    console.log("Prueba de itemInOrden", itemInOrden );
+
+    if (itemInOrden) { // modificar y hacer otro find(hamburguesa) y otro para el resto de productos
+
+      if (itemR.subtype === 'burger') {
         if (
-          itemInOrden.burger.type == this.burgerSelected[1] &&
+          itemInOrden.burger.type === newOrderSumary.burger.type /* &&
           JSON.stringify(itemInOrden.burger.additions.sort()) ==
-            JSON.stringify(this.burgerSelected[2].sort())
+            JSON.stringify(newOrderSumary.burger.additions.sort()) */
         ) {
+          console.log("PRuebas de pruebas", itemInOrden.burger.type, newOrderSumary.burger.type);
+
           this.orderSumary.forEach((e) => {
-            if (e.item.name == itemR.name) {
+            if (e.burger.type === newOrderSumary.burger.type) {
               e.item.count = 0;
               //e.item.price = 1;
               e.cantidad += itemR.count;
+              console.log("------",e, newOrderSumary);
             }
+
           });
-        } else {
+        } else /* if (!this.orderSumary.find((e) => e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type)) */ {
           this.orderSumary.push(newOrderSumary);
+          console.log("nuevo elemento hamburguesa" );
         }
       } else {
         this.orderSumary.forEach((e) => {
@@ -95,8 +103,10 @@ export class WaiterViewComponent implements OnInit {
       }
     } else {
       this.orderSumary.push(newOrderSumary);
+      console.log("nuevo elemento" );
+
     }
-    this.totalPrice(this.orderSumary)
+    //this.totalPrice(this.orderSumary)
   }
 
   deleteProduct(itemDelete: any) {
@@ -112,7 +122,7 @@ export class WaiterViewComponent implements OnInit {
 
   totalPrice(arrayItem: any) {
     this.totalOrder = 0;
-    //arrayItem = this.orderSumary;
+    arrayItem = this.orderSumary;
     arrayItem.forEach((e: any) => {
       this.totalOrder += e.item.price * e.cantidad;
     });
@@ -151,6 +161,7 @@ export class WaiterViewComponent implements OnInit {
   }
 
   addSelectionBurger(event: any) {
+    this.burgerSelected= [];
     this.burgerSelected = event;
     this.showResume(this.burgerSelected[0]);
     this.showModalAdit = false;
