@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class AppComponent {
   title = 'burgerQueen';
+  items: Observable<any[]> | undefined;
 
-  constructor(
-    private route: ActivatedRoute,
-  ) {}
+  constructor(private route: ActivatedRoute, firestore: AngularFirestore,) {
+    this.items = firestore.collection('items').valueChanges();
+  }
+
   ngOnInit() {  
   }
 

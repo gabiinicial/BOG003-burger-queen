@@ -4,6 +4,8 @@ import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 import { Item } from 'src/app/classes/item';
 import * as M from 'materialize-css';
+import { IOrder } from 'src/app/interfaces/pedido.interface';
+import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 @Component({
   selector: 'app-waiter-view',
   templateUrl: './waiter-view.component.html',
@@ -30,9 +32,15 @@ export class WaiterViewComponent implements OnInit {
   burgerSelected: any = [];
   messageAlert:any = "";
 
+  order:IOrder = {
+    nameClient: '',
+    table: '',
+    nameProduct: '',
+    price: 0,
+    count: 0
+  }
 
-
-  constructor(private RestService: RestService) {}
+  constructor(private RestService: RestService, private firebaseService: firebaseFunctionsService) {}
   
   ngOnInit(): void {
     this.cargarData();
@@ -57,15 +65,16 @@ export class WaiterViewComponent implements OnInit {
       (dish: { type: string }) => dish.type === this.statedMenu
     );
   }
-message(){
-  if(this.clientName === '' ){
-  this.messageAlert=  M.toast({html: "ingresa nombre de cliente" ,classes: 'color-message'});
-  }else if(this.tableNumber === ''){
-    this.messageAlert=  M.toast({html: "ingresa número de mesa" ,classes: 'color-message'});
-  }else{
-    this.viewModal(true);
+
+  message(){
+    if(this.clientName === '' ){
+    this.messageAlert=  M.toast({html: "ingresa nombre de cliente" ,classes: 'color-message'});
+    }else if(this.tableNumber === ''){
+      this.messageAlert=  M.toast({html: "ingresa número de mesa" ,classes: 'color-message'});
+    }else{
+      this.viewModal(true);
+    }
   }
-}
 
   addProduct(itemR: any) {
     // 1° construir el elemento ordenSumary
@@ -129,7 +138,7 @@ message(){
       this.orderSumary.push(newOrderSumary);
       console.log('nuevo elemento');
     }
-    this.totalPrice(this.orderSumary)
+    this.totalPrice(this.orderSumary);
   }
 
   deleteProduct(itemDelete: any) {
@@ -138,10 +147,8 @@ message(){
   }
 
   viewModal(state: boolean) {
-    // if (!this.showModal) {
-    // }
     this.showModal = state;
-
+    this.addOrderToFirebase(); // prueba
   }
 
   totalPrice(arrayItem: any) {
@@ -208,7 +215,14 @@ message(){
     this.listenMyDish = event;
   }
 
-  // showModalConfirmation(event : any){7
-
-  // }
+  addOrderToFirebase(){
+    this.orderSumary.forEach((e) =>{
+      this.order.nameClient = this.clientName,
+      this.order.table = this.tableNumber,
+      this.order.nameProduct = e.item.name,
+      this.order.price = e.item.price,
+      this.order.count = e.cantidad
+      this.firebaseService.addOrder(this.order);
+    })
+  }
 }
