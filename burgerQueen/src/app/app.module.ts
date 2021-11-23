@@ -13,6 +13,11 @@ import { MultiplyPricePipe } from './pipes/multiply-price.pipe';
 import { CardMenuComponent } from './components/card-menu/card-menu.component';
 import { ModalComponent } from './components/modals/modal/modal.component';
 import { ModalConfirmationComponent } from './components/modals/modal-confirmation/modal-confirmation.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -27,13 +32,19 @@ import { ModalConfirmationComponent } from './components/modals/modal-confirmati
     ModalComponent,
     ModalConfirmationComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore())
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
