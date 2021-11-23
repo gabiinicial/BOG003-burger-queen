@@ -6,6 +6,10 @@ import { Item } from 'src/app/classes/item';
 import * as M from 'materialize-css';
 import { IOrder } from 'src/app/interfaces/pedido.interface';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
+import { Product } from 'src/app/classes/orderProduct';
+import { Order } from 'src/app/classes/order';
+//import { IProduct } from 'src/app/interfaces/product.interface';
+
 @Component({
   selector: 'app-waiter-view',
   templateUrl: './waiter-view.component.html',
@@ -30,23 +34,33 @@ export class WaiterViewComponent implements OnInit {
   stateBurger: boolean = false; // revisar
   listenMyDish: Item[] = [];
   burgerSelected: any = [];
-  messageAlert:any = "";
+  messageAlert: any = '';
+  // products: IProduct = {
+  //   nameProduct: '',
+  //   price: 0,
+  //   count: 0,
+  // };
 
-  order:IOrder = {
+  products: Product[] = [];
+  order: Order[] = [];
+
+  /*   order:IOrder = {
     nameClient: '',
     table: '',
-    nameProduct: '',
-    price: 0,
-    count: 0
-  }
 
-  constructor(private RestService: RestService, private firebaseService: firebaseFunctionsService) {}
-  
+  }
+ */
+
+  constructor(
+    private RestService: RestService,
+    private firebaseService: firebaseFunctionsService
+  ) {}
+
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
   }
-  
+
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
       (res) => {
@@ -66,12 +80,18 @@ export class WaiterViewComponent implements OnInit {
     );
   }
 
-  message(){
-    if(this.clientName === '' ){
-    this.messageAlert=  M.toast({html: "ingresa nombre de cliente" ,classes: 'color-message'});
-    }else if(this.tableNumber === ''){
-      this.messageAlert=  M.toast({html: "ingresa número de mesa" ,classes: 'color-message'});
-    }else{
+  message() {
+    if (this.clientName === '') {
+      this.messageAlert = M.toast({
+        html: 'ingresa nombre de cliente',
+        classes: 'color-message',
+      });
+    } else if (this.tableNumber === '') {
+      this.messageAlert = M.toast({
+        html: 'ingresa número de mesa',
+        classes: 'color-message',
+      });
+    } else {
       this.viewModal(true);
     }
   }
@@ -91,11 +111,15 @@ export class WaiterViewComponent implements OnInit {
     let itemInOrden: any = [];
 
     if (itemR.subtype == 'burger') {
-      itemInOrden = this.orderSumary.find((e) => e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type  &&
-      JSON.stringify(e.burger.additions.sort()) ==
-        JSON.stringify(newOrderSumary.burger.additions.sort()));
+      itemInOrden = this.orderSumary.find(
+        (e) =>
+          e.item.name === itemR.name &&
+          e.burger.type === newOrderSumary.burger.type &&
+          JSON.stringify(e.burger.additions.sort()) ==
+            JSON.stringify(newOrderSumary.burger.additions.sort())
+      );
       console.log('Prueba de itemInOrden', itemInOrden);
-    }else{
+    } else {
       itemInOrden = this.orderSumary.find((e) => e.item.name === itemR.name);
     }
 
@@ -103,7 +127,7 @@ export class WaiterViewComponent implements OnInit {
       // modificar y hacer otro find(hamburguesa) y otro para el resto de productos
       if (itemR.subtype === 'burger') {
         if (
-          itemInOrden.burger.type === newOrderSumary.burger.type  &&
+          itemInOrden.burger.type === newOrderSumary.burger.type &&
           JSON.stringify(itemInOrden.burger.additions.sort()) ==
             JSON.stringify(newOrderSumary.burger.additions.sort())
         ) {
@@ -114,9 +138,12 @@ export class WaiterViewComponent implements OnInit {
           );
 
           this.orderSumary.forEach((e) => {
-            if (e.item.name === itemR.name &&  e.burger.type === newOrderSumary.burger.type  &&
+            if (
+              e.item.name === itemR.name &&
+              e.burger.type === newOrderSumary.burger.type &&
               JSON.stringify(e.burger.additions.sort()) ==
-                JSON.stringify(newOrderSumary.burger.additions.sort())) {
+                JSON.stringify(newOrderSumary.burger.additions.sort())
+            ) {
               e.item.count = 0;
               e.cantidad += itemR.count;
               console.log('------', e, newOrderSumary);
@@ -153,7 +180,7 @@ export class WaiterViewComponent implements OnInit {
 
   totalPrice(arrayItem: any) {
     this.totalOrder = 0;
-     arrayItem = this.orderSumary;
+    arrayItem = this.orderSumary;
     arrayItem.forEach((e: any) => {
       this.totalOrder += e.item.price * e.cantidad;
     });
@@ -181,6 +208,7 @@ export class WaiterViewComponent implements OnInit {
       });
 
       newBurger.additions.forEach((e: any) => {
+        8;
         additions = e.type;
         this.arrayAdditions.push(additions);
       });
@@ -194,13 +222,12 @@ export class WaiterViewComponent implements OnInit {
   addSelectionBurger(event: any) {
     this.burgerSelected = [];
     this.burgerSelected = event;
-    if(this.burgerSelected[1] !== ''){
+    if (this.burgerSelected[1] !== '') {
       this.showResume(this.burgerSelected[0]);
       this.showModalAdit = false;
-      console.log("estado de la modal",this.showModalAdit);
-
-    }else{
-      console.log( "Este esta vacio",this.showModalAdit );
+      console.log('estado de la modal', this.showModalAdit);
+    } else {
+      console.log('Este esta vacio', this.showModalAdit);
     }
     console.log(this.burgerSelected[1]);
   }
@@ -215,14 +242,27 @@ export class WaiterViewComponent implements OnInit {
     this.listenMyDish = event;
   }
 
-  addOrderToFirebase(){
-    this.orderSumary.forEach((e) =>{
-      this.order.nameClient = this.clientName,
-      this.order.table = this.tableNumber,
-      this.order.nameProduct = e.item.name,
-      this.order.price = e.item.price,
-      this.order.count = e.cantidad
-      this.firebaseService.addOrder(this.order);
-    })
+  addOrderToFirebase() {
+    let newOrder = new Order();
+    (newOrder.nameClient = this.clientName),
+      (newOrder.table = this.tableNumber),
+      (newOrder.creationTime = new Date(Date.now())),
+      this.orderSumary.forEach((e) => {
+        let newProducts = new Product();
+        newProducts.nameProduct =
+          e.item.subtype === 'burger'
+            ? '' +
+              e.item.name +
+              ' ' +
+              e.burger.type +
+              ' ' +
+              e.burger.additions.sort() +
+              ''
+            : e.item.name;
+        newProducts.price = e.item.price * e.cantidad;
+        newProducts.count = e.cantidad;
+        newOrder.products.push(newProducts);
+      });
+    this.firebaseService.addOrder(newOrder);
   }
 }

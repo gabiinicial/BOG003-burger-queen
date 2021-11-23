@@ -1,30 +1,45 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Order } from '../classes/order';
+import { Product } from '../classes/orderProduct';
 import { IOrder } from '../interfaces/pedido.interface';
+import { doc, onSnapshot } from "firebase/firestore";
+import { Observable } from 'rxjs';
+
 
 @Injectable({
-  providedIn: 'root'
-})
+  providedIn: 'root',
+  })
 
 export class firebaseFunctionsService {
 
-  constructor(private db: AngularFirestore) { }
+  order: Order[] = [];
+  product: Product[] = [];
+  getOrders$: Observable<any[]> | undefined;
 
-  addOrder(order:IOrder){
-      this.db.collection('order').doc().set({
-          "nameClient": order.nameClient,
-          "table": order.table,
-          "nameProduct": order.nameProduct,
-          "price": order.price,
-          "count": order.count,
+  constructor(private db: AngularFirestore) {}
+
+  addOrder(order: Order) {
+    this.db
+      .collection('order')
+      .doc()
+      .set({
+        nameClient: order.nameClient,
+        table: order.table,
+        date: order.creationTime,
+        products: order.products.map((element) =>  element.toFirebase())
       })
       .then((res) => {
-          console.log(res);
+        console.log(res);
       })
-      .catch((err) =>{
-          console.log("No se pudo realizar la inserción", err);
-      })
+      .catch((err) => {
+        console.log('No se pudo realizar la inserción', err);
+      });
   }
 
+  getData(){
+    this.getOrders$ = this.db.collection('order').valueChanges();
+    return this.getOrders$
 
+  }
 }
