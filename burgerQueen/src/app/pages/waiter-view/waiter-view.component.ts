@@ -8,6 +8,8 @@ import { IOrder } from 'src/app/interfaces/pedido.interface';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { Product } from 'src/app/classes/orderProduct';
 import { Order } from 'src/app/classes/order';
+import { getDataFirestore } from 'src/app/services/get-data-Firestore';
+import { Subscription } from 'rxjs';
 //import { IProduct } from 'src/app/interfaces/product.interface';
 
 @Component({
@@ -16,8 +18,6 @@ import { Order } from 'src/app/classes/order';
   styleUrls: ['./waiter-view.component.css'],
 })
 export class WaiterViewComponent implements OnInit {
-  @Output() results = new EventEmitter<any>();
-
   public screenWidth: any;
   public menuArray: any = [];
   typeArrayMenu: any = [];
@@ -35,31 +35,26 @@ export class WaiterViewComponent implements OnInit {
   listenMyDish: Item[] = [];
   burgerSelected: any = [];
   messageAlert: any = '';
-  // products: IProduct = {
-  //   nameProduct: '',
-  //   price: 0,
-  //   count: 0,
-  // };
-
+  getSubscription: Subscription | undefined;
   products: Product[] = [];
   order: Order[] = [];
+  getDataActive: any | undefined;
 
-  /*   order:IOrder = {
-    nameClient: '',
-    table: '',
-
-  }
- */
-
-  constructor(
-    private RestService: RestService,
-    private firebaseService: firebaseFunctionsService
-  ) {}
+  @Output() results = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
+    this.getSubscription = this.sendOrderFirebase.sendOrders$.subscribe(
+      (sub: any) => {
+        this.getDataActive = sub;
+      });
   }
+  constructor(
+    private RestService: RestService,
+    private firebaseService: firebaseFunctionsService,
+    private sendOrderFirebase: getDataFirestore
+  ) {}
 
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
@@ -93,6 +88,8 @@ export class WaiterViewComponent implements OnInit {
       });
     } else {
       this.viewModal(true);
+      console.log("este es subcription",this.getSubscription);
+      
     }
   }
 
@@ -175,7 +172,10 @@ export class WaiterViewComponent implements OnInit {
 
   viewModal(state: boolean) {
     this.showModal = state;
-    this.addOrderToFirebase(); // prueba
+    if (this.showModal) {
+      this.addOrderToFirebase();
+      console.log(this.getDataActive);
+    }
   }
 
   totalPrice(arrayItem: any) {

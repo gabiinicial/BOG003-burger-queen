@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Order } from 'src/app/classes/order';
 import { Product } from 'src/app/classes/orderProduct';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
+import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
 @Component({
   selector: 'app-waiter-in-process',
@@ -12,11 +13,11 @@ import { firebaseFunctionsService } from 'src/app/services/firebase-functions.se
 export class WaiterInProcessComponent implements OnInit {
   orderSave: any = [];
   showFirestoreDate: Subscription | undefined;
-  orderElement: Order[] = [];
+  orderElement: any = [];
   orderProducts: Product[] =[];
-
-  constructor(private firebaseService: firebaseFunctionsService) {}
-
+  
+  constructor(private firebaseService: firebaseFunctionsService, private sendOrderFirebase:getDataFirestore) {}
+  
   ngOnInit(): void {
     this.firebaseService.getData();
     this.showDataFirebase();
@@ -24,17 +25,18 @@ export class WaiterInProcessComponent implements OnInit {
   }
   showDataFirebase() {
     this.showFirestoreDate = this.firebaseService
-      .getData()
+    .getData()
       ?.subscribe((order) => {
         order.forEach((e) => {
           this.orderSave.push(e.payload.doc);
         });
       });
-    console.log('Aqui esta el servicio', this.orderSave);
-  }
-
-  getOrderData() {
-    this.orderSave.forEach((e: any) => {
+      console.log('Aqui esta el servicio', this.orderSave);
+      this.getOrderData();
+    }
+    
+    getOrderData():any {
+      this.orderSave.forEach((e: any) => {
       let newOrderElement = new Order();
       newOrderElement.creationTime = e.data().creationTime;
       newOrderElement.nameClient = e.data().nameClient;
@@ -50,5 +52,8 @@ export class WaiterInProcessComponent implements OnInit {
       this.orderElement.push(newOrderElement);
     });
     console.log('prueba de e.data', this.orderElement);
+  }
+  sendOrdersService(){
+  this.sendOrderFirebase.sendOrders$.emit(this.getOrderData())
   }
 }
