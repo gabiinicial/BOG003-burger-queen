@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "burger-aquelarre": {
+      "hosting": {
+        "burgerQueen": [
+          "burger-aquelarre"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "burger-aquelarre"
+  }
+}
