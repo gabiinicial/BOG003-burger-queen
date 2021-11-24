@@ -261,6 +261,7 @@ input::after{
 
 .container-sumary {
   display: flex;
+  flex-flow: wrap;
   justify-content: center;
 }
 
@@ -445,4 +446,22 @@ input::after{
   width: 300px;
   font-weight: bold;
   font-family: $font;
+}
+
+//Estilos 3 vista waiter-in-process
+
+.center-element{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.align-element{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+
 }

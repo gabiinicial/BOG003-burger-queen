@@ -38,7 +38,9 @@ export class firebaseFunctionsService {
   }
 
   getData(){
-    this.getOrders$ = this.db.collection('order').valueChanges();
+    this.getOrders$ = this.db.collection('order').snapshotChanges();
+    console.log("Este es el observable",this.getOrders$);
+
     return this.getOrders$
 
   }
