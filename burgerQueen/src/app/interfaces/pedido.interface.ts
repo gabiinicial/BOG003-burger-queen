@@ -1,8 +1,8 @@
-export interface IOrder {
+import { IProduct } from './product.interface';
 
-    nameClient: string;
-    table: string;
-    nameProduct: string;
-    price: number;
-    count: number;
+export interface IOrder {
+  nameClient: string;
+  table: string;
+  creationTime: Date;
+  products: IProduct[];
 }
