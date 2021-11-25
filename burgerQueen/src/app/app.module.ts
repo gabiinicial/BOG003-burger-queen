@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { CardOrderProcessComponent } from './components/card-order-process/card-order-process.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     MultiplyPricePipe,
     CardMenuComponent,
     ModalComponent,
-    ModalConfirmationComponent
+    ModalConfirmationComponent,
+    CardOrderProcessComponent
   ],
 
   imports: [

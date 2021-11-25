@@ -465,3 +465,27 @@ input::after{
   width: 85%;
 
 }
+
+/* Barra de estados */
+.container-state-bar{
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  align-items: center;
+  & hr{
+    width: 25px;
+    align-items: center;
+  }
+}
+.state-bar{
+  content: "";
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+.state-bar:nth-child(1){
+  background-color: #18A0FB;
+}

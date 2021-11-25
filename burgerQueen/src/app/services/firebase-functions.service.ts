@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
-import { IOrder } from '../interfaces/pedido.interface';
 import { Observable } from 'rxjs';
 import { query, orderBy } from "firebase/firestore";
 
@@ -38,7 +37,7 @@ export class firebaseFunctionsService {
   }
 
   getData(){
-    this.getOrders$ = this.db.collection('order').snapshotChanges();
+    this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
     console.log("Este es el observable",this.getOrders$);
 
     return this.getOrders$

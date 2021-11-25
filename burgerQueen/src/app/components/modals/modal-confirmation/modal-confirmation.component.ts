@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
 @Component({
   selector: 'app-modal-confirmation',
@@ -11,7 +12,9 @@ export class ModalConfirmationComponent implements OnInit {
 
   @Output() changeStateModal = new EventEmitter<boolean>();
   @Output() activeData = new EventEmitter<any>();
-  constructor() { }
+  
+
+  constructor(private sendOrderFirebase: getDataFirestore) { }
 
   ngOnInit(): void {
   }
@@ -22,5 +25,6 @@ export class ModalConfirmationComponent implements OnInit {
 
   activeDataFirestore(state: boolean){
     this.activeData.emit(state);
+    this.sendOrderFirebase.sendOrders$.emit(true); //envia datos en el servicio
   }
 }
