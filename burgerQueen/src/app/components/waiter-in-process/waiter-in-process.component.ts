@@ -21,15 +21,15 @@ export class WaiterInProcessComponent implements OnInit {
   sendOrdersSubscription: Subscription | undefined;
   isActive: boolean = false;
 
-  constructor(private firebaseService: firebaseFunctionsService, private sendOrderFirebase: getDataFirestore) { }
+  constructor(private firebaseService: firebaseFunctionsService) { }
 
   ngOnInit(): void {
     this.firebaseService.getData();
     this.showDataFirebase();
     setTimeout(() => {
-
       this.getOrderData();
     }, 100);
+    
   }
 
   showDataFirebase() {
@@ -62,10 +62,6 @@ export class WaiterInProcessComponent implements OnInit {
       console.log("aquiiiii", new Date(e.data().date.seconds * 1000).getTime());
     });
     return this.orderElement//.sort((a: any, b: any) => b.creationTime - a.creationTime);
-  }
-
-  sendOrdersService() {
-    this.sendOrderFirebase.sendOrders$.emit(this.orderElement);
   }
 
   timer() {
