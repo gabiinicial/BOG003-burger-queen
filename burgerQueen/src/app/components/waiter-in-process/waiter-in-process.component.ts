@@ -38,7 +38,7 @@ export class WaiterInProcessComponent implements OnInit {
     getOrderData():any {
       this.orderSave.forEach((e: any) => {
       let newOrderElement = new Order();
-      newOrderElement.creationTime = e.data().creationTime;
+      newOrderElement.creationTime = e.data().date;
       newOrderElement.nameClient = e.data().nameClient;
       newOrderElement.table = e.data().table;
       e.data().products.forEach((i: any) => {
@@ -50,10 +50,11 @@ export class WaiterInProcessComponent implements OnInit {
         this.orderProducts.push(newProduct);
       });
       this.orderElement.push(newOrderElement);
+      console.log("aquiiiii", Date.parse(e.data().date.seconds), new Date(e.data().date.seconds));
     });
-    console.log('prueba de e.data', this.orderElement);
+    return this.orderElement.sort((a: any,b: any)=>a.date-b.date);
   }
-  sendOrdersService(){
-  this.sendOrderFirebase.sendOrders$.emit(this.getOrderData())
-  }
+ sendOrdersService(){
+  this.sendOrderFirebase.sendOrders$.emit(this.orderElement);
+  } 
 }

@@ -137,6 +137,7 @@
   *ngIf="showModal"
   [stateModal]="showModal"
   (changeStateModal)="viewModal($event)"
+  (activeData)="stateAddOrder($event)"
   >
 </app-modal-confirmation>
 </div>

@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
 import { IOrder } from '../interfaces/pedido.interface';
-import { doc, onSnapshot } from "firebase/firestore";
 import { Observable } from 'rxjs';
+import { query, orderBy } from "firebase/firestore";
 
 
 @Injectable({
@@ -24,9 +24,9 @@ export class firebaseFunctionsService {
       .collection('order')
       .doc()
       .set({
+        date: order.creationTime,
         nameClient: order.nameClient,
         table: order.table,
-        date: order.creationTime,
         products: order.products.map((element) =>  element.toFirebase())
       })
       .then((res) => {

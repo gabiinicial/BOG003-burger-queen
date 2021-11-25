@@ -9,7 +9,7 @@
       <a (click)="changeState(false)" class="modal-close waves-effect waves-green btn-flat">No</a>
     </div>
     <div class="modal-footer btn-second">
-      <a routerLink="/in-process" class="modal-close waves-effect waves-green btn-flat">Si</a>
+      <a routerLink="/in-process" (click)="activeDataFirestore(true)" class="modal-close waves-effect waves-green btn-flat">Si</a>
     </div>
   </div>
 </div>
