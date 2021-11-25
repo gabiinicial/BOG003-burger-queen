@@ -11,34 +11,43 @@ import { getDataFirestore } from 'src/app/services/get-data-Firestore';
   styleUrls: ['./waiter-in-process.component.css'],
 })
 export class WaiterInProcessComponent implements OnInit {
+
   orderSave: any = [];
   showFirestoreDate: Subscription | undefined;
   orderElement: any = [];
-  orderProducts: Product[] =[];
-  
-  constructor(private firebaseService: firebaseFunctionsService, private sendOrderFirebase:getDataFirestore) {}
-  
+  orderProducts: Product[] = [];
+  isTimer: boolean = false;
+  timerCount: number = 0;
+  sendOrdersSubscription: Subscription | undefined;
+  isActive: boolean = false;
+
+  constructor(private firebaseService: firebaseFunctionsService, private sendOrderFirebase: getDataFirestore) { }
+
   ngOnInit(): void {
     this.firebaseService.getData();
     this.showDataFirebase();
-    this.getOrderData();
+    setTimeout(() => {
+
+      this.getOrderData();
+    }, 100);
   }
+
   showDataFirebase() {
     this.showFirestoreDate = this.firebaseService
-    .getData()
+      .getData()
       ?.subscribe((order) => {
         order.forEach((e) => {
           this.orderSave.push(e.payload.doc);
         });
       });
-      console.log('Aqui esta el servicio', this.orderSave);
-      this.getOrderData();
-    }
-    
-    getOrderData():any {
-      this.orderSave.forEach((e: any) => {
+    console.log('Aqui esta el servicio', this.orderSave);
+    this.getOrderData();
+  }
+
+  getOrderData(): any {
+    this.orderSave.forEach((e: any) => {
       let newOrderElement = new Order();
-      newOrderElement.creationTime = e.data().date;
+      newOrderElement.creationTime = new Date(e.data().date.seconds * 1000);
       newOrderElement.nameClient = e.data().nameClient;
       newOrderElement.table = e.data().table;
       e.data().products.forEach((i: any) => {
@@ -50,11 +59,21 @@ export class WaiterInProcessComponent implements OnInit {
         this.orderProducts.push(newProduct);
       });
       this.orderElement.push(newOrderElement);
-      console.log("aquiiiii", Date.parse(e.data().date.seconds), new Date(e.data().date.seconds));
+      console.log("aquiiiii", new Date(e.data().date.seconds * 1000).getTime());
     });
-    return this.orderElement.sort((a: any,b: any)=>a.date-b.date);
+    return this.orderElement//.sort((a: any, b: any) => b.creationTime - a.creationTime);
   }
- sendOrdersService(){
-  this.sendOrderFirebase.sendOrders$.emit(this.orderElement);
-  } 
+
+  sendOrdersService() {
+    this.sendOrderFirebase.sendOrders$.emit(this.orderElement);
+  }
+
+  timer() {
+    this.orderSave.forEach((e: any) => {
+
+      console.log("Contador", e.data().nameClient, new Date(Date.now() - e.data().date.nanoseconds).getMinutes());
+
+    });
+  }
+
 }
