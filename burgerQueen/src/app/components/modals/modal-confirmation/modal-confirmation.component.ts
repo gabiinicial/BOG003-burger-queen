@@ -10,7 +10,7 @@ export class ModalConfirmationComponent implements OnInit {
   @Input() stateModal: boolean = true ; // pertenece a la ventana modal de confirmación de envio a cocina.
 
   @Output() changeStateModal = new EventEmitter<boolean>();
-
+  @Output() activeData = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
@@ -20,4 +20,7 @@ export class ModalConfirmationComponent implements OnInit {
     this.changeStateModal.emit(value);
   }
 
+  activeDataFirestore(state: boolean){
+    this.activeData.emit(state);
+  }
 }

@@ -2,7 +2,7 @@
   <button type="button">
     <a routerLink="/history" routerLinkActive="active">Historial de ordenes</a>
   </button>
-  <button>Prueba de servicio</button>
+  <button (click)="getOrderData()">Prueba de servicio</button>
 </div>
 <!-- <div class="col s12 m12 container-sumary"> -->
 <div class="row">
@@ -17,7 +17,7 @@
         </div>
         <div class="center-element line-section">
         <p>Hora: </p>
-        <p>Fecha:</p>
+        <p>Fecha:{{item.creationTime}}</p>
       </div>
     </div>
   </div>

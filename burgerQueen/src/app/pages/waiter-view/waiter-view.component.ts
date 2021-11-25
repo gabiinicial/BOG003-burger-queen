@@ -39,13 +39,15 @@ export class WaiterViewComponent implements OnInit {
   products: Product[] = [];
   order: Order[] = [];
   getDataActive: any | undefined;
+  statusChangeModal: boolean = false;
 
   @Output() results = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
-    this.getSubscription = this.sendOrderFirebase.sendOrders$.subscribe(
+    // this.getSubscription =
+     this.sendOrderFirebase.sendOrders$.subscribe(
       (sub: any) => {
         this.getDataActive = sub;
       });
@@ -173,8 +175,7 @@ export class WaiterViewComponent implements OnInit {
   viewModal(state: boolean) {
     this.showModal = state;
     if (this.showModal) {
-      this.addOrderToFirebase();
-      console.log(this.getDataActive);
+      console.log("este es",this.getDataActive);
     }
   }
 
@@ -264,5 +265,11 @@ export class WaiterViewComponent implements OnInit {
         newOrder.products.push(newProducts);
       });
     this.firebaseService.addOrder(newOrder);
+  }
+  stateAddOrder(state:boolean){
+    this.statusChangeModal= state;
+    if (this.statusChangeModal) {
+      this.addOrderToFirebase();
+    }
   }
 }
