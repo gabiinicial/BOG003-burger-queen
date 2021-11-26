@@ -1,7 +1,10 @@
 <div class="center-element">
     <div class="align-element">
       <div>
-        <p>Se creo hace: {{countMinutes}}:{{countSeconds}}</p>
+        <p>Se creo hace: {{newHour}}:{{newMinute}}:{{newSecond}}</p>
+        <p>Se creo hace: {{countHours}}:{{countMinutes}}:{{countSeconds}}</p>
+
+        
       </div>
       <div class="center-element line-section">
         <p>
@@ -39,8 +42,8 @@
   <div class="center-element">
     <div class="align-element">
       <div>
-        <div class="container-state-bar">
-          <div class="state-bar"></div>
+        <div [ngClass]="{'state-bar-active': isActiveState == false}" class="container-state-bar">
+          <div [ngClass]="{'state-bar-active': isActiveState === true}" class="state-bar"></div>
           <hr />
           <div class="state-bar"></div>
           <hr />
@@ -51,7 +54,7 @@
         <p>Estado</p>
       </div>
       <div>
-        <a class="waves-effect waves-light btn">Entregar</a>
+        <a (click)="timer()" class="waves-effect waves-light btn">Entregar</a>
       </div>
     </div>
   </div>

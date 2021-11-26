@@ -486,6 +486,10 @@ input::after{
   height: 35px;
 }
 
-.state-bar:nth-child(1){
-  background-color: #18A0FB;
+.state-bar-active{
+  background-color: $state-color;
 }
+
+/* .state-bar:nth-child(1){
+  background-color: #18A0FB;
+} */

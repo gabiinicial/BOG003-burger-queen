@@ -8,7 +8,7 @@
       *ngFor="let item of orderElement"
       class="card description table-sumary"
     >
-      <app-card-order-process [itemOrder]="item"></app-card-order-process>
+      <app-card-order-process [itemOrder]="item" [isState]="isActive"></app-card-order-process>
     </div>
   </div>
 </div>
