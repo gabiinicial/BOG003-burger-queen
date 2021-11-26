@@ -119,11 +119,19 @@ h1 {
   width: 60px;
 }
 
-nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
-	line-height: 55px;
+nav,
+nav .nav-wrapper i,
+nav a.sidenav-trigger,
+nav a.sidenav-trigger i {
+  line-height: 55px;
 }
 
-.arrow-back{
+.header-content {
+  background-color: $main-color;
+  border-bottom: 4px solid #fcfcfc;
+}
+
+.arrow-back {
   position: relative;
   top: 10px;
 }
@@ -139,26 +147,18 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
   box-sizing: border-box;
 }
 
-.text-nav li:hover:nth-child(1n+2)  {
+.text-nav li:hover:nth-child(1n + 2) {
   border-bottom: 2px solid $underline-text;
   box-sizing: border-box;
 }
 
-/* .text-nav li a:nth-child(1n+2)::after{
-  display: flex;
-  flex-direction: row;
-  content: "";
-  background-color: #F2E205;
-  position: relative;
-  height: 2px;
-} */
-
-input:not([type]), input[type="text"]:not(.browser-default){
-	border: none;
+input:not([type]),
+input[type="text"]:not(.browser-default) {
+  border: none;
 }
 
-input::after{
-  content: '';
+input::after {
+  content: "";
   background-color: rgba(136, 129, 129, 0.226) !important;
   border-bottom: 3px solid chartreuse !important;
 }
@@ -277,21 +277,21 @@ input::after{
   border-radius: $border-general;
 }
 
-.content-btn{
+.content-btn {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
 }
 
-.btn-enviar{
+.btn-enviar {
   box-shadow: 2px 3px 10px 0px $main-color;
 }
 
-.icon-delete{
+.icon-delete {
   color: $icon-gray;
 }
 
-.modal-confirmation{
+.modal-confirmation {
   position: relative;
   padding-top: 15px;
   width: 500px;
@@ -303,9 +303,9 @@ input::after{
   border-radius: 35px;
   text-align: center;
 }
-.container-modal-comfirmation{
-   position: fixed;
-   //transform: translate(0%,-100%);
+.container-modal-comfirmation {
+  position: fixed;
+  //transform: translate(0%,-100%);
   z-index: 4;
   background-color: rgba($color: #000000, $alpha: 0.5);
   width: 100%;
@@ -323,43 +323,45 @@ input::after{
   }
 }
 
-.content-btn-modal{
+.content-btn-modal {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.content-btn-modal{
+.content-btn-modal {
   border-top: 1px solid $gray-line;
   margin-top: 75px;
 }
 
-.content-btn-modal div:nth-child(odd){
+.content-btn-modal div:nth-child(odd) {
   border-right: 0.5px solid $gray-line;
 }
 
-.content-btn-modal div:nth-child(even){
+.content-btn-modal div:nth-child(even) {
   border-left: 0.5px solid $gray-line;
 }
 
-.btn-firts, .btn-second{
+.btn-firts,
+.btn-second {
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 50%;
 }
 
-.btn-firts a, .btn-second a{
+.btn-firts a,
+.btn-second a {
   width: 100%;
 }
 
-.title-modal{
+.title-modal {
   font-weight: bolder;
   text-align: center;
 }
 
 // modal-burger
-.content-modal-burger{
+.content-modal-burger {
   position: fixed;
   z-index: 2;
   width: 100%;
@@ -370,38 +372,38 @@ input::after{
   justify-content: center;
 }
 
-.modal-burger{
+.modal-burger {
   width: 500px;
   border-radius: 15px;
   background-color: $color-grey-light;
   margin: 15px 0;
 }
 
-.content-menu-burger{
+.content-menu-burger {
   text-align: center;
   padding: 20px 0 0 0;
-  & h5{
+  & h5 {
     font-weight: bolder;
   }
 }
 
-.content-btn-burger{
+.content-btn-burger {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   padding: 20px 0 0 0;
 }
 
-.btn-burger{
+.btn-burger {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
   background-color: $main-color;
   width: 120px;
   height: 42px;
   border-radius: 15px;
   box-shadow: 2px 6px 5px 0px $main-color-light;
-  & a{
+  & a {
     color: white;
     text-align: center;
     text-transform: inherit;
@@ -409,38 +411,31 @@ input::after{
   }
 }
 
-.btn-burger-active{
+.btn-burger-active {
   box-shadow: none;
   color: $underline-text;
-  & a{
+  & a {
     color: $underline-text;
   }
 }
 
-/* .btn-burger a{
-  color: white;
-  text-align: center;
-  text-transform: inherit;
-  font-size: 18px;
-} */
-
-.content-btn-add{
+.content-btn-add {
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 50px 0 20px 0;
-  & div{
-      width: 200px;
+  & div {
+    width: 200px;
   }
 }
 
-.view-modal{
+.view-modal {
   position: relative;
   width: 100%;
   top: -1000px;
 }
 /*estilo de mensaje*/
-.color-message{
+.color-message {
   background-color: rgba(255, 0, 0, 0.527);
   border-radius: 20px;
   width: 300px;
@@ -450,35 +445,40 @@ input::after{
 
 //Estilos 3 vista waiter-in-process
 
-.center-element{
+.border-line {
+
+  border: 2px solid #f2e205;
+  margin: 200px;
+
+}
+
+.center-element {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-
-.align-element{
+.align-element {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 85%;
-
 }
 
 /* Barra de estados */
-.container-state-bar{
+.container-state-bar {
   display: flex;
   flex-flow: wrap;
   flex-direction: row;
   /* justify-content: space-evenly; */
   align-items: center;
-  & hr{
+  & hr {
     width: 25px;
     align-items: center;
   }
 }
-.state-bar{
+.state-bar {
   content: "";
   border: 2px solid black;
   border-radius: 20px;
@@ -486,7 +486,7 @@ input::after{
   height: 35px;
 }
 
-.state-bar-active{
+.state-bar-active {
   background-color: $state-color;
 }
 

@@ -19,6 +19,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { CardOrderProcessComponent } from './components/card-order-process/card-order-process.component';
+import { ViewChefOrderComponent } from './components/view-chef-order/view-chef-order.component';
+import { HistoryOrderChefComponent } from './components/history-order-chef/history-order-chef.component';
+import { HeaderChefComponent } from './components/header-chef/header-chef.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { CardOrderProcessComponent } from './components/card-order-process/card-
     CardMenuComponent,
     ModalComponent,
     ModalConfirmationComponent,
-    CardOrderProcessComponent
+    CardOrderProcessComponent,
+    ViewChefOrderComponent,
+    HistoryOrderChefComponent,
+    HeaderChefComponent
   ],
 
   imports: [

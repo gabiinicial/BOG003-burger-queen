@@ -2,11 +2,11 @@
   <app-header></app-header>
 </div>
 <!-- <div class="col s12 m12 container-sumary"> -->
-<div class="row">
-  <div class="col s12 m12 container-sumary colum">
+<div class="row  container-border  " >
+  <div class="col s12 m12 container-sumary   border-line colum ">
     <div
       *ngFor="let item of orderElement"
-      class="card description table-sumary"
+      class="card description table-sumary "
     >
       <app-card-order-process [itemOrder]="item" [isState]="isActive"></app-card-order-process>
     </div>
