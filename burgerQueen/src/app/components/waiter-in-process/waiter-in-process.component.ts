@@ -40,7 +40,7 @@ export class WaiterInProcessComponent implements OnInit {
           this.orderSave.push(e.payload.doc);
         });
       });
-    console.log('Aqui esta el servicio', this.orderSave);
+    // console.log('Aqui esta el servicio', this.orderSave);
     this.getOrderData();
   }
 
@@ -59,7 +59,7 @@ export class WaiterInProcessComponent implements OnInit {
         this.orderProducts.push(newProduct);
       });
       this.orderElement.push(newOrderElement);
-      console.log("aquiiiii", new Date(e.data().date.seconds * 1000).getTime());
+      // console.log("aquiiiii", new Date(e.data().date.seconds * 1000).getTime());
     });
     return this.orderElement//.sort((a: any, b: any) => b.creationTime - a.creationTime);
   }

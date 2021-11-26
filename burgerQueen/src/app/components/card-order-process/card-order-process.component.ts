@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
 @Component({
@@ -11,7 +12,8 @@ export class CardOrderProcessComponent implements OnInit {
   @Input() itemOrder:any = [];
   @Input() isState:boolean = true;
 
-  isActiveState: boolean | undefined;
+  subcriptionAtiveState!: Subscription;
+  isActiveState!: boolean;
   stopWatch: any;
   countSeconds: number = 0;
   countMinutes: number = 0;
@@ -21,19 +23,20 @@ export class CardOrderProcessComponent implements OnInit {
   newHour: any = '00';
 
 
-  constructor(private sendOrderFirebase: getDataFirestore) { }
+  constructor(private sendOrderFirebase: getDataFirestore) { 
+  this.subcriptionAtiveState= this.sendOrderFirebase.sendOrders$.subscribe(res =>{
+    return res
+    // this.isActiveState = res;
+    // console.log("is active ***************",this.isActiveState);
+  });
+}
 
   ngOnInit(): void {
     this.timer();
-    this.getState();
   }
 
-  getState(){
-    this.sendOrderFirebase.sendOrders$.subscribe((res) =>{
-      this.isActiveState = res;
-      console.log("is active ***************",this.isActiveState, "res ########### ",res);
-    });
-  }
+ 
+  
   
   timer(){
     let creationHour = new Date(this.itemOrder.creationTime).getHours()*60*60;
