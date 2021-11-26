@@ -47,7 +47,7 @@ export class WaiterViewComponent implements OnInit {
     this.cargarData();
     this.screenWidth = window.innerWidth;
     // this.getSubscription =
-     this.sendOrderFirebase.sendOrders$.subscribe(
+    this.sendOrderFirebase.sendOrders$.subscribe(
       (sub: any) => {
         this.getDataActive = sub;
       });
@@ -56,7 +56,7 @@ export class WaiterViewComponent implements OnInit {
     private RestService: RestService,
     private firebaseService: firebaseFunctionsService,
     private sendOrderFirebase: getDataFirestore
-  ) {}
+  ) { }
 
   public cargarData() {
     this.RestService.get('../assets/json/aquelarreMenu.json').subscribe(
@@ -90,8 +90,8 @@ export class WaiterViewComponent implements OnInit {
       });
     } else {
       this.viewModal(true);
-      console.log("este es subcription",this.getSubscription);
-      
+      console.log("este es subcription", this.getSubscription);
+
     }
   }
 
@@ -115,7 +115,7 @@ export class WaiterViewComponent implements OnInit {
           e.item.name === itemR.name &&
           e.burger.type === newOrderSumary.burger.type &&
           JSON.stringify(e.burger.additions.sort()) ==
-            JSON.stringify(newOrderSumary.burger.additions.sort())
+          JSON.stringify(newOrderSumary.burger.additions.sort())
       );
       console.log('Prueba de itemInOrden', itemInOrden);
     } else {
@@ -128,7 +128,7 @@ export class WaiterViewComponent implements OnInit {
         if (
           itemInOrden.burger.type === newOrderSumary.burger.type &&
           JSON.stringify(itemInOrden.burger.additions.sort()) ==
-            JSON.stringify(newOrderSumary.burger.additions.sort())
+          JSON.stringify(newOrderSumary.burger.additions.sort())
         ) {
           console.log(
             'PRuebas de pruebas',
@@ -141,7 +141,7 @@ export class WaiterViewComponent implements OnInit {
               e.item.name === itemR.name &&
               e.burger.type === newOrderSumary.burger.type &&
               JSON.stringify(e.burger.additions.sort()) ==
-                JSON.stringify(newOrderSumary.burger.additions.sort())
+              JSON.stringify(newOrderSumary.burger.additions.sort())
             ) {
               e.item.count = 0;
               e.cantidad += itemR.count;
@@ -175,7 +175,7 @@ export class WaiterViewComponent implements OnInit {
   viewModal(state: boolean) {
     this.showModal = state;
     if (this.showModal) {
-      console.log("este es",this.getDataActive);
+      console.log("este es", this.getDataActive);
     }
   }
 
@@ -253,12 +253,12 @@ export class WaiterViewComponent implements OnInit {
         newProducts.nameProduct =
           e.item.subtype === 'burger'
             ? '' +
-              e.item.name +
-              ' ' +
-              e.burger.type +
-              ' ' +
-              e.burger.additions.sort() +
-              ''
+            e.item.name +
+            ' ' +
+            e.burger.type +
+            ' ' +
+            e.burger.additions.sort() +
+            ''
             : e.item.name;
         newProducts.price = e.item.price * e.cantidad;
         newProducts.count = e.cantidad;
@@ -266,8 +266,8 @@ export class WaiterViewComponent implements OnInit {
       });
     this.firebaseService.addOrder(newOrder);
   }
-  stateAddOrder(state:boolean){
-    this.statusChangeModal= state;
+  stateAddOrder(state: boolean) {
+    this.statusChangeModal = state;
     if (this.statusChangeModal) {
       this.addOrderToFirebase();
     }

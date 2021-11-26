@@ -10,5 +10,5 @@ import { Observable } from 'rxjs';
 export class getDataFirestore {
   sendOrders$ = new EventEmitter();
 
-  constructor(private db: AngularFirestore) {}
+  constructor() {}
 }
