@@ -5,8 +5,8 @@ import { Injectable,EventEmitter } from '@angular/core';
   providedIn: 'root',
 })
 
-export class getDataFirestore {
-  sendOrders$ = new EventEmitter();
+export class sendDataService {
+  carryCards$ = new EventEmitter();
 
   constructor() {}
 }

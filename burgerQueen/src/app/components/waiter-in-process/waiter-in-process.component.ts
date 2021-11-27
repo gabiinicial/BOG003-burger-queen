@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/classes/order';
 import { Product } from 'src/app/classes/orderProduct';
+import { sendDataService } from 'src/app/services/carry-cards';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
@@ -21,15 +22,18 @@ export class WaiterInProcessComponent implements OnInit {
   sendOrdersSubscription: Subscription | undefined;
   isActive: boolean = false;
 
-  constructor(private firebaseService: firebaseFunctionsService) { }
+
+  constructor(private firebaseService: firebaseFunctionsService, private  sendCardsService: sendDataService) { }
 
   ngOnInit(): void {
     this.firebaseService.getData();
     this.showDataFirebase();
+    this.arrayOrderSend();
     setTimeout(() => {
       this.getOrderData();
     }, 100);
-    
+
+
   }
 
   showDataFirebase() {
@@ -70,6 +74,10 @@ export class WaiterInProcessComponent implements OnInit {
       console.log("Contador", e.data().nameClient, new Date(Date.now() - e.data().date.nanoseconds).getMinutes());
 
     });
+  }
+
+  arrayOrderSend(){
+    this.sendCardsService.carryCards$.emit(this.orderElement);
   }
 
 }

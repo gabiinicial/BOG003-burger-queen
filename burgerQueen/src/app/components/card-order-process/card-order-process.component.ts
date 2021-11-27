@@ -23,8 +23,8 @@ export class CardOrderProcessComponent implements OnInit {
   newHour: any = '00';
 
 
-  constructor(private sendOrderFirebase: getDataFirestore) { 
-  this.subcriptionAtiveState= this.sendOrderFirebase.sendOrders$.subscribe(res =>{
+  constructor(private sendOrderFirebase: getDataFirestore) {
+  this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res =>{
     return res
     // this.isActiveState = res;
     // console.log("is active ***************",this.isActiveState);
@@ -35,9 +35,9 @@ export class CardOrderProcessComponent implements OnInit {
     this.timer();
   }
 
- 
-  
-  
+
+
+
   timer(){
     let creationHour = new Date(this.itemOrder.creationTime).getHours()*60*60;
     let creationMinute = new Date(this.itemOrder.creationTime).getMinutes()*60;
@@ -50,7 +50,7 @@ export class CardOrderProcessComponent implements OnInit {
     let sumHoursNow = dateNowHour+dateNowMinute+dateNowSeconds;
 
     let creationInterval = sumHoursNow - sumHours;
-    
+
     let minToSeconds = 60;
     // se calculan las horas que hay en seconds
     let calculateHours = (Math.floor((creationInterval / minToSeconds) / minToSeconds));
@@ -60,7 +60,7 @@ export class CardOrderProcessComponent implements OnInit {
     let calculateSeconds = Math.floor((creationInterval % minToSeconds));
     // se realizan los condicionales para añadir 0 en caso de que la respuesta solo sea de un dígito
 
-    this.itemOrder.creationTime; 
+    this.itemOrder.creationTime;
 
     this.countSeconds = calculateSeconds ; //numero
     this.countMinutes = calculateMinutes;
@@ -70,9 +70,9 @@ export class CardOrderProcessComponent implements OnInit {
       if (this.countSeconds == 59) {
         this.countSeconds = 0;
         this.countMinutes++;
-        
+
         this.newMinute = this.countMinutes < 10? '0'+this.countMinutes:this.countMinutes;
-        
+
         if (this.countMinutes == 59) {
           this.countMinutes = 0;
           this.countHours++;
