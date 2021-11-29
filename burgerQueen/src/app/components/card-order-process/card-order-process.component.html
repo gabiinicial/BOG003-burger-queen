@@ -39,7 +39,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="center-element">
+  <div *ngIf="view" class="center-element">
     <div class="align-element">
       <div>
         <div class="container-state-bar">
@@ -56,5 +56,11 @@
       <div>
         <a (click)="timer()" class="waves-effect waves-light btn">Entregar</a>
       </div>
+    </div>
+  </div>
+  <div *ngIf="!view">
+    <div>
+      <a (click)="stateChange(itemOrder)" class="waves-effect waves-light btn">Preparar</a>
+      <a class="waves-effect waves-light btn">Entregar</a>
     </div>
   </div>

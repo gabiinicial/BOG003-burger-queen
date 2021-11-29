@@ -25,7 +25,7 @@ export class WaiterInProcessComponent implements OnInit {
   constructor(private firebaseService: firebaseFunctionsService, private  sendCardsService: sendDataService) { }
 
   ngOnInit(): void {
-    this.firebaseService.getOrderData();
+    // this.firebaseService.getOrderData();
     this.showDataFirebase();
   }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
 @Component({
@@ -11,6 +12,7 @@ import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 export class CardOrderProcessComponent implements OnInit {
   @Input() itemOrder:any = [];
   @Input() isState:boolean = true;
+  @Input() view:boolean = true;
 
   subcriptionAtiveState!: Subscription;
   isActiveState!: boolean;
@@ -23,7 +25,7 @@ export class CardOrderProcessComponent implements OnInit {
   newHour: any = '00';
 
 
-  constructor(private sendOrderFirebase: getDataFirestore) {
+  constructor(private sendOrderFirebase: getDataFirestore, private firebaseService: firebaseFunctionsService) {
   this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res =>{
     return res
     // this.isActiveState = res;
@@ -88,4 +90,7 @@ export class CardOrderProcessComponent implements OnInit {
     }, 1000)
   }
 
+  stateChange(item: any){
+  this.firebaseService.updateState(item);
+  }
 }

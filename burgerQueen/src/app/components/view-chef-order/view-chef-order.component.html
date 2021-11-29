@@ -1,2 +1,10 @@
 <app-header-chef></app-header-chef>
-<button (click)="prueba()">Prueba</button>
+<div class=" container-border ">
+    <div class=" row border-cards">
+        <div class="col s12 m12 container-sumary  border-line colum ">
+            <div *ngFor="let item of cardsElements " class="card description table-sumary ">
+                <app-card-order-process [itemOrder]="item" [view]= "false"></app-card-order-process>
+            </div>
+        </div>
+    </div>
+</div>
