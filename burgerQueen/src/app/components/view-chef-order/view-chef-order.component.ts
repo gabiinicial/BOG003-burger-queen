@@ -20,7 +20,7 @@ export class ViewChefOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataSuscription = this.sendCardsService.carryCards$.subscribe(
-      res => {
+      (res: any) => {
         this.cardsElements = ['res', res];
         console.log("estoy en la linea 25");
 
@@ -28,7 +28,6 @@ export class ViewChefOrderComponent implements OnInit {
       }
     )
     console.log("prueba getDataSub",this.getDataSuscription, this.cardsElements );
-
   }
 
   prueba() {
