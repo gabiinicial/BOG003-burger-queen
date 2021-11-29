@@ -51,6 +51,7 @@ export class WaiterViewComponent implements OnInit {
       (sub: any) => {
         this.getDataActive = sub;
       });
+     
   }
   constructor(
     private RestService: RestService,

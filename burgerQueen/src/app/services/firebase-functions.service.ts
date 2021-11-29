@@ -2,25 +2,28 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { query, orderBy } from "firebase/firestore";
 
 
 @Injectable({
   providedIn: 'root',
-  })
+})
 
 export class firebaseFunctionsService {
 
   order: Order[] = [];
   product: Product[] = [];
   getOrders$: Observable<any[]> | undefined;
-  orderSave: any=  [];
+  orderSave: any = [];
   orderElement: any = [];
   orderProducts: Product[] = [];
+  getOrderElements: any = [];
 
 
-  constructor(private db: AngularFirestore) {}
+
+
+  constructor(private db: AngularFirestore) { }
 
   addOrder(order: Order) {
     this.db
@@ -30,7 +33,7 @@ export class firebaseFunctionsService {
         date: order.creationTime,
         nameClient: order.nameClient,
         table: order.table,
-        products: order.products.map((element) =>  element.toFirebase())
+        products: order.products.map((element) => element.toFirebase())
       })
       .then((res) => {
         console.log(res);
@@ -40,23 +43,33 @@ export class firebaseFunctionsService {
       });
   }
 
-  getData(){
+  getData() {
     this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
-    console.log("Este es el observable",this.getOrders$);
-    this.getOrders$.forEach((e) => {
-      this.orderSave.push(e.payload.doc);
-    });
+    console.log("Este es el observable", this.getOrders$);
     return this.getOrders$
-
   }
 
-  getOrderData(): any {
-    this.orderSave.forEach((e: any) => {
+  selectArray() {
+    this.getData().forEach((e: any) => {
+      this.orderSave.push(e);
+      /* e.forEach((i: any) => {
+       // this.getOrderElements = [];
+      }); */
+      console.log( "trae i", this.orderSave.length);
+    });
+    //console.log("Esta es order Save", this.orderSave);
+    return this.orderSave;
+  }
+
+  getOrderData(): Observable<any> {
+    console.log("Prueba....", this.selectArray());
+    this.selectArray().forEach((e: any) => {
+      console.log("Entra al foreach", e);
       let newOrderElement = new Order();
-      newOrderElement.creationTime = new Date(e.data().date.seconds * 1000);
-      newOrderElement.nameClient = e.data().nameClient;
-      newOrderElement.table = e.data().table;
-      e.data().products.forEach((i: any) => {
+      newOrderElement.creationTime = new Date(e.payload.doc.data().date.seconds * 1000);
+      newOrderElement.nameClient = e.payload.doc.data().nameClient;
+      newOrderElement.table = e.payload.doc.data().table;
+      e.payload.doc.data().products.forEach((i: any) => {
         let newProduct = new Product();
         newProduct.count = i.count;
         newProduct.nameProduct = i.nameProduct;
@@ -65,9 +78,13 @@ export class firebaseFunctionsService {
         this.orderProducts.push(newProduct);
       });
       this.orderElement.push(newOrderElement);
-      // console.log("aquiiiii", new Date(e.data().date.seconds * 1000).getTime());
+      //console.log("aquiiiii", new Date(e[.data().date.seconds * 1000).getTime());
     });
-    return this.orderElement//.sort((a: any, b: any) => b.creationTime - a.creationTime);
+    // this.getOrderElements$ = this.orderElement;
+
+    return of(this.orderElement)//.sort((a: any, b: any) => b.creationTime - a.creationTime);
   }
+
+
 
 }

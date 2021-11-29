@@ -13,7 +13,7 @@ import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 })
 export class WaiterInProcessComponent implements OnInit {
 
-  orderSave: any = [];
+  getOrderSave: any = [];
   showFirestoreDate: Subscription | undefined;
   orderProducts: Product[] = [];
   isTimer: boolean = false;
@@ -25,18 +25,17 @@ export class WaiterInProcessComponent implements OnInit {
   constructor(private firebaseService: firebaseFunctionsService, private  sendCardsService: sendDataService) { }
 
   ngOnInit(): void {
-    this.firebaseService.getData();
+    this.firebaseService.getOrderData();
     this.showDataFirebase();
   }
 
   showDataFirebase() {
-    this.showFirestoreDate = this.firebaseService
-      .getData()
-      ?.subscribe((order) => {
-        order.forEach((e) => {
-          this.orderSave.push(e.payload.doc);
-        });
+   this.firebaseService.getOrderData().subscribe((order: any[]) => {
+        this.getOrderSave = order;
+        console.log("trae el array", this.getOrderSave);
+
       });
+
     // console.log('Aqui esta el servicio', this.orderSave);
     // this.getOrderData();
   }
@@ -64,5 +63,5 @@ export class WaiterInProcessComponent implements OnInit {
   // arrayOrderSend(){
   //   this.sendCardsService.carryCards$.emit(this.orderElement);
 
-  // } 
+  // }
 }

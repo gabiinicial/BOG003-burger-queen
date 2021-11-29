@@ -4,7 +4,7 @@
 <div class=" row border-cards" >
   <div class="col s12 m12 container-sumary  border-line colum ">
     <div
-      *ngFor="let item of orderElement"
+      *ngFor="let item of getOrderSave"
       class="card description table-sumary "
     >
       <app-card-order-process [itemOrder]="item" [isState]="isActive"></app-card-order-process>
