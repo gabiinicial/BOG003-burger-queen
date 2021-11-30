@@ -5,4 +5,6 @@ export class Order {
   table: string = '';
   creationTime: Date = new Date(Date.now());
   products: Product[] = [];
+  id:string = "";
+  status: string = "";
 }

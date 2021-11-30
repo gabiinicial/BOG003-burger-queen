@@ -1,13 +1,14 @@
 <div>
   <app-header></app-header>
-</div> <div class=" container-border ">
+</div> 
+<div class=" container-border ">
 <div class=" row border-cards" >
   <div class="col s12 m12 container-sumary  border-line colum ">
     <div
       *ngFor="let item of getOrderSave"
       class="card description table-sumary "
     >
-      <app-card-order-process [itemOrder]="item" [isState]="isActive"></app-card-order-process>
+      <app-card-order-process [itemOrder]="item" [isState]="isActive" [view]="true"></app-card-order-process>
     </div>
   </div>
 </div>
