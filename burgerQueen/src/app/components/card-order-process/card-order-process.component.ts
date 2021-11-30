@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
@@ -10,12 +10,17 @@ import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 })
 
 export class CardOrderProcessComponent implements OnInit {
-  @Input() itemOrder:any = [];
-  @Input() isState:boolean = true;
-  @Input() view:boolean = true;
+  @Input() itemOrder: any = [];
+  @Input() isState: boolean = true;
+  @Input() view: boolean = true;
+  @Input() stateOrderDb: string = "";
+
+  @Output() stateUpdate = new EventEmitter<string>();
 
   subcriptionAtiveState!: Subscription;
+  subscriptionStateOrderDb!: Subscription;
   isActiveState!: boolean;
+  valueState: string = "";
   stopWatch: any;
   countSeconds: number = 0;
   countMinutes: number = 0;
@@ -26,30 +31,33 @@ export class CardOrderProcessComponent implements OnInit {
 
 
   constructor(private sendOrderFirebase: getDataFirestore, private firebaseService: firebaseFunctionsService) {
-  this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res =>{
-    return res
-    // this.isActiveState = res;
-    // console.log("is active ***************",this.isActiveState);
-  });
-}
+    this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res => {
+      return res;
+    });
+    
+    this.subscriptionStateOrderDb = this.firebaseService.getState().subscribe((res) => {
+      console.log("subscriptionStateOrderDb",res.status);
+      this.stateOrderDb = res.status;
+      return this.stateOrderDb//res.status;
+    })
+  }
 
   ngOnInit(): void {
     this.timer();
+
+    console.log("estado de la orden",this.stateOrderDb);
   }
 
-
-
-
-  timer(){
-    let creationHour = new Date(this.itemOrder.creationTime).getHours()*60*60;
-    let creationMinute = new Date(this.itemOrder.creationTime).getMinutes()*60;
+  timer() {
+    let creationHour = new Date(this.itemOrder.creationTime).getHours() * 60 * 60;
+    let creationMinute = new Date(this.itemOrder.creationTime).getMinutes() * 60;
     let creationSeconds = new Date(this.itemOrder.creationTime).getSeconds();
-    let sumHours = creationHour+creationMinute+creationSeconds;
+    let sumHours = creationHour + creationMinute + creationSeconds;
 
-    let dateNowHour = new Date(Date.now()).getHours()*60*60;
-    let dateNowMinute = new Date(Date.now()).getMinutes()*60;
+    let dateNowHour = new Date(Date.now()).getHours() * 60 * 60;
+    let dateNowMinute = new Date(Date.now()).getMinutes() * 60;
     let dateNowSeconds = new Date(Date.now()).getSeconds();
-    let sumHoursNow = dateNowHour+dateNowMinute+dateNowSeconds;
+    let sumHoursNow = dateNowHour + dateNowMinute + dateNowSeconds;
 
     let creationInterval = sumHoursNow - sumHours;
 
@@ -64,33 +72,44 @@ export class CardOrderProcessComponent implements OnInit {
 
     this.itemOrder.creationTime;
 
-    this.countSeconds = calculateSeconds ; //numero
+    this.countSeconds = calculateSeconds; //numero
     this.countMinutes = calculateMinutes;
     this.countHours = calculateHours;
 
-    this.stopWatch = setInterval(()=>{
+    this.stopWatch = setInterval(() => {
       if (this.countSeconds == 59) {
         this.countSeconds = 0;
         this.countMinutes++;
 
-        this.newMinute = this.countMinutes < 10? '0'+this.countMinutes:this.countMinutes;
+        this.newMinute = this.countMinutes < 10 ? '0' + this.countMinutes : this.countMinutes;
 
         if (this.countMinutes == 59) {
           this.countMinutes = 0;
           this.countHours++;
-          this.newHour = this.countHours < 10? '0'+this.countHours:this.countHours;
+          this.newHour = this.countHours < 10 ? '0' + this.countHours : this.countHours;
 
-          if(this.countHours == 99){
+          if (this.countHours == 99) {
             this.countHours = 0;
           }
         }
       }
       this.countSeconds++;
-      this.newSecond =this.countSeconds < 10? '0'+this.countSeconds:this.countSeconds;
+      this.newSecond = this.countSeconds < 10 ? '0' + this.countSeconds : this.countSeconds;
     }, 1000)
   }
 
-  stateChange(item: any){
-  this.firebaseService.updateState(item);
+  stateChange(item: any) {
+    this.firebaseService.updateState(item);
+    this.getStateDb();
+  }
+
+  stateValueSend(state: string) {
+    this.valueState = state;
+    this.stateUpdate.emit(this.valueState);
+  }
+
+  getStateDb(){
+     // this.subscriptionStateOrderDb = 
+
   }
 }

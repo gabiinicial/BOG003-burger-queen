@@ -45,7 +45,7 @@
         <div class="container-state-bar">
           <div [ngClass]="{'state-bar-active': subcriptionAtiveState}" class="state-bar"></div>
           <hr />
-          <div class="state-bar"></div>
+          <div [ngClass]="{'state-bar-active': subscriptionStateOrderDb == 'preparacion'}" class="state-bar"></div>
           <hr />
           <div class="state-bar"></div>
           <hr />
@@ -60,7 +60,7 @@
   </div>
   <div *ngIf="!view">
     <div>
-      <a (click)="stateChange(itemOrder)" class="waves-effect waves-light btn">Preparar</a>
-      <a class="waves-effect waves-light btn">Entregar</a>
+      <a (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn">Preparar</a>
+      <a (click)="stateValueSend('entregaChef')" class="waves-effect waves-light btn">Entregar</a>
     </div>
   </div>
