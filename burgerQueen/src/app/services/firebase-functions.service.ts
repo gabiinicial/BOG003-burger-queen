@@ -5,7 +5,6 @@ import { Product } from '../classes/orderProduct';
 import { Observable, of, Subject } from 'rxjs';
 import { query, orderBy } from "firebase/firestore";
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,9 +18,8 @@ export class firebaseFunctionsService {
   orderElement: any = [];
   orderProducts: Product[] = [];
   getOrderElements: any = [];
+  statusOrder: any = "";
   private updateCard$ = new Subject<any>();
-
-
 
   constructor(private db: AngularFirestore) { }
 
@@ -34,7 +32,7 @@ export class firebaseFunctionsService {
         nameClient: order.nameClient,
         table: order.table,
         products: order.products.map((element) => element.toFirebase()),
-        statusOrder: order.status
+        statusOrder: "creadooo"
       })
       .then((res) => {
         console.log(res);
@@ -46,27 +44,12 @@ export class firebaseFunctionsService {
 
   getData() {
     this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
-    console.log("Este es el observable", this.getOrders$);
     return this.getOrders$
   }
 
-  selectArray() {
-    this.getData().forEach((e: any) => {
-      this.orderSave.push(e);
-      /* e.forEach((i: any) => {
-       // this.getOrderElements = [];
-      }); */
-      console.log("trae i", this.orderSave.length);
-    });
-    //console.log("Esta es order Save", this.orderSave);
-    return this.orderSave;
-  }
-
   getOrderData(): Observable<any> {
-    console.log("Prueba....", this.getData());
     this.orderElement= [];
     this.getData().forEach((e: any) => {
-      console.log("Entra al foreach", e);
       e.forEach((i: any) => {
         let newOrderElement = new Order();
         newOrderElement.creationTime = new Date(i.payload.doc.data().date.seconds * 1000);
@@ -74,29 +57,33 @@ export class firebaseFunctionsService {
         newOrderElement.table = i.payload.doc.data().table;
         newOrderElement.id= i.payload.doc.ref.id;
 
-        i.payload.doc.data().products.forEach((i: any) => {
+        i.payload.doc.data().products.forEach((e: any) => {
           let newProduct = new Product();
-          newProduct.count = i.count;
-          newProduct.nameProduct = i.nameProduct;
-          newProduct.price = i.price;
+          newProduct.count = e.count;
+          newProduct.nameProduct = e.nameProduct;
+          newProduct.price = e.price;
           newOrderElement.products.push(newProduct);
           this.orderProducts.push(newProduct);
         });
+        newOrderElement.status = i.payload.doc.data().statusOrder;
         this.orderElement.push(newOrderElement);
       });
-      console.log(this.orderElement.length);
-      //console.log("aquiiiii", new Date(e[.data().date.seconds * 1000).getTime());
     });
-    // this.getOrderElements$ = this.orderElement;
 
-    return of(this.orderElement)//.sort((a: any, b: any) => b.creationTime - a.creationTime);
+    return of(this.orderElement);
   }
 
-  updateState(item: any){
+  editCard(id: string, state: any): Promise<any> {
+    this.statusOrder = state;
+    console.log("service ",state);
+    return this.db.collection('order').doc(id).update({statusOrder: state});
+  }
+
+  updateState(item:Order){
     this.updateCard$.next(item);
   }
 
   getState(): Observable<any>{
- return this.updateCard$.asObservable()
+    return this.updateCard$.asObservable();
   }
 }
