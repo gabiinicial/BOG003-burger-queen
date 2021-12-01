@@ -6,9 +6,7 @@
 .backgroundPage {
   background-color: #1c2035 !important;
 }
-// .input-p:active, .input-p{
-//   outline: none;
-// }
+
 .rectangle {
   width: 160px;
   height: 200px;
@@ -131,6 +129,11 @@ nav a.sidenav-trigger i {
   border-bottom: 4px solid #fcfcfc;
 }
 
+.keep-style a {
+  color: $underline-text !important;
+  border-bottom: 2px solid $underline-text;
+}
+
 .arrow-back {
   position: relative;
   top: 10px;
@@ -157,11 +160,11 @@ input[type="text"]:not(.browser-default) {
   border: none;
 }
 
-input::after {
+/* input::after {
   content: "";
   background-color: rgba(136, 129, 129, 0.226) !important;
-  border-bottom: 3px solid chartreuse !important;
-}
+  border-bottom: 0px solid chartreuse !important;
+} */
 
 .input-name {
   border: 2px solid #ffffff;
@@ -177,6 +180,7 @@ input::after {
 
 .input-field {
   height: 42px;
+  /* border: 2px solid coral; */
 }
 
 .line,
@@ -261,8 +265,8 @@ input::after {
 
 .container-sumary {
   display: flex;
+  justify-content: space-evenly;
   flex-flow: wrap;
-  justify-content: center;
 }
 
 .card-sumary {
@@ -448,23 +452,42 @@ input::after {
   width: 100%;
   height: 100%;
   position: absolute;
+  /* top: 100px; */
+  display: flex;
+  justify-content: center;
   bottom: 0px;
+  background-color: $main-color;
 }
 
 .border-cards {
+  display: flex;
+  justify-content: center;
   width: 93%;
   height: 85%;
   border: 3px solid $color-grey-light;
   border-radius: 20px;
-  margin-top: 100px;
-  position: relative;
-  z-index: 2;
+  top: 10px;
+  margin: auto;
+  align-content: center;
+  position: fixed;
+  z-index: 3;
   bottom: 10px;
 }
 
 .border-line .table-sumary {
   width: 90%;
-  margin-top: 20px;
+  position: relative;
+  top: 125px;
+  bottom: 50px;
+}
+
+
+.hide-element{
+  position: fixed;
+  height: 98px;
+  width: 100%;
+  background-color: $main-color;
+  z-index: 2;
 }
 
 .center-element {
@@ -483,6 +506,8 @@ input::after {
 
 /* Barra de estados */
 .container-state-bar {
+  position: relative;
+  top: 10px;
   display: flex;
   flex-flow: wrap;
   flex-direction: row;
@@ -493,6 +518,7 @@ input::after {
     align-items: center;
   }
 }
+
 .state-bar {
   content: "";
   border: 2px solid black;
@@ -505,6 +531,34 @@ input::after {
   background-color: $state-color;
 }
 
-/* .state-bar:nth-child(1){
-  background-color: #18A0FB;
-} */
+@media screen and (min-width: 900px) {
+  .border-line .table-sumary {
+    width: 42%;
+    position: relative;
+    top: 115px;
+    bottom: 50px;
+  }
+
+  .border-cards {
+    top: 30px;
+    width: 95%;
+  }
+
+  .hide-element{
+    height: 110px;
+  }
+
+  .state-bar {
+    content: "";
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .container-state-bar {
+    & hr {
+      width: 12px;
+    }
+  }
+}

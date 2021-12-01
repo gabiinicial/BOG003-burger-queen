@@ -9,15 +9,12 @@ import { HistoryOrderChefComponent } from './components/history-order-chef/histo
 
 const routes: Routes = [
 
-{path: '', component: FirstViewComponent},
-{path: 'waiter-view', component:  WaiterViewComponent},
-{path: 'in-process', component:  WaiterInProcessComponent},
-{path: 'history', component:   WaiterHistoryComponent},
-{path: 'view-chef-order', component:   ViewChefOrderComponent},
-{path: 'history-order-chef', component:   HistoryOrderChefComponent},
-
-
-
+  { path: '', component: FirstViewComponent },
+  { path: 'waiter-view', component: WaiterViewComponent },
+  { path: 'in-process', component: WaiterInProcessComponent },
+  { path: 'history', component: WaiterHistoryComponent },
+  { path: 'view-chef-order', component: ViewChefOrderComponent },
+  { path: 'history-order-chef', component: HistoryOrderChefComponent },
 
 ];
 
