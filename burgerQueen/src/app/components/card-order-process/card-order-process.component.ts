@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 
@@ -13,12 +13,13 @@ export class CardOrderProcessComponent implements OnInit {
   @Input() itemOrder: any = [];
   @Input() isState: boolean = true;
   @Input() view: boolean = true;
-  @Input() stateOrderDb: string = "";
+  @Input() stateOrderDb!: string;
 
   @Output() stateUpdate = new EventEmitter<string>();
 
   subcriptionAtiveState!: Subscription;
   subscriptionStateOrderDb!: Subscription;
+  stateOrderDbCard: Observable<any> | undefined;
   isActiveState!: boolean;
   valueState: string = "";
   stopWatch: any;
@@ -34,18 +35,10 @@ export class CardOrderProcessComponent implements OnInit {
     this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res => {
       return res;
     });
-    
-    this.subscriptionStateOrderDb = this.firebaseService.getState().subscribe((res) => {
-      console.log("subscriptionStateOrderDb",res.status);
-      this.stateOrderDb = res.status;
-      return this.stateOrderDb//res.status;
-    })
   }
 
   ngOnInit(): void {
     this.timer();
-
-    console.log("estado de la orden",this.stateOrderDb);
   }
 
   timer() {
@@ -100,7 +93,7 @@ export class CardOrderProcessComponent implements OnInit {
 
   stateChange(item: any) {
     this.firebaseService.updateState(item);
-    this.getStateDb();
+    // this.getStateDb();
   }
 
   stateValueSend(state: string) {
@@ -109,7 +102,12 @@ export class CardOrderProcessComponent implements OnInit {
   }
 
   getStateDb(){
-     // this.subscriptionStateOrderDb = 
-
+    //return this.subscriptionStateOrderDb = 
+    this.firebaseService.getState().subscribe((res) => {
+      console.log("subscriptionStateOrderDb", res.status);
+      //newstatus = res.status;
+      this.stateOrderDbCard = res.status;
+      return this.stateOrderDbCard; //res.status;
+    })
   }
 }

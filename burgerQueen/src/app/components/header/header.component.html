@@ -12,9 +12,9 @@
             <img src="../../../assets/img/arrow.svg" alt="arrow"
           /></a>
         </li>
-        <li class="tab" ><a routerLink="/waiter-view">Crear Orden</a></li>
-        <li><a routerLink="/in-process">Orden por entregar</a></li>
-        <li><a routerLink="/history">Historial de Ordenes</a></li>
+        <li [ngClass]="{'keep-style': isClassActiveWaiter == '/waiter-view'}" class="tab" ><a routerLink="/waiter-view">Crear Orden</a></li>
+        <li [ngClass]="{'keep-style': isClassActiveWaiter == '/in-process'}"><a routerLink="/in-process">Orden por entregar</a></li>
+        <li [ngClass]="{'keep-style': isClassActiveWaiter == '/history'}"><a routerLink="/history">Historial de Ordenes</a></li>
       </ul>
     </div>
   </nav>
