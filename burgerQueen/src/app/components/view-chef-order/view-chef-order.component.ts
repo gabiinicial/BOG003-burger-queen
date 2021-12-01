@@ -59,7 +59,6 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
 
     this.firebaseService.editCard(id, order.statusOrder)
     .then((res)=>{
-      console.log("Se edito orden", res);
       //modificar estado en la barra de estado en caso que sea exitoso
     }, error => console.log(error));
   }

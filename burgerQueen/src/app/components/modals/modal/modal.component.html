@@ -8,7 +8,7 @@
         <div class="content-btn-burger">
         <div *ngFor="let type of showArrayTypeBurger"  class="btn-burger">
           <div  (click)="press(type, true); elementModal(type)" [ngClass]="{'btn-burger-active' :oppressedBtn == type}" class="modal-footer btn-burger">
-            <a class="modal-close waves-effect waves-green btn-flat" > {{type}}</a>
+            <a class="modal-close btn-flat" > {{type}}</a>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="content-btn-add">
         <div *ngIf="stateModalBurger" class="modal-footer btn-burger" >
-          <a (click)="addBurgerForModal(moveDish)" class="modal-close waves-effect waves-green btn-flat">Añadir</a>
+          <a (click)="addBurgerForModal(moveDish)" class="modal-close btn-flat">Añadir</a>
         </div>
       </div>
     </div>
