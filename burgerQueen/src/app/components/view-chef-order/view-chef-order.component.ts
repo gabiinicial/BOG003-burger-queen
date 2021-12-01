@@ -22,10 +22,10 @@ export class ViewChefOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataOrderChef();
-    this.firebaseService.updateState().subscribe((res:any)=>{
+/*     this.firebaseService.updateState(any).subscribe((res:any)=>{
       console.log(res);
-      
-    })
+
+    }) */
   }
 
   getDataOrderChef() {

@@ -46,12 +46,11 @@ export class WaiterViewComponent implements OnInit {
   ngOnInit(): void {
     this.cargarData();
     this.screenWidth = window.innerWidth;
-    // this.getSubscription =
     this.sendOrderFirebase.sendOrders$.subscribe(
       (sub: any) => {
         this.getDataActive = sub;
       });
-     
+
   }
   constructor(
     private RestService: RestService,
