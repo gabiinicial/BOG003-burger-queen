@@ -39,15 +39,15 @@
       </tr>
     </tbody>
   </table>
-  <div  class="center-element">
+  <div *ngIf="view" class="center-element">
     <div class="align-element">
       <div>
         <div class="container-state-bar">
           <div [ngClass]="{'state-bar-active': subcriptionAtiveState}" class="state-bar"></div>
           <hr />
-          <div [ngClass]="{'state-bar-active': currentStateOrder == 'preparacion'}" class="state-bar"></div>
+          <div [ngClass]="{'state-bar-active': countState >= 2}" class="state-bar"></div>
           <hr />
-          <div class="state-bar"></div>
+          <div [ngClass]="{'state-bar-active': countState >= 3}" class="state-bar"></div>
           <hr />
           <div class="state-bar"></div>
         </div>
@@ -61,6 +61,6 @@
   <div *ngIf="!view">
     <div>
       <a (click)="stateChange(itemOrder); stateValueSend('preparacion'); getStateDb()" class="waves-effect waves-light btn">Preparar</a>
-      <a (click)="stateValueSend('entregaChef')" class="waves-effect waves-light btn">Entregar</a>
+      <a (click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn">Entregar</a>
     </div>
   </div>

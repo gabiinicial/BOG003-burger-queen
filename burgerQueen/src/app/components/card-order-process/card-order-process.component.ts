@@ -18,7 +18,7 @@ export class CardOrderProcessComponent implements OnInit {
   @Input() stateOrderDb!: string;
   @Input() currentStateOrder: string = ''; // Se envia a la etiqueta de barra del estado
 
-  @Output() stateUpdate = new EventEmitter<string>();
+  @Output() stateUpdate = new EventEmitter<any>();
 
   subcriptionAtiveState!: Subscription;
   subscriptionStateOrderDb!: Subscription;
@@ -32,6 +32,8 @@ export class CardOrderProcessComponent implements OnInit {
   newSecond: any = '00';
   newMinute: any = '00';
   newHour: any = '00';
+  currentState: string = '';
+  countState: number = 0;
 
 
   constructor(private sendOrderFirebase: getDataFirestore, private firebaseService: firebaseFunctionsService, private sendCardService: sendDataService) {
@@ -44,8 +46,8 @@ export class CardOrderProcessComponent implements OnInit {
 
   ngOnInit(): void {
     this.timer();
-    this.valueOrderState();
-  }
+    this.stateArray();
+   }
 
   timer() {
     let creationHour = new Date(this.itemOrder.creationTime).getHours() * 60 * 60;
@@ -99,12 +101,20 @@ export class CardOrderProcessComponent implements OnInit {
 
   stateChange(item: any) {
     this.firebaseService.updateState(item);
-    this.getStateDb();
+       this.getStateDb();
+  }
+
+  stateArray(){
+    if(this.itemOrder.status == 'preparacion'){
+      this.countState = 2;
+    }else if (this.itemOrder.status == 'entregaChef'){
+      this.countState = 3;
+    }
   }
 
   stateValueSend(state: string) {
     this.valueState = state;
-    this.stateUpdate.emit(this.valueState);
+    this.stateUpdate.emit([this.valueState]);
   }
 
   getStateDb() {
@@ -113,16 +123,19 @@ export class CardOrderProcessComponent implements OnInit {
       console.log("subscriptionStateOrderDb", res.status);
       //newstatus = res.status;
       this.stateOrderDbCard = res.status;
+      this.sendCardService.receiveState(this.stateOrderDbCard);
       return this.stateOrderDbCard; //res.status;
     })
     console.log("---------", this.stateOrderDbCard);
 
   }
   // emite el valor del estado de order(Firestore)
-  valueOrderState() {
-    this.sendCardService.stateOrder$.emit(this.stateOrderDbCard);
-    console.log("Este de llevar", this.stateOrderDbCard);
+  /* valueOrderState() {
+    this.sendCardService.sendStateOrderService().subscribe((res) => {
+      this.currentState = res;
+    });
+    //console.log("Este debe llevar", this.currentState);
+  } */
 
 
-  }
 }

@@ -21,6 +21,7 @@ export class WaiterInProcessComponent implements OnInit {
   sendOrdersSubscription: Subscription | undefined;
   isActive: boolean = false;
   currentState: string ='';
+  currentStateOrder: any;
 
 
   constructor(private firebaseService: firebaseFunctionsService, private sendCardsService: sendDataService ) { }
@@ -29,6 +30,7 @@ export class WaiterInProcessComponent implements OnInit {
     // this.firebaseService.getOrderData();
     this.showDataFirebase();
     this.stateOrderGet();
+    this.valueOrderState();
   }
 
   showDataFirebase() {
@@ -43,9 +45,13 @@ export class WaiterInProcessComponent implements OnInit {
       console.log("Esta llegando 55", order);
     });
     console.log("Esta llegando el estado", this.currentState);
+  }
 
-
-
+  valueOrderState() {
+    this.sendCardsService.sendStateOrderService().subscribe((res) => {
+      this.currentStateOrder = res;
+    });
+    console.log("Este debe llevar", this.currentStateOrder);
   }
 
 }

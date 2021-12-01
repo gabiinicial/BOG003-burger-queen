@@ -9,13 +9,13 @@ import { firebaseFunctionsService } from 'src/app/services/firebase-functions.se
   styleUrls: ['./view-chef-order.component.css'],
 })
 
-export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterViewChecked{
+export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
   getDataSuscription!: Subscription;
   cardsElements: any;
   stateBarChange: string = "";
   idOrder: string = "";
-  stateSave: string ="";
+  stateSave: string = "";
 
   constructor(private sendCardsService: sendDataService, private firebaseService: firebaseFunctionsService) {
 
@@ -27,7 +27,7 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
       this.idOrder = res.id;
       setTimeout(() => {
         this.stateSave = res.status;
-        console.log(res, "estado orden", this.stateBarChange&&this.stateBarChange, "estado", this.stateSave);
+        console.log(res, "estado orden", this.stateBarChange && this.stateBarChange, "estado", this.stateSave);
         this.cardChefEdit(this.idOrder);
       }, 1);
     })
@@ -47,19 +47,19 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
     return this.cardsElements;
   }
 
-  stateOrderChange(event: string){
+  stateOrderChange(event: string) {
     this.stateBarChange = event;
-    console.log("*********--//",this.stateBarChange);
+    console.log("*********--//", this.stateBarChange);
   }
 
-  cardChefEdit(id: string){
+  cardChefEdit(id: string) {
     const order: any = {
       statusOrder: this.stateBarChange
     }
 
     this.firebaseService.editCard(id, order.statusOrder)
-    .then((res)=>{
-      //modificar estado en la barra de estado en caso que sea exitoso
-    }, error => console.log(error));
+      .then((res) => {
+        //modificar estado en la barra de estado en caso que sea exitoso
+      }, error => console.log(error));
   }
 }

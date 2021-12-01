@@ -32,7 +32,7 @@ export class firebaseFunctionsService {
         nameClient: order.nameClient,
         table: order.table,
         products: order.products.map((element) => element.toFirebase()),
-        statusOrder: "creadooo"
+        statusOrder: []
       })
       .then((res) => {
         console.log(res);
@@ -41,12 +41,12 @@ export class firebaseFunctionsService {
         console.log('No se pudo realizar la inserción', err);
       });
   }
-
+// Crea la colección en firebase
   getData() {
     this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
     return this.getOrders$
   }
-
+// Crea actualiza los datos en colección en firebase
   getOrderData(): Observable<any> {
     this.orderElement= [];
     this.getData().forEach((e: any) => {
@@ -72,12 +72,13 @@ export class firebaseFunctionsService {
 
     return of(this.orderElement);
   }
-
+// actualiza el estado en firestore
   editCard(id: string, state: any): Promise<any> {
     this.statusOrder = state;
     console.log("service ",state);
     return this.db.collection('order').doc(id).update({statusOrder: state});
   }
+
 
   updateState(item:Order){
     this.updateCard$.next(item);
@@ -85,8 +86,7 @@ export class firebaseFunctionsService {
 
   getState(): Observable<any>{
     console.log("Esta es la variable",this.statusOrder );
-
     return this.updateCard$.asObservable();
-
   }
+
 }

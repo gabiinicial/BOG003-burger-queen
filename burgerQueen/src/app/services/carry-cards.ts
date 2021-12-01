@@ -1,5 +1,5 @@
-import { Injectable,EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -8,9 +8,18 @@ import { Observable } from 'rxjs';
 
 export class sendDataService {
   carryCards$ = new EventEmitter();
-  stateOrder$ = new EventEmitter(); // Recibe el estado de la order en el componente del chef
+  stateOrder$ = new Subject<any>(); // Recibe el estado de la order en el componente del chef
 
-  constructor() {}
+  constructor() { }
+
+  receiveState(item: any) {
+    this.stateOrder$.next(item);
+  }
+ //
+  sendStateOrderService(): Observable<any> {
+    return this.stateOrder$.asObservable();
+  }
+
 
 
 
