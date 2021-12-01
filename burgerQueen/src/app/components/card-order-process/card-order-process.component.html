@@ -39,13 +39,13 @@
       </tr>
     </tbody>
   </table>
-  <div *ngIf="view" class="center-element">
+  <div  class="center-element">
     <div class="align-element">
       <div>
         <div class="container-state-bar">
           <div [ngClass]="{'state-bar-active': subcriptionAtiveState}" class="state-bar"></div>
           <hr />
-          <div [ngClass]="{'state-bar-active': subscriptionStateOrderDb}" class="state-bar"></div>
+          <div [ngClass]="{'state-bar-active': currentStateOrder == 'preparacion'}" class="state-bar"></div>
           <hr />
           <div class="state-bar"></div>
           <hr />

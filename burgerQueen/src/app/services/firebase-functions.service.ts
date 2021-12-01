@@ -84,6 +84,9 @@ export class firebaseFunctionsService {
   }
 
   getState(): Observable<any>{
+    console.log("Esta es la variable",this.statusOrder );
+
     return this.updateCard$.asObservable();
+
   }
 }

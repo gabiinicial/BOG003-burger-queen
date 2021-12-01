@@ -20,19 +20,32 @@ export class WaiterInProcessComponent implements OnInit {
   timerCount: number = 0;
   sendOrdersSubscription: Subscription | undefined;
   isActive: boolean = false;
+  currentState: string ='';
 
 
-  constructor(private firebaseService: firebaseFunctionsService, private  sendCardsService: sendDataService) { }
+  constructor(private firebaseService: firebaseFunctionsService, private sendCardsService: sendDataService ) { }
 
   ngOnInit(): void {
     // this.firebaseService.getOrderData();
     this.showDataFirebase();
+    this.stateOrderGet();
   }
 
   showDataFirebase() {
    this.firebaseService.getOrderData().subscribe((order: any[]) => {
         this.getOrderSave = order;
       });
+  }
+  // trae el estado
+  stateOrderGet(){
+    this.sendCardsService.stateOrder$.subscribe((order: any) =>{
+      this.currentState = order;
+      console.log("Esta llegando 55", order);
+    });
+    console.log("Esta llegando el estado", this.currentState);
+
+
+
   }
 
 }
