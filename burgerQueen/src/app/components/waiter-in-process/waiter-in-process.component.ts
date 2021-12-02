@@ -20,38 +20,58 @@ export class WaiterInProcessComponent implements OnInit {
   timerCount: number = 0;
   sendOrdersSubscription: Subscription | undefined;
   isActive: boolean = false;
-  currentState: string ='';
+  currentState: string = '';
   currentStateOrder: any;
+  stateBarChangeValue: string = "";
+  currentIdOrder: any;
 
 
-  constructor(private firebaseService: firebaseFunctionsService, private sendCardsService: sendDataService ) { }
+  constructor(private firebaseService: firebaseFunctionsService, private sendCardsService: sendDataService) { }
 
   ngOnInit(): void {
     // this.firebaseService.getOrderData();
     this.showDataFirebase();
     this.stateOrderGet();
     this.valueOrderState();
+    this.firebaseService.getState().subscribe((res: any) => {
+      this.currentIdOrder = res.id;
+      this.cardChefEdit(this.currentIdOrder);
+    })
   }
-
+  //metodo para traer los datos para el servicio
   showDataFirebase() {
-   this.firebaseService.getOrderData().subscribe((order: any[]) => {
-        this.getOrderSave = order;
-      });
+    this.firebaseService.getOrderData().subscribe((order: any[]) => {
+      this.getOrderSave = order;
+    });
   }
   // trae el estado
-  stateOrderGet(){
-    this.sendCardsService.stateOrder$.subscribe((order: any) =>{
+  stateOrderGet() {
+    this.sendCardsService.stateOrder$.subscribe((order: any) => {
       this.currentState = order;
-      console.log("Esta llegando 55", order);
     });
-    console.log("Esta llegando el estado", this.currentState);
   }
 
   valueOrderState() {
     this.sendCardsService.sendStateOrderService().subscribe((res) => {
       this.currentStateOrder = res;
     });
-    console.log("Este debe llevar", this.currentStateOrder);
+  }
+  stateOrderChangeInProcess(event: string) {
+    this.stateBarChangeValue = event;
   }
 
+  cardChefEdit(id: string) {
+    const order: any = {
+      statusOrder: this.stateBarChangeValue
+    }
+    if (this.stateBarChangeValue !== '') {
+      //Funcion lleva el estado para actualizarlo en firebase
+      this.firebaseService.editCard(id, order.statusOrder)
+        .then((res) => {
+          console.log("-----", res);
+        }, error => {
+          console.log("NO", error);
+        })
+    }
+  }
 }

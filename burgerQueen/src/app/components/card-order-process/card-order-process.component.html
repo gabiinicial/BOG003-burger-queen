@@ -49,18 +49,18 @@
           <hr />
           <div [ngClass]="{'state-bar-active': countState >= 3}" class="state-bar"></div>
           <hr />
-          <div class="state-bar"></div>
+          <div [ngClass]="{'state-bar-active': countState >= 4}" class="state-bar"></div>
         </div>
         <p>Estado {{subscriptionStateOrderDb}}</p>
       </div>
       <div>
-        <a (click)="timer()" class="waves-effect waves-light btn">Entregar</a>
+        <a [ngClass]="{disabled:countState < 3  }" (click)="stateChange(itemOrder); stateValueSend('entregaCliente')" class="waves-effect waves-light btn">Entregar</a>
       </div>
     </div>
   </div>
   <div *ngIf="!view">
     <div>
-      <a (click)="stateChange(itemOrder); stateValueSend('preparacion'); getStateDb()" class="waves-effect waves-light btn">Preparar</a>
-      <a (click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn">Entregar</a>
+      <a [ngClass]="{disable:countState >= 2}" (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn">Preparar</a>
+      <a (click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn disabled" >Entregar</a>
     </div>
   </div>

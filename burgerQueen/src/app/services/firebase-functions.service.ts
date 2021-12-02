@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
 import { Observable, of, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { query, orderBy } from "firebase/firestore";
 
 @Injectable({
@@ -15,7 +16,6 @@ export class firebaseFunctionsService {
   product: Product[] = [];
   getOrders$: Observable<any[]> | undefined;
   orderSave: any = [];
-  orderElement: any = [];
   orderProducts: Product[] = [];
   getOrderElements: any = [];
   statusOrder: any = "";
@@ -41,51 +41,53 @@ export class firebaseFunctionsService {
         console.log('No se pudo realizar la inserción', err);
       });
   }
-// Crea la colección en firebase
+  // Obtiene la colección en firebase
   getData() {
-    this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
+    //se crea unicamente si no ha sido creado anteriormente
+    if (this.getOrders$ === undefined) {
+      this.getOrders$ = this.db.collection('order', ref => ref.orderBy('date', 'desc')).snapshotChanges();
+      console.log("se crea observador");
+
+    }
     return this.getOrders$
   }
-// Crea actualiza los datos en colección en firebase
+  // Retorna  los datos de la colección en firebase
   getOrderData(): Observable<any> {
-    this.orderElement= [];
-    this.getData().forEach((e: any) => {
-      e.forEach((i: any) => {
-        let newOrderElement = new Order();
-        newOrderElement.creationTime = new Date(i.payload.doc.data().date.seconds * 1000);
-        newOrderElement.nameClient = i.payload.doc.data().nameClient;
-        newOrderElement.table = i.payload.doc.data().table;
-        newOrderElement.id= i.payload.doc.ref.id;
+    //se toma la documentacion de snapshotChanges
+    // metodo map se importa de rxjs
+    //https://github.com/angular/angularfire/blob/master/docs/firestore/collections.md
+    return this.getData().pipe(map(actions => actions.map(i => {
+      let newOrderElement = new Order();
+      newOrderElement.creationTime = new Date(i.payload.doc.data().date.seconds * 1000);
+      newOrderElement.nameClient = i.payload.doc.data().nameClient;
+      newOrderElement.table = i.payload.doc.data().table;
+      newOrderElement.id = i.payload.doc.ref.id;
 
-        i.payload.doc.data().products.forEach((e: any) => {
-          let newProduct = new Product();
-          newProduct.count = e.count;
-          newProduct.nameProduct = e.nameProduct;
-          newProduct.price = e.price;
-          newOrderElement.products.push(newProduct);
-          this.orderProducts.push(newProduct);
-        });
-        newOrderElement.status = i.payload.doc.data().statusOrder;
-        this.orderElement.push(newOrderElement);
+      i.payload.doc.data().products.forEach((e: any) => {
+        let newProduct = new Product();
+        newProduct.count = e.count;
+        newProduct.nameProduct = e.nameProduct;
+        newProduct.price = e.price;
+        newOrderElement.products.push(newProduct);
+        this.orderProducts.push(newProduct);
       });
-    });
-
-    return of(this.orderElement);
+      newOrderElement.status = i.payload.doc.data().statusOrder;
+      return newOrderElement;
+    })))
   }
-// actualiza el estado en firestore
+  // actualiza el estado en firestore
   editCard(id: string, state: any): Promise<any> {
     this.statusOrder = state;
-    console.log("service ",state);
-    return this.db.collection('order').doc(id).update({statusOrder: state});
+    console.log("service ", state);
+    return this.db.collection('order').doc(id).update({ statusOrder: state });
   }
 
 
-  updateState(item:Order){
+  updateState(item: Order) {
     this.updateCard$.next(item);
   }
 
-  getState(): Observable<any>{
-    console.log("Esta es la variable",this.statusOrder );
+  getState(): Observable<any> {
     return this.updateCard$.asObservable();
   }
 

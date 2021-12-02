@@ -267,6 +267,7 @@ input[type="text"]:not(.browser-default) {
   display: flex;
   justify-content: space-evenly;
   flex-flow: wrap;
+  z-index: 4;
 }
 
 .card-sumary {
