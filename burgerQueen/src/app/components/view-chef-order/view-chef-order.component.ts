@@ -25,11 +25,8 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
     this.getDataOrderChef();
     this.firebaseService.getState().subscribe((res: any) => {
       this.idOrder = res.id;
-      setTimeout(() => {
         this.stateSave = res.status;
-        console.log(res, "estado orden", this.stateBarChange && this.stateBarChange, "estado", this.stateSave);
         this.cardChefEdit(this.idOrder);
-      }, 1);
     })
   }
 
@@ -49,17 +46,19 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
 
   stateOrderChange(event: string) {
     this.stateBarChange = event;
-    console.log("*********--//", this.stateBarChange);
   }
 
   cardChefEdit(id: string) {
     const order: any = {
       statusOrder: this.stateBarChange
     }
-
+    if (this.stateBarChange !== '') {
+    //Funcion lleva el estado para actualizarlo en firebase
     this.firebaseService.editCard(id, order.statusOrder)
-      .then((res) => {
-        //modificar estado en la barra de estado en caso que sea exitoso
-      }, error => console.log(error));
+    .then((res)=>{
+      console.log("-----",res);
+    },error=>{console.log("NO",error);
+    })
+    }
   }
 }

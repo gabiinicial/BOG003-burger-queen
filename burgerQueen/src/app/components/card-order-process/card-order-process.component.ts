@@ -15,7 +15,6 @@ export class CardOrderProcessComponent implements OnInit {
   @Input() itemOrder: any = [];
   @Input() isState: boolean = true;
   @Input() view: boolean = true;
-  @Input() stateOrderDb!: string;
   @Input() currentStateOrder: string = ''; // Se envia a la etiqueta de barra del estado
 
   @Output() stateUpdate = new EventEmitter<any>();
@@ -101,7 +100,7 @@ export class CardOrderProcessComponent implements OnInit {
 
   stateChange(item: any) {
     this.firebaseService.updateState(item);
-       this.getStateDb();
+      //  this.getStateDb();
   }
 
   stateArray(){
@@ -109,6 +108,8 @@ export class CardOrderProcessComponent implements OnInit {
       this.countState = 2;
     }else if (this.itemOrder.status == 'entregaChef'){
       this.countState = 3;
+    }else if(this.itemOrder.status == 'entregaCliente'){
+      this.countState = 4;
     }
   }
 
@@ -117,25 +118,16 @@ export class CardOrderProcessComponent implements OnInit {
     this.stateUpdate.emit([this.valueState]);
   }
 
-  getStateDb() {
-    //return this.subscriptionStateOrderDb =
-    this.firebaseService.getState().subscribe((res) => {
-      console.log("subscriptionStateOrderDb", res.status);
-      //newstatus = res.status;
-      this.stateOrderDbCard = res.status;
-      this.sendCardService.receiveState(this.stateOrderDbCard);
-      return this.stateOrderDbCard; //res.status;
-    })
-    console.log("---------", this.stateOrderDbCard);
+  // getStateDb() {
+  //   //return this.subscriptionStateOrderDb =
+  //   this.firebaseService.getState().subscribe((res) => {
+  //     console.log("subscriptionStateOrderDb", res.status);
+  //     //newstatus = res.status;
+  //     this.stateOrderDbCard = res.status;
+  //     this.sendCardService.receiveState(this.stateOrderDbCard);
+  //     return this.stateOrderDbCard; //res.status;
+  //   })
+  //   console.log("---------", this.stateOrderDbCard);
 
-  }
-  // emite el valor del estado de order(Firestore)
-  /* valueOrderState() {
-    this.sendCardService.sendStateOrderService().subscribe((res) => {
-      this.currentState = res;
-    });
-    //console.log("Este debe llevar", this.currentState);
-  } */
-
-
+  // }
 }
