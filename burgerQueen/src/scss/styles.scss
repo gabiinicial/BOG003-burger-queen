@@ -262,12 +262,27 @@ input[type="text"]:not(.browser-default) {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+//Nuevas clases para contenedor de tarjetas
+.content-cards{
+  display: flex;
+  border: 2px solid red;
+  flex-flow: wrap;
+}
+.card{
+  border: 2px solid rgb(255, 181, 23);
+}
+.container-target{
+width: 90%;
+border: 2px solid green;
 
+}
 .container-sumary {
   display: flex;
   justify-content: space-evenly;
   flex-flow: wrap;
   z-index: 4;
+  width: 90%;
+  border: 2px double rgb(153, 0, 255);
 }
 
 .card-sumary {
@@ -278,8 +293,9 @@ input[type="text"]:not(.browser-default) {
 
 .table-sumary {
   background-color: #fcfcfc;
-  width: 80%;
+  width: 100%;
   border-radius: $border-general;
+  border: 3px solid fuchsia;
 }
 
 .content-btn {
@@ -458,6 +474,7 @@ input[type="text"]:not(.browser-default) {
   justify-content: center;
   bottom: 0px;
   background-color: $main-color;
+  border: 3px dotted green;
 }
 
 .border-cards {
