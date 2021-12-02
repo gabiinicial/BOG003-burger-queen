@@ -54,13 +54,13 @@
         <p>Estado {{subscriptionStateOrderDb}}</p>
       </div>
       <div>
-        <a [ngClass]="{disabled:countState < 3  }" (click)="stateChange(itemOrder); stateValueSend('entregaCliente')" class="waves-effect waves-light btn">Entregar</a>
+        <a [ngClass]="{disabled:countState < 3}" (click)="stateChange(itemOrder); stateValueSend('entregaCliente')" class="waves-effect waves-light btn">Entregar</a>
       </div>
     </div>
   </div>
   <div *ngIf="!view">
     <div>
-      <a [ngClass]="{disable:countState >= 2}" (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn">Preparar</a>
-      <a (click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn disabled" >Entregar</a>
+      <a [ngClass]="{disabled:countState >= 2}" (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn">Preparar</a>
+      <a [ngClass]="{disabled:countState < 2 || countState >= 3}"(click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn " >Entregar</a>
     </div>
   </div>
