@@ -7,5 +7,5 @@ export class Order {
   endDate!: Date ;
   products: Product[] = [];
   id:string = "";
-  status: string[] = [];
+  status: string= '';
 }
