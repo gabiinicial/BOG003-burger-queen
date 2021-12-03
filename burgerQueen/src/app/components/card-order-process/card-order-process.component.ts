@@ -33,30 +33,46 @@ export class CardOrderProcessComponent implements OnInit {
   newHour: any = '00';
   currentState: string = '';
   countState: number = 0;
-
-
+  subtractTime!: Date;
+  
   constructor(private sendOrderFirebase: getDataFirestore, private firebaseService: firebaseFunctionsService, private sendCardService: sendDataService) {
     this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res => {
       return res;
     });
     //console.log("Trae la respuesta",this.subcriptionAtiveState);
-
   }
 
   ngOnInit(): void {
-    this.timer();
+    //this.timer();
+    this.switchTimer();
     this.stateArray();
-   }
+  }
 
-  timer() {
+  switchTimer(){
+    if(this.itemOrder.status == 'entregaCliente'){
+      this.subtractTime = this.itemOrder.endDate;
+      this.timer(this.subtractTime);
+      this.stopTimer();
+    } else {
+      this.subtractTime = new Date(Date.now());
+      this.timer(this.subtractTime);
+    }
+  }
+
+  stopTimer(){
+    clearInterval(this.stopWatch);
+  }
+
+  timer(requiredTime: Date) {
+
     let creationHour = new Date(this.itemOrder.creationTime).getHours() * 60 * 60;
     let creationMinute = new Date(this.itemOrder.creationTime).getMinutes() * 60;
     let creationSeconds = new Date(this.itemOrder.creationTime).getSeconds();
     let sumHours = creationHour + creationMinute + creationSeconds;
 
-    let dateNowHour = new Date(Date.now()).getHours() * 60 * 60;
-    let dateNowMinute = new Date(Date.now()).getMinutes() * 60;
-    let dateNowSeconds = new Date(Date.now()).getSeconds();
+    let dateNowHour = new Date(requiredTime).getHours() * 60 * 60;
+    let dateNowMinute = new Date(requiredTime).getMinutes() * 60;
+    let dateNowSeconds = new Date(requiredTime).getSeconds();
     let sumHoursNow = dateNowHour + dateNowMinute + dateNowSeconds;
 
     let creationInterval = sumHoursNow - sumHours;
@@ -69,8 +85,6 @@ export class CardOrderProcessComponent implements OnInit {
     // se calculan los segundos que hay en seconds
     let calculateSeconds = Math.floor((creationInterval % minToSeconds));
     // se realizan los condicionales para añadir 0 en caso de que la respuesta solo sea de un dígito
-
-    this.itemOrder.creationTime;
 
     this.countSeconds = calculateSeconds; //numero
     this.countMinutes = calculateMinutes;
@@ -118,16 +132,4 @@ export class CardOrderProcessComponent implements OnInit {
     this.stateUpdate.emit([this.valueState]);
   }
 
-  // getStateDb() {
-  //   //return this.subscriptionStateOrderDb =
-  //   this.firebaseService.getState().subscribe((res) => {
-  //     console.log("subscriptionStateOrderDb", res.status);
-  //     //newstatus = res.status;
-  //     this.stateOrderDbCard = res.status;
-  //     this.sendCardService.receiveState(this.stateOrderDbCard);
-  //     return this.stateOrderDbCard; //res.status;
-  //   })
-  //   console.log("---------", this.stateOrderDbCard);
-
-  // }
 }

@@ -1,66 +1,93 @@
-<div class="center-element  ">
-    <div class="align-element">
-      <div>
-        <!-- <p>Se creo hace: {{newHour}}:{{newMinute}}:{{newSecond}}</p> -->
-        <p>Se creo hace: {{countHours}}:{{countMinutes}}:{{countSeconds}}</p>
-
-
-      </div>
-      <div class="center-element line-section">
-        <p>
-          Hora: {{ itemOrder.creationTime.getHours() }}:{{
-            itemOrder.creationTime.getMinutes()
-          }}:{{ itemOrder.creationTime.getSeconds() }}
-        </p>
-        <p>
-          Fecha:{{ itemOrder.creationTime.getDate() }}-{{
-            itemOrder.creationTime.getMonth() + 1
-          }}-{{ itemOrder.creationTime.getFullYear() }}
-        </p>
-      </div>
+<div class="center-element">
+  <div class="align-element">
+    <div *ngIf="itemOrder.status != 'entregaCliente'; then content else other_content"></div>
+    <ng-template #content>Se creo hace: {{ countHours }}:{{ countMinutes }}:{{ countSeconds }}</ng-template>
+    <ng-template #other_content>Su pedido tardo: {{ countHours }}:{{ countMinutes }}:{{ countSeconds }}</ng-template>
+    
+    <div class="center-element line-section">
+      <p>
+        Hora de creación: {{ itemOrder.creationTime.getHours() }}:{{
+          itemOrder.creationTime.getMinutes()
+        }}:{{ itemOrder.creationTime.getSeconds() }}
+      </p>
+      <p>
+        Fecha:{{ itemOrder.creationTime.getDate() }}-{{
+          itemOrder.creationTime.getMonth() + 1
+        }}-{{ itemOrder.creationTime.getFullYear() }}
+      </p>
     </div>
   </div>
+</div>
 
-  <div class="data-client">
-    <p>Cliente: {{ itemOrder.nameClient }}</p>
-    <p>Mesa: {{ itemOrder.table }}</p>
-  </div>
-  <table class="">
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Cantidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of itemOrder.products">
-        <td>{{ product.nameProduct }}</td>
-        <td>{{ product.count }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="view" class="center-element">
-    <div class="align-element">
-      <div>
-        <div class="container-state-bar">
-          <div [ngClass]="{'state-bar-active': subcriptionAtiveState}" class="state-bar"></div>
-          <hr />
-          <div [ngClass]="{'state-bar-active': countState >= 2}" class="state-bar"></div>
-          <hr />
-          <div [ngClass]="{'state-bar-active': countState >= 3}" class="state-bar"></div>
-          <hr />
-          <div [ngClass]="{'state-bar-active': countState >= 4}" class="state-bar"></div>
-        </div>
-        <p>Estado {{subscriptionStateOrderDb}}</p>
-      </div>
-      <div>
-        <a [ngClass]="{disabled:countState < 3}" (click)="stateChange(itemOrder); stateValueSend('entregaCliente')" class="waves-effect waves-light btn">Entregar</a>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="!view">
+<div class="data-client">
+  <p>Cliente: {{ itemOrder.nameClient }}</p>
+  <p>Mesa: {{ itemOrder.table }}</p>
+</div>
+<table class="">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of itemOrder.products">
+      <td>{{ product.nameProduct }}</td>
+      <td>{{ product.count }}</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="view" class="center-element">
+  <div class="align-element">
     <div>
-      <a [ngClass]="{disabled:countState >= 2}" (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn">Preparar</a>
-      <a [ngClass]="{disabled:countState < 2 || countState >= 3}"(click)="stateValueSend('entregaChef'); stateChange(itemOrder)" class="waves-effect waves-light btn " >Entregar</a>
+      <div class="container-state-bar">
+        <div
+          [ngClass]="{ 'state-bar-active': subcriptionAtiveState }"
+          class="state-bar"
+        ></div>
+        <hr />
+        <div
+          [ngClass]="{ 'state-bar-active': countState >= 2 }"
+          class="state-bar"
+        ></div>
+        <hr />
+        <div
+          [ngClass]="{ 'state-bar-active': countState >= 3 }"
+          class="state-bar"
+        ></div>
+        <hr />
+        <div
+          [ngClass]="{ 'state-bar-active': countState >= 4 }"
+          class="state-bar"
+        ></div>
+      </div>
+      <p>Estado {{ subscriptionStateOrderDb }}</p>
+    </div>
+    <div>
+      <a
+        [ngClass]="{ disabled: countState < 3 }"
+        (click)="
+          stateChange(itemOrder); stateValueSend('entregaCliente'); stopTimer()
+        "
+        class="waves-effect waves-light btn"
+        >Entregar</a
+      >
     </div>
   </div>
+</div>
+<div *ngIf="!view">
+  <div>
+    <a
+      [ngClass]="{ disabled: countState >= 2 }"
+      (click)="stateChange(itemOrder); stateValueSend('preparacion')"
+      class="waves-effect waves-light btn"
+      >Preparar</a
+    >
+    <a
+      [ngClass]="{ disabled: countState < 2 || countState >= 3 }"
+      (click)="stateValueSend('entregaChef'); stateChange(itemOrder)"
+      class="waves-effect waves-light btn"
+      >Entregar</a
+    >
+  </div>
+</div>
