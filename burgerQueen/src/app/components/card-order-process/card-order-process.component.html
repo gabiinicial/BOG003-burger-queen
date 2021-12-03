@@ -47,17 +47,17 @@
         ></div>
         <hr />
         <div
-          [ngClass]="{ 'state-bar-active': countState >= 2 }"
+          [ngClass]="{ 'state-bar-active': itemOrder.status.length >= 1 }"
           class="state-bar"
         ></div>
         <hr />
         <div
-          [ngClass]="{ 'state-bar-active': countState >= 3 }"
+          [ngClass]="{ 'state-bar-active': itemOrder.status.length >= 2 }"
           class="state-bar"
         ></div>
         <hr />
         <div
-          [ngClass]="{ 'state-bar-active': countState >= 4 }"
+          [ngClass]="{ 'state-bar-active': itemOrder.status.length >= 3 }"
           class="state-bar"
         ></div>
       </div>
@@ -65,7 +65,7 @@
     </div>
     <div>
       <a
-        [ngClass]="{ disabled: countState < 3 }"
+        [ngClass]="{ disabled: itemOrder.status.length < 2}"
         (click)="
           stateChange(itemOrder); stateValueSend('entregaCliente'); stopTimer()
         "
@@ -78,13 +78,13 @@
 <div *ngIf="!view">
   <div>
     <a
-      [ngClass]="{ disabled: countState >= 2 }"
+      [ngClass]="{ disabled: itemOrder.status.length >= 1 }"
       (click)="stateChange(itemOrder); stateValueSend('preparacion')"
       class="waves-effect waves-light btn"
       >Preparar</a
     >
     <a
-      [ngClass]="{ disabled: countState < 2 || countState >= 3 }"
+      [ngClass]="{ disabled: itemOrder.status.length < 1 || itemOrder.status.length >= 2 }"
       (click)="stateValueSend('entregaChef'); stateChange(itemOrder)"
       class="waves-effect waves-light btn"
       >Entregar</a

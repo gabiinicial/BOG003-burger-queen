@@ -4,7 +4,9 @@ import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { query, orderBy } from "firebase/firestore";
+import  * as firebase  from 'firebase/firestore';
+import * as firestore from 'firebase/firestore';
+
 
 @Injectable({
   providedIn: 'root',
@@ -87,8 +89,9 @@ export class firebaseFunctionsService {
     } else{
       this.statusOrder = {statusOrder: state.statusOrder};
     } */
+    //this.statusOrder = state.statusOrder;
     return this.db.collection('order').doc(id)
-    .update(state);
+    .update({statusOrder : firestore.arrayUnion(state.statusOrder)});
   }
 
 

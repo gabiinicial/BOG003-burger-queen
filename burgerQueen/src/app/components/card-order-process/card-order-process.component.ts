@@ -129,7 +129,7 @@ export class CardOrderProcessComponent implements OnInit {
 
   stateValueSend(state: string) {
     this.valueState = state;
-    this.stateUpdate.emit([this.valueState]);
+    this.stateUpdate.emit(this.valueState);
   }
 
 }
