@@ -38,12 +38,14 @@ export class WaiterInProcessComponent implements OnInit {
       this.cardChefEdit(this.currentIdOrder);
     })
   }
+
   //metodo para traer los datos para el servicio
   showDataFirebase() {
     this.firebaseService.getOrderData().subscribe((order: any[]) => {
       this.getOrderSave = order;
     });
   }
+
   // trae el estado
   stateOrderGet() {
     this.sendCardsService.stateOrder$.subscribe((order: any) => {
@@ -61,12 +63,13 @@ export class WaiterInProcessComponent implements OnInit {
   }
 
   cardChefEdit(id: string) {
-    const order: any = {
-      statusOrder: this.stateBarChangeValue
+    const orderWaiter: any = {
+      statusOrder: this.stateBarChangeValue,
+      endDate: new Date(Date.now())
     }
-    if (this.stateBarChangeValue !== '') {
+    if (this.stateBarChangeValue !== '' && this.stateBarChangeValue == 'entregaCliente') {
       //Funcion lleva el estado para actualizarlo en firebase
-      this.firebaseService.editCard(id, order.statusOrder)
+      this.firebaseService.editCard(id, orderWaiter)
         .then((res) => {
           console.log("-----", res);
         }, error => {

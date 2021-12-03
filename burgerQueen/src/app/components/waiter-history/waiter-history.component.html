@@ -1,3 +1,16 @@
 <div class="navbar-fixed">
     <app-header></app-header>
 </div>
+  <div class="container-border">
+    <div class="row border-cards"></div>
+    <div class="container-sumary">
+      <div *ngFor="let item of cardsElementWaiter" class="container-target">
+        <div *ngIf="item.status == 'entregaCliente'" class="table-sumary card">
+          <app-card-order-process
+            [itemOrder]="item"
+            [view]="false"
+          ></app-card-order-process>
+        </div>
+      </div>
+    </div>
+  </div>

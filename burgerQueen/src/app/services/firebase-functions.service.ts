@@ -18,7 +18,7 @@ export class firebaseFunctionsService {
   orderSave: any = [];
   orderProducts: Product[] = [];
   getOrderElements: any = [];
-  statusOrder: any = "";
+  statusOrder: any = [];
   private updateCard$ = new Subject<any>();
 
   constructor(private db: AngularFirestore) { }
@@ -59,6 +59,9 @@ export class firebaseFunctionsService {
     return this.getData().pipe(map(actions => actions.map(i => {
       let newOrderElement = new Order();
       newOrderElement.creationTime = new Date(i.payload.doc.data().date.seconds * 1000);
+      if(i.payload.doc.data().endDate){
+        newOrderElement.endDate = new Date(i.payload.doc.data().endDate.seconds * 1000);
+      }
       newOrderElement.nameClient = i.payload.doc.data().nameClient;
       newOrderElement.table = i.payload.doc.data().table;
       newOrderElement.id = i.payload.doc.ref.id;
@@ -75,11 +78,17 @@ export class firebaseFunctionsService {
       return newOrderElement;
     })))
   }
+
   // actualiza el estado en firestore
   editCard(id: string, state: any): Promise<any> {
-    this.statusOrder = state;
-    console.log("service ", state);
-    return this.db.collection('order').doc(id).update({ statusOrder: state });
+    console.log('\n\n estado de la orden y fecha final',state);
+    /* if(state.endDate && state.statusOrder ){
+      this.statusOrder = { statusOrder: state.statusOrder, endDate: state.endDate };
+    } else{
+      this.statusOrder = {statusOrder: state.statusOrder};
+    } */
+    return this.db.collection('order').doc(id)
+    .update(state);
   }
 
 

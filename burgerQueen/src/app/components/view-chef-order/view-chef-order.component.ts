@@ -54,7 +54,7 @@ export class ViewChefOrderComponent implements OnInit, AfterContentInit, AfterVi
     }
     if (this.stateBarChange !== '') {
     //Funcion lleva el estado para actualizarlo en firebase
-    this.firebaseService.editCard(id, order.statusOrder)
+    this.firebaseService.editCard(id, order)
     .then((res)=>{
       console.log("-----",res);
     },error=>{console.log("NO",error);

@@ -1,14 +1,17 @@
 <div class="navbar-fixed">
   <app-header-chef></app-header-chef>
 </div>
-<div class=" container-border ">
-<div class=" row border-cards"></div>
-  <div class="col s12 m12 container-sumary  border-line colum ">
-    <div *ngFor="let item of cardsElements " class="card description table-sumary ">
-    <div *ngIf="item.status != 'entregaChef'">
-      <app-card-order-process [itemOrder]="item" [view]="false" 
-        (stateUpdate)="stateOrderChange($event)"></app-card-order-process>
+<div class="container-border">
+  <div class="row border-cards"></div>
+  <div class="container-sumary">
+    <div *ngFor="let item of cardsElements" class="container-target">
+      <div *ngIf="item.status != 'entregaChef'" class="table-sumary card">
+        <app-card-order-process
+          [itemOrder]="item"
+          [view]="false"
+          (stateUpdate)="stateOrderChange($event)"
+        ></app-card-order-process>
+      </div>
     </div>
-</div>
   </div>
 </div>

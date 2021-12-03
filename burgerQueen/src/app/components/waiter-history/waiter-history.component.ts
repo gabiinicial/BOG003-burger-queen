@@ -7,15 +7,17 @@ import { firebaseFunctionsService } from 'src/app/services/firebase-functions.se
   styleUrls: ['./waiter-history.component.css']
 })
 export class WaiterHistoryComponent implements OnInit {
-  getOrderSaveChef: any[]= [];
+  cardsElementWaiter: any[]= [];
 
   constructor(private firebaseService: firebaseFunctionsService ) { }
 
   ngOnInit(): void {
+    this.showDataEndWaiter();
   }
-  showDataEndChef() {
+
+  showDataEndWaiter() {
     this.firebaseService.getOrderData().subscribe((order: any[]) => {
-      this.getOrderSaveChef = order;
+      this.cardsElementWaiter = order;
     });
   }
 }
