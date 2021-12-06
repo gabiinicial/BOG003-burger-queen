@@ -5,8 +5,8 @@
   <div class=" row border-cards"></div>
   <div class="container-sumary">
     <div *ngFor="let item of getOrderSaveChef" class="container-target">
-      <div *ngIf="item.status == 'entregaChef'" class="table-sumary card">
-        <app-card-order-process [itemOrder]="item"></app-card-order-process>
+      <div *ngIf="item.status.includes('entregaChef')" class="table-sumary card">
+        <app-card-order-process [itemOrder]="item" [viewHistory]="true"></app-card-order-process>
      </div>
     </div>
   </div>

@@ -3,19 +3,13 @@
 </div>
 <div class="container-border">
   <div class="row border-cards"></div>
-  <div class="hide-element"></div>
-  <div class="col s12 m12 container-sumary border-line colum">
-    <div
-      *ngFor="let item of getOrderSave"
-      class="card description table-sumary"
-    >
-      <app-card-order-process
-        [itemOrder]="item"
-        [isState]="isActive"
-        [view]="true"
-        [currentStateOrder]="currentStateOrder"
-        (stateUpdate)="stateOrderChangeInProcess($event)"
-      ></app-card-order-process>
+  <div class="container-sumary">
+    <div *ngFor="let item of getOrderSave" class=" container-target">
+      <div *ngIf="!item.status.includes('entregaCliente')" class="table-sumary card">
+        <app-card-order-process [itemOrder]="item" [isState]="isActive" [view]="true" [viewHistory]="false"
+          [currentStateOrder]="currentStateOrder" (stateUpdate)="stateOrderChangeInProcess($event)">
+        </app-card-order-process>
+      </div>
     </div>
   </div>
 </div>

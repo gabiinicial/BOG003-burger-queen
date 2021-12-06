@@ -16,6 +16,7 @@ export class CardOrderProcessComponent implements OnInit {
   @Input() isState: boolean = true;
   @Input() view: boolean = true;
   @Input() currentStateOrder: string = ''; // Se envia a la etiqueta de barra del estado
+  @Input() viewHistory!: boolean;
 
   @Output() stateUpdate = new EventEmitter<any>();
 
@@ -34,7 +35,9 @@ export class CardOrderProcessComponent implements OnInit {
   currentState: string = '';
   countState: number = 0;
   subtractTime!: Date;
-  
+  isStatusValidation: boolean = false;
+  //arrayStatus: string[] = ['preparacion', 'entregaChef', 'entregaCliente'];
+
   constructor(private sendOrderFirebase: getDataFirestore, private firebaseService: firebaseFunctionsService, private sendCardService: sendDataService) {
     this.subcriptionAtiveState = this.sendOrderFirebase.sendOrders$.subscribe(res => {
       return res;
@@ -45,11 +48,11 @@ export class CardOrderProcessComponent implements OnInit {
   ngOnInit(): void {
     //this.timer();
     this.switchTimer();
-    this.stateArray();
+    //this.stateArray();
   }
 
-  switchTimer(){
-    if(this.itemOrder.status == 'entregaCliente'){
+  switchTimer() {
+    if (this.itemOrder.status.includes('entregaCliente')) {
       this.subtractTime = this.itemOrder.endDate;
       this.timer(this.subtractTime);
       this.stopTimer();
@@ -57,9 +60,11 @@ export class CardOrderProcessComponent implements OnInit {
       this.subtractTime = new Date(Date.now());
       this.timer(this.subtractTime);
     }
+    console.log("Prueba de cronometro",this);
+
   }
 
-  stopTimer(){
+  stopTimer() {
     clearInterval(this.stopWatch);
   }
 
@@ -114,18 +119,20 @@ export class CardOrderProcessComponent implements OnInit {
 
   stateChange(item: any) {
     this.firebaseService.updateState(item);
-      //  this.getStateDb();
+    //  this.getStateDb();
   }
+  // Validación de botones si no hay campo en firestore
+  /* stateArray() {
 
-  stateArray(){
-    if(this.itemOrder.status == 'preparacion'){
-      this.countState = 2;
-    }else if (this.itemOrder.status == 'entregaChef'){
-      this.countState = 3;
-    }else if(this.itemOrder.status == 'entregaCliente'){
-      this.countState = 4;
+    if (this.itemOrder.status.length > 0) {
+      if (this.itemOrder.status[0] == this.arrayStatus[0]) {
+        this.arrayStatus
+      }
+    } else {
+      console.log('Aqui esta el estado----', this.itemOrder);
     }
-  }
+
+  } */
 
   stateValueSend(state: string) {
     this.valueState = state;

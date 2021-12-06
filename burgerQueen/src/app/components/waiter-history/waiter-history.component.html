@@ -5,10 +5,11 @@
     <div class="row border-cards"></div>
     <div class="container-sumary">
       <div *ngFor="let item of cardsElementWaiter" class="container-target">
-        <div *ngIf="item.status == 'entregaCliente'" class="table-sumary card">
+        <div *ngIf="item.status.includes('entregaCliente')" class="table-sumary card">
           <app-card-order-process
             [itemOrder]="item"
             [view]="false"
+            [viewHistory]="true"
           ></app-card-order-process>
         </div>
       </div>

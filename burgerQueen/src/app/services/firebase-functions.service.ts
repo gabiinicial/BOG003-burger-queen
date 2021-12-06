@@ -4,7 +4,6 @@ import { Order } from '../classes/order';
 import { Product } from '../classes/orderProduct';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import  * as firebase  from 'firebase/firestore';
 import * as firestore from 'firebase/firestore';
 
 
@@ -81,17 +80,17 @@ export class firebaseFunctionsService {
     })))
   }
 
-  // actualiza el estado en firestore
+  // Actualiza el estado de la orden en firestore
   editCard(id: string, state: any): Promise<any> {
     console.log('\n\n estado de la orden y fecha final',state);
-    /* if(state.endDate && state.statusOrder ){
-      this.statusOrder = { statusOrder: state.statusOrder, endDate: state.endDate };
+    if(state.endDate && state.statusOrder ){
+      this.statusOrder = { statusOrder : firestore.arrayUnion(state.statusOrder), endDate: state.endDate };
     } else{
-      this.statusOrder = {statusOrder: state.statusOrder};
-    } */
+      this.statusOrder = {statusOrder: firestore.arrayUnion(state.statusOrder)};
+    }
     //this.statusOrder = state.statusOrder;
     return this.db.collection('order').doc(id)
-    .update({statusOrder : firestore.arrayUnion(state.statusOrder)});
+    .update(this.statusOrder);
   }
 
 

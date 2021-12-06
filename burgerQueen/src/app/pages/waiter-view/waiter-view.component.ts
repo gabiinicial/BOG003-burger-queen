@@ -4,13 +4,11 @@ import { OrderSumary } from 'src/app/classes/orderSumary';
 import { RestService } from '../../rest.service';
 import { Item } from 'src/app/classes/item';
 import * as M from 'materialize-css';
-import { IOrder } from 'src/app/interfaces/pedido.interface';
 import { firebaseFunctionsService } from 'src/app/services/firebase-functions.service';
 import { Product } from 'src/app/classes/orderProduct';
 import { Order } from 'src/app/classes/order';
 import { getDataFirestore } from 'src/app/services/get-data-Firestore';
 import { Subscription } from 'rxjs';
-//import { IProduct } from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-waiter-view',
