@@ -5,46 +5,59 @@
         then content;
         else other_content
       "></div>
-    <ng-template #content>Se creo hace: {{ countHours }}:{{ countMinutes }}:{{
+    <ng-template #content> <p class ="text-date"><b>Se creo hace:</b> {{ countHours }}:{{ countMinutes }}:{{
       countSeconds
-      }}</ng-template>
-    <ng-template #other_content>Su pedido tardo: {{ countHours }}:{{ countMinutes }}:{{
+      }}</p> </ng-template>
+    <ng-template #other_content> <p class ="text-date"><b>Su pedido tardo:</b>  {{ countHours }}:{{ countMinutes }}:{{
       countSeconds
-      }}</ng-template>
+      }}</p> </ng-template>
 
-    <div class="center-element line-section">
-      <p>
-        Hora de creación: {{ itemOrder.creationTime.getHours() }}:{{
-        itemOrder.creationTime.getMinutes()
-        }}:{{ itemOrder.creationTime.getSeconds() }}
-      </p>
-      <p>
-        Fecha:{{ itemOrder.creationTime.getDate() }}-{{
-        itemOrder.creationTime.getMonth() + 1
-        }}-{{ itemOrder.creationTime.getFullYear() }}
-      </p>
+    <div class="center-element  content-date">
+      <div>
+        <p class ="text-date">
+          <b>Fecha:</b>{{ itemOrder.creationTime.getDate() }}-{{
+          itemOrder.creationTime.getMonth() + 1
+          }}-{{ itemOrder.creationTime.getFullYear() }}
+        </p>
+      </div>
+      <div>
+        <p class ="text-date">
+           <b>Hora:</b>{{ itemOrder.creationTime.getHours() }}:{{
+          itemOrder.creationTime.getMinutes()
+          }}:{{ itemOrder.creationTime.getSeconds() }}
+        </p>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="data-client">
-  <p>Cliente: {{ itemOrder.nameClient }}</p>
-  <p>Mesa: {{ itemOrder.table }}</p>
+<hr>
+<div class="contaniner-data-client">
+  <div class="data-client">
+    <p>Cliente: {{ itemOrder.nameClient }}</p>
+    <p>Mesa: {{ itemOrder.table }}</p>
+  </div>
 </div>
-<table class="">
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of itemOrder.products">
-      <td>{{ product.nameProduct }}</td>
-      <td>{{ product.count }}</td>
-    </tr>
-  </tbody>
-</table>
+  <hr>
+  <div class="container-table">
+    <div class="table-order ">
+      <table >
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of itemOrder.products">
+            <td>{{ product.nameProduct }}</td>
+            <td>{{ product.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
 <div *ngIf="viewHistory == false; then contentBar"></div>
 <ng-template #contentBar>
 
@@ -73,17 +86,17 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!view" class="content-btn-modal">
-    <div class>
-      <a [ngClass]="{ disabled: itemOrder.status.includes('preparacion') }"
-        (click)="stateChange(itemOrder); stateValueSend('preparacion')" class="waves-effect waves-light btn ">Preparar</a>
-      <a [ngClass]="{
+  <div *ngIf="!view" class="content-btn-modal card-chef">
+    <!--  <div class= "content-button" >-->
+    <a [ngClass]="{ disabled: itemOrder.status.includes('preparacion') }"
+      (click)="stateChange(itemOrder); stateValueSend('preparacion')"
+      class="waves-effect waves-light btn btn-firts btn-state-cards">Preparar</a>
+    <a [ngClass]="{
           disabled:
             itemOrder.status.includes('entregaChef') ||
             itemOrder.status.length == 0
         }" (click)="stateValueSend('entregaChef'); stateChange(itemOrder)"
-        class="waves-effect waves-light btn">Entregar</a>
-    </div>
+      class="waves-effect waves-light btn btn-second btn-state-cards">Entregar</a>
+
   </div>
 </ng-template>
-
